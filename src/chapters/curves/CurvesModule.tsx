@@ -1,7 +1,5 @@
 // CurvesModule.tsx — Capítulo Curvas
-// Misma arquitectura que TransformationsModule:
-//  - Lista de 6 ítems a la izquierda (sticky)
-//  - Ítem activo ocupa las 2 columnas restantes
+// Nav horizontal en la parte superior → contenido a pleno ancho (mejor en iPad)
 
 import { useState } from 'react';
 import { Icon } from '../../components/Icon';
@@ -18,45 +16,19 @@ interface Props {
 }
 
 const CURVES_ITEMS = [
-  { id: 'circle',    icon: '1' },
-  { id: 'ellipse',   icon: '2' },
-  { id: 'arcCircle', icon: '3' },
+  { id: 'circle',     icon: '1' },
+  { id: 'ellipse',    icon: '2' },
+  { id: 'arcCircle',  icon: '3' },
   { id: 'arcEllipse', icon: '4' },
-  { id: 'quadratic', icon: '5' },
-  { id: 'cubic',     icon: '6' },
-  // { id: 'linearInterpo', icon: '7' },
-  // { id: 'hermiteInterpo', icon: '8' },
-  // { id: 'compareInterpo', icon: '9' },
-  // { id: 'cardinalInterpo', icon: '10' },
+  { id: 'quadratic',  icon: '5' },
+  { id: 'cubic',      icon: '6' },
 ] as const;
 
 type CurvesItemId = typeof CURVES_ITEMS[number]['id'];
 
 const LABELS = {
-  es: [
-    'Círculo',
-    'Elipse',
-    'Arco Circular',
-    'Arco Elíptico',
-    'Bézier Cuadrática',
-    'Bézier Cúbica',
-    // 'Interpolación Lineal',
-    // 'Interpolación Hermite',
-    // 'Comparación Interpolaciones',
-    // 'Interpolación Cardinal',
-  ],
-  en: [
-    'Circle',
-    'Ellipse',
-    'Circular Arc',
-    'Elliptic Arc',
-    'Quadratic Bezier',
-    'Cubic Bezier',
-    // 'Linear Interpolation',
-    // 'Hermite Interpolation',
-    // 'Compare Interpolations',
-    // 'Cardinal Interpolation',
-  ],
+  es: ['Círculo','Elipse','Arco Circular','Arco Elíptico','Bézier Cuadrática','Bézier Cúbica'],
+  en: ['Circle','Ellipse','Circular Arc','Elliptic Arc','Quadratic Bezier','Cubic Bezier'],
 };
 
 export const CurvesModule = ({ lang, setRoute }: Props) => {
@@ -89,51 +61,50 @@ export const CurvesModule = ({ lang, setRoute }: Props) => {
           </h1>
           <p style={{ color: 'var(--fg-3)', fontSize: 15, marginTop: 6 }}>{ch.blurb}</p>
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
           <button style={ghostBtn}><Icon name="Share" size={14}/> {STRINGS[lang].chapter.share}</button>
           <button style={ghostBtn}><Icon name="Copy" size={14}/> {STRINGS[lang].chapter.copy}</button>
         </div>
       </div>
 
-      {/* Main 3-column grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr 1fr', gap: 20, alignItems: 'start' }}>
+      {/* Horizontal tab nav — ocupa todo el ancho, no quita espacio al contenido */}
+      <div style={{
+        display: 'flex', gap: 6, flexWrap: 'wrap',
+        background: 'var(--surface)', border: '1px solid var(--hairline)',
+        borderRadius: 'var(--r-md)', padding: '10px 12px',
+        marginBottom: 20,
+      }}>
+        {CURVES_ITEMS.map((it, i) => {
+          const active = item === it.id;
+          return (
+            <button key={it.id} onClick={() => setItem(it.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                padding: '7px 14px', borderRadius: 'var(--r-sm)',
+                background: active ? 'var(--accent-soft)' : 'transparent',
+                border: '1px solid ' + (active ? 'var(--accent)' : 'transparent'),
+                color: active ? 'var(--fg-1)' : 'var(--fg-2)',
+                fontFamily: 'var(--font-sans)', fontSize: 13,
+                fontWeight: active ? 600 : 500,
+                cursor: 'pointer', whiteSpace: 'nowrap',
+              }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-4)' }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              {labels[i]}
+            </button>
+          );
+        })}
+      </div>
 
-        {/* Item list — always visible */}
-        <nav style={{
-          background: 'var(--surface)', border: '1px solid var(--hairline)',
-          borderRadius: 'var(--r-md)', padding: 6, position: 'sticky', top: 76,
-        }}>
-          {CURVES_ITEMS.map((it, i) => {
-            const active = item === it.id;
-            return (
-              <button key={it.id} onClick={() => setItem(it.id)}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 8, width: '100%',
-                  padding: '8px 10px', borderRadius: 'var(--r-sm)',
-                  background: active ? 'var(--accent-soft)' : 'transparent',
-                  border: 'none', color: active ? 'var(--fg-1)' : 'var(--fg-2)',
-                  fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: active ? 600 : 500,
-                  cursor: 'pointer', textAlign: 'left',
-                }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-4)', width: 22 }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                {labels[i]}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Content — spans 2 columns */}
-        <div style={{ gridColumn: 'span 2' }}>
-          {item === 'circle'    && <CircleItem    lang={lang} />}
-          {item === 'ellipse'   && <EllipseItem   lang={lang} />}
-          {item === 'arcCircle' && <ArcCircleItem lang={lang} />}
-          {item === 'arcEllipse' && <ArcEllipseItem lang={lang} />}
-          {item === 'quadratic' && <QuadraticItem lang={lang} />}
-          {item === 'cubic'     && <CubicItem     lang={lang} />}
-        
-        </div>
+      {/* Content — pleno ancho */}
+      <div>
+        {item === 'circle'     && <CircleItem     lang={lang} />}
+        {item === 'ellipse'    && <EllipseItem    lang={lang} />}
+        {item === 'arcCircle'  && <ArcCircleItem  lang={lang} />}
+        {item === 'arcEllipse' && <ArcEllipseItem lang={lang} />}
+        {item === 'quadratic'  && <QuadraticItem  lang={lang} />}
+        {item === 'cubic'      && <CubicItem      lang={lang} />}
       </div>
     </div>
   );

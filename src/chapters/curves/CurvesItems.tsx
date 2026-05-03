@@ -181,7 +181,7 @@ const CurveItem = ({ title, formulaContent, exploreContent, lang }: {
 const canvasStyle = (dragging: boolean): React.CSSProperties => ({
   border: '1px solid var(--hairline)', borderRadius: 'var(--r-sm)',
   cursor: dragging ? 'grabbing' : 'default',
-  display: 'block', width: '100%', height: 'auto', maxWidth: 520,
+  display: 'block', width: '100%', height: 'auto', maxWidth: 680,
   touchAction: 'none',  // Prevent scroll interference on touch
 });
 
