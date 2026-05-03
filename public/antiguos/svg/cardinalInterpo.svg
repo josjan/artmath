@@ -1,0 +1,38 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="600" viewBox="0 0 800 600">
+<defs>
+    <g id="buttonGo">
+      <text y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="navy" stroke="gray">Go</text>
+      <rect x="-30" y="-15" width="60" height="30" fill="Gainsboro" stroke="black" stroke-width="2" opacity="0.3"/>
+    </g>
+  </defs>
+  <rect width="800" height="600" fill="white"/>
+  <text x="400" y="30" style="fill:black;text-anchor:middle;font-size:28">Cardinal interpolation on points - Animation</text>
+
+   <g transform="translate(100,130)">
+    <rect x="-10" y="-10" width="520" height="120" fill="gainsboro" stroke="black"/>
+    <path id="cardinalanime" d="M20,70 130,50 190,80 300,10 360,70 420,60 480,90" stroke="darkblue" stroke-width="2" fill="none" />
+    <path d="M20,70 Z M130,50 Z M190,80 Z M300,10 Z M360,70 Z M420,60 Z M480,90Z" stroke="maroon" stroke-width="6" stroke-linecap="round" fill="none" />
+    <use id="go" xlink:href="#buttonGo" x="-50" y="50" onclick="svg_cardinalInterpoGo()"/>
+  </g>
+
+  <text x="20" y="300" font-size="16">
+    <tspan x="20" dx="0em" dy="0em">var x = new Array(20, 130, 190, 300, 360, 420, 480), y = new Array(70, 50, 80, 10, 70,  60, 90), </tspan>
+    <tspan x="20" dx="1em" dy="1em">dx = new Array(), dy = new Array(), s = 0.5;</tspan> 
+   <tspan x="20" dx="0em" dy="1em">var path = evt.target.ownerDocument.getElementById("graph");</tspan>
+     <tspan x="20" dx="0em" dy="1em">var active = false;</tspan>
+    <tspan x="20" dx="0em" dy="1.5em">function Animate() {</tspan>
+    <tspan x="20" dx="0em" dy="1em">if (s &gt;= 1 )</tspan>
+    <tspan x="20" dx="1em" dy="1em">step = - 0.05</tspan>
+    <tspan x="20" dx="0em" dy="1em">if (s &lt;= 0 )</tspan>
+    <tspan x="20" dx="1em" dy="1em">step = 0.05</tspan>
+    <tspan x="20" dx="0em" dy="1em">s += step</tspan>
+    <tspan x="20" dx="0em" dy="1em">CardinalDraw()</tspan>
+    <tspan x="20" dx="1em" dy="1em">if (active) window.setTimeout("Animate()", 1);</tspan>
+    <tspan x="20" dx="1em" dy="1em">return true;</tspan>
+    <tspan x="20" dx="0em" dy="1em">}</tspan>
+    <tspan x="20" dx="0em" dy="1.5em">function Go() {</tspan>
+    <tspan x="20" dx="1em" dy="1em">active = !active; // toggle animation on/off ..</tspan>
+    <tspan x="20" dx="2em" dy="1em">Animate();</tspan>
+    <tspan x="20" dx="0em" dy="1em">}</tspan>
+  </text>
+</svg>

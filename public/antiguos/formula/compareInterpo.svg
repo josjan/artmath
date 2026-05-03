@@ -1,0 +1,40 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="600" viewBox="0 0 700 600">
+ <defs>
+<pattern id="Pat01" width="50" height="50" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="50" height="50" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<marker id="Marker01" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="10" markerHeight="6" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z"/>
+</marker>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="10" markerHeight="6" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker>
+<marker id="blue" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="10" markerHeight="6" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="blue"/>
+</marker>
+<g id="system">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="50" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="-50" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+</defs>
+ <rect width="700" height="600" fill="white"/>
+  <text x="20" y="20" font-size="15" startOffset="0">
+    Here is a simple mathematical function: y(x) = sin(x)
+ <tspan x="20" dy="1.5em">To draw graph, we calculate values of y and join points by line ( red graph )</tspan>
+ </text>
+<g transform="translate(0,-30)">
+   <rect x="20" y="100" width="660" height="200" fill="url(#Pat01)" stroke="black"/>
+    <use x="350" y="200" xlink:href="#system" fill="blue"/>
+    <path id="graph2" d="M20,215.5770681756689 98.53981633974484,152.4883704020735 177.07963267948966,184.4229318243311 255.6194490192345,247.51162959792646 334.1592653589793,215.5770681756689 412.69908169872417,152.48837040207354 491.23889803846896,184.4229318243311 569.7787143782139,247.51162959792646 648.3185307179586,215.57706817566893 " stroke="red" stroke-width="2" fill="none"/>
+    <path id="graphPnts" d="M20,215.5770681756689Z M98.53981633974484,152.4883704020735Z M177.07963267948966,184.4229318243311Z M255.6194490192345,247.51162959792646Z M334.1592653589793,215.5770681756689Z M412.69908169872417,152.48837040207354Z M491.23889803846896,184.4229318243311Z M569.7787143782139,247.51162959792646Z M648.3185307179586,215.57706817566893Z " stroke="gold" stroke-width="4" stroke-linecap="round" fill="none"/>
+</g>
+<text x="20" y="320" font-size="15">To draw graph, we calculate values of y and join points by Bezier's cubic ( blue graph )</text>
+<g transform="translate(0,250)">
+   <rect x="20" y="100" width="660" height="200" fill="url(#Pat01)" stroke="black"/>
+    <use x="350" y="200" xlink:href="#system" fill="blue"/>
+    <path id="graph" d="M20,215.5770681756689C46.17993877991495,190.7000370915147 72.3598775598299,160.64450422626498 98.53981633974484,152.4883704020735 C124.7197551196598,144.33223657788204 150.89969389957474,159.5459007401769 177.07963267948966,184.4229318243311 C203.2595714594046,209.2999629084853 229.43951023931956,239.35549577373501 255.6194490192345,247.51162959792646 C281.79938779914943,255.66776342211796 307.9793265790644,240.45409925982312 334.1592653589793,215.5770681756689 C360.3392041388943,190.7000370915147 386.5191429188092,160.64450422626498 412.69908169872417,152.48837040207354 C438.87902047863906,144.33223657788204 465.05895925855407,159.54590074017688 491.23889803846896,184.4229318243311 C517.4188368183838,209.2999629084853 543.5987755982989,239.35549577373501 569.7787143782139,247.51162959792646 C595.9586531581287,255.66776342211796 622.1385919380436,240.45409925982312 648.3185307179586,215.57706817566893 " stroke="blue" stroke-width="2" fill="none"/>
+    <path id="graphPnts" d="M20,215.5770681756689Z M98.53981633974484,152.4883704020735Z M177.07963267948966,184.4229318243311Z M255.6194490192345,247.51162959792646Z M334.1592653589793,215.5770681756689Z M412.69908169872417,152.48837040207354Z M491.23889803846896,184.4229318243311Z M569.7787143782139,247.51162959792646Z M648.3185307179586,215.57706817566893Z " stroke="gold" stroke-width="4" stroke-linecap="round" fill="none"/>
+</g>
+<text x="20" y="580" font-size="15">Step for calculation is Pi / 2</text>
+</svg>

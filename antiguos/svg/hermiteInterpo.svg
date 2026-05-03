@@ -1,0 +1,41 @@
+<svg width="800" height="600" viewBox="0 0 800 600">
+<defs>
+    <g id="buttonGo">
+      <text y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="navy" stroke="gray">Go</text>
+      <rect x="-30" y="-15" width="60" height="30" fill="Gainsboro" stroke="black" stroke-width="2" opacity="0.3"/>
+    </g>
+  </defs>
+  <rect width="800" height="600" fill="white"/>
+  <text x="400" y="30" style="fill:black;text-anchor:middle;font-size:28">Sine Function with Hermite interpolation - Animation</text>
+
+  <text x="400" y="70" font-size="24" text-anchor="middle" font-style="italic">
+    <tspan x="400" dy="0em">Same function animation as before, spline approximation instead.</tspan>
+  </text>
+
+  <g transform="translate(150,140)">
+    <rect x="-10" y="-10" width="520" height="120" fill="gainsboro" stroke="black"/>
+    <polyline points="0,50 500,50" stroke="black" fill="none" />
+    <path id="graphanime2" transform="translate(0,50)" d="M0,0 500,0" stroke="darkblue" stroke-width="2" fill="none" />
+    <path id="graphPnts" transform="translate(0,50)" d="M0,0 Z" stroke="gold" stroke-width="4" stroke-linecap="round" fill="none" />
+    <use id="go" xlink:href="#buttonGo" x="-50" y="50" onclick="svg_hermiteInterpoGo()"/>
+  </g>
+
+  <text x="20" y="300" font-size="16">
+    <tspan class="code" x="20" dx="0em" dy="0em">var x = new Array(), y = new Array(), dx = new Array(), dy = new Array();</tspan>
+    <tspan class="code" x="20" dx="0em" dy="1em">var path = evt.target.ownerDocument.getElementById("graph");</tspan>
+    <tspan class="code" x="20" dx="0em" dy="1em">var phi0 = Math.PI/6;</tspan>
+    <tspan class="code" x="20" dx="0em" dy="1em">var active = false;</tspan>
+    <tspan class="code" x="20" dx="0em" dy="1.5em">function Animate() {</tspan>
+    <tspan class="code" x="20" dx="1em" dy="1em">phi0 = (phi0 + Math.PI/120) % (2*Math.PI);</tspan>
+    <tspan class="code" x="20" dx="1em" dy="1em">x = new Array();  y = new Array();</tspan>
+    <tspan class="code" x="20" dx="1em" dy="1em">Evaluate(Sine, x, y, dx, dy, 0, 2*Math.PI, Math.PI/15, 0);</tspan>
+    <tspan class="code" x="20" dx="1em" dy="1em">SplineGraph(path, x, y, dx, dy, 500/(2*Math.PI), 100/2);</tspan>
+    <tspan class="code" x="20" dx="1em" dy="1em">if (active) window.setTimeout("Animate()", 1);</tspan>
+    <tspan class="code" x="20" dx="1em" dy="1em">return true;</tspan>
+    <tspan class="code" x="20" dx="0em" dy="1em">}</tspan>
+    <tspan class="code" x="20" dx="0em" dy="1.5em">function Go() {</tspan>
+    <tspan class="code" x="20" dx="1em" dy="1em">active = !active; // toggle animation on/off ..</tspan>
+    <tspan class="code" x="20" dx="2em" dy="1em">Animate();</tspan>
+    <tspan class="code" x="20" dx="0em" dy="1em">}</tspan>
+  </text>
+</svg>

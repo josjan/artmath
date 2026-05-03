@@ -1,0 +1,48 @@
+<svg width="700" height="600">
+<defs>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="20" markerHeight="12" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker>
+<marker id="red" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="20" markerHeight="12" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="red"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<line marker-end="url(#green)" x1="50" y1="85" x2="210" y2="175" style="stroke:green;stroke-width:1"/> 
+<line marker-end="url(#green)" x1="50" y1="113" x2="210" y2="203" style="stroke:green;stroke-width:1"/> 
+<line marker-end="url(#green)" x1="50" y1="141" x2="210" y2="231" style="stroke:green;stroke-width:1"/> 
+<line marker-end="url(#red)" x1="50" y1="145" x2="210" y2="55" style="stroke:red;stroke-width:1"/> 
+<line marker-end="url(#red)" x1="50" y1="173" x2="210" y2="83" style="stroke:red;stroke-width:1"/> 
+<line marker-end="url(#red)" x1="50" y1="201" x2="210" y2="111" style="stroke:red;stroke-width:1"/> 
+
+<text x="20" y="20" font-size="15" fill="black">Determinant of matrix
+<tspan x="20" dy="2em">Matrix for transformation has three rows and three columns</tspan>
+<tspan x="50" dy="2.5em">a</tspan>
+<tspan x="100">c</tspan>
+<tspan x="150">e</tspan>
+<tspan x="50" dy="2em">b</tspan>
+<tspan x="100">d</tspan>
+<tspan x="150">f</tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">1</tspan>
+<tspan x="50" dy="2em" fill="blue">a</tspan>
+<tspan x="100" fill="blue">c</tspan>
+<tspan x="150" fill="blue">e</tspan>
+<tspan x="50" dy="2em" fill="blue">b</tspan>
+<tspan x="100" fill="blue">d</tspan>
+<tspan x="150" fill="blue">f</tspan>
+<tspan x="20" dy="3em">Determinant D :</tspan>
+<tspan x="20" dy="2em">a * d - b * c</tspan>
+<tspan x="20" dy="3em">Determinant depend only from a b c and d</tspan>
+<tspan x="20" dy="2em">e and f give translation for transformation</tspan>
+<tspan x="20" dy="2em">If a * d - b * c = 0, we cannot inverse transformation and replace it by predefined transformations</tspan>
+
+
+</text>
+
+</svg>

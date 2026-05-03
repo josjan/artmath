@@ -1,0 +1,51 @@
+<svg width="700" height="600">
+<defs>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="20" markerHeight="12" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker>
+<marker id="red" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="20" markerHeight="12" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="red"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="700" height="600" style="fill:white" onclick="alert(evt.clientX + ' ; ' +evt.clientY)"/> 
+<circle cx="160" cy="85" r="15" fill="none" stroke="red"/>
+<circle cx="62" cy="145" r="15" fill="none" stroke="green"/>
+<line marker-end="url(#green)" x1="110" y1="85" x2="185" y2="130" style="stroke:green;stroke-width:1"/> 
+<line marker-end="url(#red)" x1="110" y1="115" x2="185" y2="70" style="stroke:red;stroke-width:1"/> 
+<text x="20" y="20" font-size="15" fill="black">Inverse of matrix
+<tspan x="20" dy="2em">Matrix for tranformation A</tspan>
+<tspan x="50" dy="2.5em">a</tspan>
+<tspan x="100">c</tspan>
+<tspan x="150">e</tspan>
+<tspan x="50" dy="2em">b</tspan>
+<tspan x="100">d</tspan>
+<tspan x="150">f</tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">1</tspan>
+
+<tspan x="20" dy="3em">Determinant a * d - b * c must not be equal to 0</tspan>
+<tspan x="20" dy="2em">Matrix A<tspan baseline-shift="super" font-size="10">- 1</tspan>
+<tspan x="20" dy="2em">d / ( a * d - b * c )</tspan>
+<tspan x="250"> - c / ( a * d - b * c )</tspan>
+<tspan x="450">( c * f - d * e ) / ( a * d - b * c )</tspan>
+
+<tspan x="20" dy="2em">- b / ( a * d - b * c )</tspan>
+<tspan x="250">a / ( a * d - b * c )</tspan>
+<tspan x="450">( a * f - b * e ) / ( a * d - b * c )</tspan>
+
+<tspan x="70" dy="2em">0</tspan>
+<tspan x="300">0</tspan>
+<tspan x="500">1</tspan>
+
+<tspan x="20" dy="3em">Properties</tspan>
+<tspan x="20" dy="2em">A<tspan baseline-shift="super" font-size="10">- 1</tspan> is also matrix for a transformation</tspan>
+<tspan x="20" dy="2em">( A x B )<tspan baseline-shift="super" font-size="10">- 1</tspan> = B<tspan baseline-shift="super" font-size="10">- 1</tspan> x A<tspan baseline-shift="super" font-size="10">- 1</tspan></tspan>
+<tspan x="20" dy="2em">( A<tspan baseline-shift="super" font-size="10">- 1</tspan> )<tspan baseline-shift="super" font-size="10">- 1</tspan> = A</tspan>
+
+</text>
+</svg>

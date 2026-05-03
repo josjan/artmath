@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="600" viewBox="0 0 700 600">
+  <defs>
+    <pattern id="gridPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" stroke-width="0.25"/>
+    </pattern>
+    <marker id="endArrow" viewBox="-10 -2 10 4" markerUnits="strokeWidth"
+            markerWidth="10" markerHeight="4" orient="auto">
+      <path d="M-10,-2 L0,0 -10,2 z" />
+    </marker>
+    <circle id="pnt" r="2" stroke="black" fill="lightgray" />
+    <circle id="ctlpnt" r="2" stroke="black" fill="white" />
+  </defs>
+  <rect width="700" height="600" fill="white"/>
+  <text x="20" y="20" style="font-size:14">Hermite Function Interpolation</text>
+
+  <text x="20" y="40">
+    Hermite splines are cubic splines mainly used for smooth interpolation between points with tangential information.
+  </text>
+
+  <g transform="translate(50,60)">
+    <rect width="300" height="200" stroke="none" fill="snow" />
+    <rect width="300" height="200" stroke="gray" stroke-width="0.5" fill="url(#gridPattern)" opacity="1" />
+    <line id="d1" x1="70" y1="150" x2="10" y2="30" stroke="black" marker-end="url(#endArrow)" />
+    <line id="d2" x1="110" y1="80" x2="200" y2="140" stroke="black" marker-end="url(#endArrow)" />
+    <path stroke="green" stroke-width="3" fill="none" d="M70,150 C50,110 80,60 110,80" />
+
+    <use id="p1" xlink:href="#pnt" x="70" y="150" /><text x="68" y="160" font-size="12" font-style="italic" font-weight="bold">p<tspan baseline-shift="sub" font-size="9" font-weight="normal">1</tspan></text>
+    <use id="p2" xlink:href="#pnt" x="110" y="80" /><text x="112" y="75" font-size="12" font-style="italic" font-weight="bold">p<tspan baseline-shift="sub" font-size="9" font-weight="normal">2</tspan></text>
+    <text x="40" y="80" font-size="12" font-style="italic" font-weight="bold">p'<tspan baseline-shift="sub" font-size="9" font-weight="normal">1</tspan></text>
+    <text x="148" y="100" font-size="12" font-style="italic" font-weight="bold">p'<tspan baseline-shift="sub" font-size="9" font-weight="normal">2</tspan></text>
+  </g>
+
+  <image transform="translate(0,-30) scale(0.6)" xlink:href="equation/eq1.svg" width="698" height="44" x="50" y="500" />
+  <text x="20" y="320">
+    SVG doesn't support Hermite splines at current. Fortunately Hermite splines can be easily converted to Bezier splines
+  </text>
+<g transform="translate(50,320)">
+    <rect y="20" width="350" height="160" stroke="none" fill="snow" />
+    <rect y="20" width="350" height="160" stroke="gray" stroke-width="0.5" fill="url(#gridPattern)" opacity="1" />
+    <line id="d1" x1="70" y1="150" x2="10" y2="30" stroke="black" marker-end="url(#endArrow)" />
+    <line id="d2" x1="110" y1="80" x2="200" y2="140" stroke="black" marker-end="url(#endArrow)" />
+    <path stroke="green" stroke-width="3" fill="none" d="M70,150 C50,110 80,60 110,80" />
+    <use id="p1" xlink:href="#pnt" x="70" y="150" /><text x="68" y="160" font-size="12" font-style="italic" font-weight="bold">p<tspan baseline-shift="sub" font-size="9" font-weight="normal">1</tspan></text>
+    <use id="p2" xlink:href="#pnt" x="110" y="80" /><text x="112" y="75" font-size="12" font-style="italic" font-weight="bold">p<tspan baseline-shift="sub" font-size="9" font-weight="normal">4</tspan></text>
+    <text x="40" y="80" font-size="12" font-style="italic" font-weight="bold">p'<tspan baseline-shift="sub" font-size="9" font-weight="normal">1</tspan></text>
+    <text x="148" y="100" font-size="12" font-style="italic" font-weight="bold">p'<tspan baseline-shift="sub" font-size="9" font-weight="normal">4</tspan></text>
+    <g transform="translate(200,0)">
+      <path stroke="blue" stroke-width="3" fill="none" d="M70,150 C50,110 80,60 110,80" />
+      <polyline points="70,150 50,110 80,60 110,80" stroke="black" stroke-width="1" fill="none"/>
+      <use id="p1" xlink:href="#pnt" x="70" y="150" /><text x="68" y="160" font-size="12" font-style="italic" font-weight="bold">p<tspan baseline-shift="sub" font-size="9" font-weight="normal">1</tspan></text>
+      <use id="p2" xlink:href="#pnt" x="110" y="80" /><text x="112" y="75" font-size="12" font-style="italic" font-weight="bold">p<tspan baseline-shift="sub" font-size="9" font-weight="normal">4</tspan></text>
+      <use xlink:href="#ctlpnt" x="50" y="110" /><text x="30" y="115" font-size="12" font-style="italic" font-weight="bold">p<tspan baseline-shift="sub" font-size="9" font-weight="normal">2</tspan></text>
+      <use xlink:href="#ctlpnt" x="80" y="60" /><text x="80" y="50" font-size="12" font-style="italic" font-weight="bold">p<tspan baseline-shift="sub" font-size="9" font-weight="normal">3</tspan></text>
+    </g>
+  </g>
+  <image transform="translate(0,290) scale(0.6)" xlink:href="equation/eq2.svg" width="745" height="93" x="130" y="380"/>
+
+</svg>

@@ -1,0 +1,29 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<g onmouseup="click=false">
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<text x="20" y="20" font-size="14">Radius for circle : <tspan id="radius"> 8</tspan>
+<tspan x="20" dy="1.3em">Number of vertices for polygon : <tspan id="sides">5</tspan></tspan>
+<tspan x="20" dy="1.3em">Area of polygon : <tspan id="area">100</tspan></tspan>
+<tspan x="20" dy="1.3em">Perimeter for polygon : <tspan id="perimeter">100</tspan></tspan>
+</text>
+<polygon id="polygon" points="" fill="yellow" fill-opacity="0.2" stroke="green"/>
+<circle cx="350" cy="300" r="4" fill="blue"/>
+<circle id="envelop" cx="350" cy="300" r="200" fill="none" stroke="blue"/>
+<circle id="p1" onmousedown="click=true" onmousemove="regularPolygonArea_move(evt)" cx="550" cy="300" r="4" fill="red"/>
+</g>
+<g id="compteur">
+<text x="450" y="20">Change number of vertices</text>
+<text id="sides_2" x="640" y="20" text-anchor="end">5</text>
+<rect x="600" y="5" width="50" height="20" stroke="black" fill="none"/>
+<rect x="650" y="5" width="20" height="20" stroke="black" fill="lightgray"/>
+<path d="M652 7h18 l-9 6z"/>
+<path d="M652 23h18 l-9 -6z"/>
+<rect onclick="change_sides(-1)" x="650" y="5" width="20" height="10" stroke="black" fill="white" fill-opacity="0"/>
+<rect onclick="change_sides(1)" x="650" y="15" width="20" height="10" stroke="black" fill="white" fill-opacity="0"/>
+</g>
+</svg>

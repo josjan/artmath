@@ -1,0 +1,41 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<text x="20" y="20" font-size="14" startOffset="0">Radius for circle : <tspan id="radius">5</tspan>
+<tspan x="20" dy="1.3em">Number of vertices for polygon : <tspan id="sides">5</tspan></tspan>
+<tspan x="20" dy="1.3em">Area of polygon : <tspan id="area">59.44</tspan></tspan>
+<tspan x="20" dy="1.3em">Perimeter for polygon : <tspan id="perimeter">29.39</tspan></tspan>
+</text>
+<g transform="translate(200,-150)">
+<polygon id="polygon" points="475.00399993600206,300 388.6283603450695,418.8858687020937 248.86963968692953,373.4755076399513 248.86963968692947,226.52449236004875 388.62836034506944,181.11413129790628 " fill="yellow" fill-opacity="0.2" stroke="green"/>
+<circle cx="350" cy="300" r="4" fill="blue"/>
+<circle cx="350" cy="300" r="125" fill="none" stroke="blue"/>
+<circle cx="475" cy="300" r="4" fill="green"/>
+<circle cx="389" cy="181" r="4" fill="green"/>
+<circle cx="432" cy="240" r="4" fill="green"/>
+<text x="350" y="300" dx="-15">O</text>
+<text x="475" y="300" dx="5">P<tspan baseline-shift="sub" font-size="9">1</tspan></text>
+<text x="389" y="181" dx="5">P<tspan baseline-shift="sub" font-size="9">2</tspan></text>
+<text x="432" y="240" dx="5">M</text>
+<path d="M475 300L350 300 L389 181z" stroke="black" fill="red" fill-opacity="0.2"/>
+<path d="M350 300 L432 240" stroke="green" fill="none"/>
+</g>
+<text x="20" y="140" font-size="15" fill="black">Area of regular polygon :
+<tspan x="20" dy="2em">We know R radius of circle and n number of vertices</tspan>
+<tspan x="20" dy="2em">All triangles as P<tspan baseline-shift="sub" font-size="9">1</tspan>OP<tspan baseline-shift="sub" font-size="9">2</tspan> have same area</tspan>
+<tspan x="20" dy="2em">We can use cross product of vectors OP<tspan baseline-shift="sub" font-size="9">1</tspan> and OP<tspan baseline-shift="sub" font-size="9">2</tspan></tspan>
+<tspan x="20" dy="1.5em">Area P<tspan baseline-shift="sub" font-size="9">1</tspan>OP<tspan baseline-shift="sub" font-size="9">2</tspan> = 0.5 * R * R * sin( P<tspan baseline-shift="sub" font-size="9">1</tspan>OP<tspan baseline-shift="sub" font-size="9">2</tspan> )</tspan>
+<tspan x="20" dy="2em">Angle P<tspan baseline-shift="sub" font-size="9">1</tspan>OP<tspan baseline-shift="sub" font-size="9">2</tspan> value is 2 * Pi / n</tspan>
+<tspan x="20" dy="2em" fill="blue">Area polygon = 0.5 * n * R<tspan baseline-shift="super" font-size="9">2</tspan> * sin ( 2 * Pi / n )</tspan>
+<tspan x="20" dy="2em">For perimeter, we calculate P<tspan baseline-shift="sub" font-size="9">1</tspan>P<tspan baseline-shift="sub" font-size="9">2</tspan> - M is middle</tspan>
+<tspan x="20" dy="2em">P<tspan baseline-shift="sub" font-size="9">1</tspan>M = R * sin ( P<tspan baseline-shift="sub" font-size="9">1</tspan>OM )</tspan>
+<tspan x="20" dy="2em">angle P<tspan baseline-shift="sub" font-size="9">1</tspan>OM is half of angle P<tspan baseline-shift="sub" font-size="9">1</tspan>OP<tspan baseline-shift="sub" font-size="9">2</tspan></tspan>
+<tspan x="20" dy="2em">P<tspan baseline-shift="sub" font-size="9">1</tspan>M = R * sin ( Pi / n )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">perimeter polygon = 2 * n * R * sin ( Pi / n )</tspan>
+
+</text>
+</svg>

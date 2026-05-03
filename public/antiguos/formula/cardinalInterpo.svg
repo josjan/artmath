@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="white"/>
+  <text x="400" y="30" style="fill:black;text-anchor:middle;font-size:25">Cardinal Spline</text>
+
+  <text x="400" y="70" font-size="18" text-anchor="middle" font-style="italic">
+    <tspan x="400" dy="0em">The Cardinal Spline is a special case of the Hermite Spline.</tspan>
+  </text>
+
+  <image xlink:href="equation/eq1.svg" width="600" height="40" x="50" y="100" />
+
+  <text x="50" y="140" font-size="20">
+    <tspan x="50" dx="0em" dy="1.2em">&#x25cf; The missing tangent vectors are calculated from the neighbour points.</tspan>
+  </text>
+  <image xlink:href="equation/eq5.svg" width="186" height="40" x="240" y="180" />
+
+  <text x="50" y="205" font-size="20">
+    <tspan x="50" dx="0em" dy="2em">&#x25cf; The positive tension factor s usually has a value between 0 and 1</tspan>
+    <tspan x="50" dx="1em" dy="1.2em">and affects the tightness of the curve. With the special case of s=0.5</tspan>
+    <tspan x="50" dx="1em" dy="1.2em">the spline is also called 'Catmull-Rom Spline'.</tspan>
+    <tspan x="50" dx="0em" dy="2em">&#x25cf; A problem arises with the first and last point of an open, non-closed curve.</tspan>
+    <tspan x="50" dx="1em" dy="1.2em">We don't have two neighbour points here.</tspan>
+    <tspan x="50" dx="0em" dy="2em">&#x25cf; So we emulate the relaxed, tensionless ends of a physical spline</tspan>
+    <tspan x="50" dx="1em" dy="1.2em">by setting the second derivative of the Hermite spline to zero.</tspan>
+  </text>
+ <image xlink:href="equation/eq4.svg" width="277" height="110" x="240" y="440" />
+   <text x="50" y="550" font-size="20">
+    <tspan x="50" dx="0em" dy="1.2em">&#x25cf; From here we can continue with the Hermite to Bezier conversion from above.</tspan>
+  </text>
+</svg>

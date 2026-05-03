@@ -1,0 +1,24 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<g onmouseup="click=false">
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<text x="20" y="20" font-size="14">Radius for ellipse : rx = <tspan id="rx">100</tspan> and ry = <tspan id="ry">75</tspan>
+<tspan x="20" dy="1.3em">Area of ellipse : <tspan id="area">100</tspan></tspan>
+<tspan x="20" dy="1.3em">Perimeter for ellipse : <tspan id="perimeter">100</tspan></tspan>
+</text>
+<line id="axis" x1="100" y1="250" x2="600" y2="250" stroke="green"/>
+<g id="rotate" transform="rotate(0,350,250)">
+<rect id="box" x="250" y="175" width="200" height="150" fill="none" stroke="green" stroke-dasharray="4 4"/>
+<ellipse id="ellipse" cx="350" cy="250" rx="100" ry="75" fill="none" stroke="blue"/>
+</g>
+<g onmousedown="click=true" onmousemove="ellipseArea_move(evt)">
+<circle id="p1" cx="600" cy="250" r="4" fill="red"/>
+<circle id="p2" cx="350" cy="250" r="4" fill="red"/>
+<circle id="p3" transform="rotate(0,350,250)" cx="450" cy="325" r="4" fill="red"/>
+</g>
+</g>
+</svg>

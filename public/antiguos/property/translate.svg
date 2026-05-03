@@ -1,0 +1,26 @@
+<svg width="700" height="600">
+<defs>
+<marker id="endArrow" viewBox="-20 -10 20 20" markerUnits="userSpaceOnUse" refX="0" refY="0" markerWidth="20" markerHeight="20" orient="auto" preserveAspectRatio="xMidYMid meet">
+      <path d="M-20,-10 L0,0 -20,10 z"/>
+</marker>
+</defs>
+<rect  x="0" y="0" width="700" height="600" style="fill:white"/> 
+<path id="objet" d="M 350 250 451 263 597 135 400 100 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 110 250 211 263 357 135 160 100 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<path id="axe" d="M 501 28 261 28" style="stroke:black; fill:none" marker-end="url(#endArrow)"/>
+<circle id="E" cx="597" cy="135" r="3" style="stroke:red; fill:red"/>
+<text x="597" y="135" dx="5">M</text>
+<circle id="E1" cx="357" cy="135" r="3" style="stroke:blue; fill:blue"/>
+<text x="357" y="135" dx="5" dy="-5">M'</text>
+<path d="M597 135L357 135" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<text x="20" y="300" font-size="15" fill="black">Translation 
+<tspan x="20" dy="1.5em">Translation is defined by a vector</tspan>
+<tspan x="20" dy="1.5em">To draw M' image of M in transformation :</tspan>
+<tspan x="20" dy="1.5em">- we draw vector from M</tspan>
+<tspan x="20" dy="1.5em">- M' is endpoint of this vector</tspan>
+<tspan x="20" dy="1.5em">This transformation preserve length, angle and direction</tspan>
+<tspan x="20" dy="1.5em">To retrieve M from M', we have only to apply translation with vector opposite</tspan>
+<tspan x="20" dy="1.5em">If we composite two translations, we get a translation from sum of the two vectors</tspan>
+</text>
+
+</svg>

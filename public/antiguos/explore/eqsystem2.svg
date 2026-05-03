@@ -1,0 +1,49 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="none" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<marker id="Marker01" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" />
+</marker>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="20" markerHeight="12" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker><g id="system">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="25" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="-25" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+</defs>
+<g onmouseup="click=false">
+<rect width="700" height="600" fill="white"/>
+<rect x="25" y="125" width="651" height="451" fill="url(#Pat01)"/>
+<use x="350" y="350" xlink:href="#system" fill="blue"/>
+<line id="d1" x1="200" y1="400" x2="400" y2="200" style="stroke:green;stroke-width:2"/> 
+<line id="d2" x1="200" y1="400" x2="400" y2="200" style="stroke:green;stroke-width:2"/> 
+<text id="a" style="text-anchor:middle;font-size:20;fill:blue" x="200" y="400" dx="-20" dy="-5">A</text>
+<text id="b" style="text-anchor:middle;font-size:20;fill:blue" x="300" y="200" dx="-20" dy="-5">B</text>
+<text id="c" style="text-anchor:middle;font-size:20;fill:blue" x="400" y="400" dx="-20" dy="-5">C</text>
+<text id="d" style="text-anchor:middle;font-size:20;fill:blue" x="400" y="400" dx="-20" dy="-5">D</text>
+<text id="m" style="text-anchor:middle;font-size:20;fill:blue" x="400" y="400" dx="-20" dy="-5">M</text>
+<text x="20" y="20" font-size="15">First equation : <tspan id="u1"> </tspan> * x <tspan id="v1"> </tspan> * y = <tspan id="w1"> </tspan></text>
+<text x="20" y="40" font-size="15">Second equation : <tspan id="u2"> </tspan> * x <tspan id="v2"> </tspan> * y = <tspan id="w2"> </tspan></text>
+<text x="20" y="60" font-size="15">Determinant : <tspan id="det" fill="blue">  </tspan></text>
+<text x="20" y="80" font-size="15">Determinant for x : <tspan id="detx" fill="blue">  </tspan></text>
+<text x="20" y="100" font-size="15">Determinant for y : <tspan id="dety" fill="blue">  </tspan></text>
+<text x="320" y="60" font-size="15">Solution for x : <tspan id="solx" fill="blue">  </tspan></text>
+<text x="320" y="80" font-size="15">Solution for y : <tspan id="soly" fill="blue">  </tspan></text>
+
+<circle id="p5" cx="400" cy="400" r="4" fill="blue"/>
+<rect x="25" y="125" width="651" height="451" fill="yellow" fill-opacity="0.1"/>
+<g onmousedown="click=true" onmousemove="eqsystem2_move(evt)">
+<circle id="p1" cx="200" cy="400" r="4" fill="red"/>
+<circle id="p2" cx="300" cy="200" r="4" fill="red"/>
+<circle id="p3" cx="400" cy="400" r="4" fill="red"/>
+<circle id="p4" cx="400" cy="400" r="4" fill="red"/>
+</g>
+</g>
+</svg>

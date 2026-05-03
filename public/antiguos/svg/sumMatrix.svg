@@ -1,0 +1,68 @@
+<svg width="700" height="600">
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<text x="20" y="20" font-size="15" fill="black">Sum of matrix
+<tspan x="20" dy="2em">Matrix A :</tspan>
+<tspan x="50" dy="1em">a<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="100">c<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="150">e<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="50" dy="2em">b<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="100">d<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="150">f<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">1</tspan>
+<tspan x="320" dy="-5em">Matrix B :</tspan>
+<tspan x="350" dy="1em">a<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="400">c<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="450">e<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="350" dy="2em">b<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="400">d<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="450">f<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="350" dy="2em">0</tspan>
+<tspan x="400">0</tspan>
+<tspan x="450">1</tspan>
+
+<tspan x="20" dy="3em">Matrix A + B :</tspan>
+<tspan x="50" dy="1em">a<tspan baseline-shift="sub" font-size="10">1</tspan> + a<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="250">c<tspan baseline-shift="sub" font-size="10">1</tspan> + c<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="450">e<tspan baseline-shift="sub" font-size="10">1</tspan> + e<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="50" dy="2em">b<tspan baseline-shift="sub" font-size="10">1</tspan> + b<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="250">d<tspan baseline-shift="sub" font-size="10">1</tspan> + d<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="450">f<tspan baseline-shift="sub" font-size="10">1</tspan> + f<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="70" dy="2em">0</tspan>
+<tspan x="270">0</tspan>
+<tspan x="470">2</tspan>
+<tspan x="20" dy="2em">Properties</tspan>
+<tspan x="20" dy="1.2em" fill="red">A + B is not matrix for transformation</tspan>
+<tspan x="20" dy="1.2em">We don't use this operation in SVG</tspan>
+<tspan x="20" dy="1.2em">To add vectors of translation, we multiply matrix :</tspan>
+<tspan x="50" dy="1.5em">1</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">e<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">1</tspan>
+<tspan x="150">f<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">1</tspan>
+<tspan x="350" dy="-4.5em">1</tspan>
+<tspan x="400">0</tspan>
+<tspan x="450">e<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="350" dy="2em">0</tspan>
+<tspan x="400">1</tspan>
+<tspan x="450">f<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="350" dy="2em">0</tspan>
+<tspan x="400">0</tspan>
+<tspan x="450">1</tspan>
+<tspan x="20" dy="1.5em">and get this matrix:</tspan>
+<tspan x="50" dy="1.5em">1</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">e<tspan baseline-shift="sub" font-size="10">1</tspan> + e<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">1</tspan>
+<tspan x="150">f<tspan baseline-shift="sub" font-size="10">1</tspan> + f<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">1</tspan>
+</text>
+</svg>

@@ -1,0 +1,57 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<line id="AB" x1="175" y1="225" x2="225" y2="100" style="stroke:black;stroke-width:4"/> 
+<line id="AC" x1="175" y1="225" x2="525" y2="225" style="stroke:black;stroke-width:4"/> 
+<line id="BD" x1="225" y1="100" x2="350" y2="100" style="stroke:black;stroke-width:4"/> 
+<line id="CD" x1="525" y1="225" x2="350" y2="100" style="stroke:black;stroke-width:4"/> 
+<line x1="525" y1="225" x2="225" y2="100" style="stroke:green;stroke-width:2"/> 
+<line x1="225" y1="225" x2="225" y2="100" style="stroke:green;stroke-width:2;stroke-dasharray:3 3"/> 
+<path d="M175 225 L225 100 350 100 525 225z" fill="yellow" fill-opacity="0.2"/>
+<text id="a" style="text-anchor:middle;font-size:15;fill:blue" x="175" y="225" dx="-15" dy="-10" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:15;fill:blue" x="225" y="100" dx="15" dy="-10" startOffset="0">B</text>
+<text id="d" style="text-anchor:middle;font-size:15;fill:blue" x="350" y="100" dx="15" dy="-10" startOffset="0">C</text>
+<text id="c" style="text-anchor:middle;font-size:15;fill:blue" x="525" y="225" dx="15" dy="15" startOffset="0">D</text>
+<text style="text-anchor:middle;font-size:15;fill:blue" x="225" y="225" dx="15" dy="15" startOffset="0">H</text>
+<text x="20" y="20" font-size="15" startOffset="0">Vector AB</text>
+<text x="20" y="40" font-size="15" startOffset="0">Ux : <tspan id="vxt">2</tspan></text>
+<text x="20" y="60" font-size="15" startOffset="0">Uy : <tspan id="vyt">5</tspan></text>
+<text x="20" y="80" font-size="15" startOffset="0">Length : <tspan id="vl">5.38</tspan></text>
+<text x="125" y="20" font-size="15" startOffset="0">Vector AD :</text>
+<text x="125" y="40" font-size="15" startOffset="0">Ux : <tspan id="vxt2">14</tspan></text>
+<text x="125" y="60" font-size="15" startOffset="0">Uy : <tspan id="vyt2">0</tspan></text>
+<text x="125" y="80" font-size="15" startOffset="0">Length : <tspan id="vl2">14</tspan></text>
+<text x="250" y="20" font-size="15" startOffset="0">Vector CB :</text>
+<text x="250" y="40" font-size="15" startOffset="0">Ux : <tspan id="vxt3">-5</tspan></text>
+<text x="250" y="60" font-size="15" startOffset="0">Uy : <tspan id="vyt3">0</tspan></text>
+<text x="250" y="80" font-size="15" startOffset="0">Length : <tspan id="vl3">5</tspan></text>
+<text x="375" y="20" font-size="15" startOffset="0">Vector CD :</text>
+<text x="375" y="40" font-size="15" startOffset="0">Ux : <tspan id="vxt4">7</tspan></text>
+<text x="375" y="60" font-size="15" startOffset="0">Uy : <tspan id="vyt4">-5</tspan></text>
+<text x="375" y="80" font-size="15" startOffset="0">Length : <tspan id="vl4">8.6</tspan></text>
+<text x="500" y="20" font-size="15" startOffset="0">AB ^ AD Uz : <tspan id="vzt">-70</tspan></text>
+<text x="500" y="40" font-size="15" startOffset="0">CB ^ CD Uz : <tspan id="vzt2">25</tspan></text>
+<text x="500" y="60" font-size="15" fill="blue" startOffset="0">Area ABCD : <tspan id="area">47.5</tspan></text>
+<text x="500" y="80" font-size="15" fill="blue" startOffset="0">Perimeter ABCD : <tspan id="peri">32.98</tspan></text>
+<circle cx="175" cy="225" r="4" fill="red"/>
+<circle cx="225" cy="100" r="4" fill="red"/>
+<circle cx="525" cy="225" r="4" fill="red"/>
+<circle cx="350" cy="100" r="4" fill="red"/>
+<circle cx="225" cy="225" r="4" fill="green"/>
+<text x="20" y="240" font-size="15" fill="black">Area of trapeze :
+<tspan x="20" dy="2em">We can use two triangles  ABD and CBD</tspan>
+<tspan x="20" dy="2em">We can use cross product of vectors AB and AD then vectors CB and CD</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Area ABD = 0.5 * length ( AB ^ AD ) ; Area BCD = 0.5 * length ( CB ^ CD )</tspan>
+<tspan x="20" dy="2em">With coordinates of A B C and D we have this formula</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Area ABD = 0.5 * | ( x<tspan baseline-shift="sub" font-size="9">B</tspan> - x<tspan baseline-shift="sub" font-size="9">A</tspan> ) * ( y<tspan baseline-shift="sub" font-size="9">D</tspan> - y<tspan baseline-shift="sub" font-size="9">A</tspan> ) - ( y<tspan baseline-shift="sub" font-size="9">B</tspan> - y<tspan baseline-shift="sub" font-size="9">A</tspan> ) * ( x<tspan baseline-shift="sub" font-size="9">D</tspan> - x<tspan baseline-shift="sub" font-size="9">A</tspan> ) |</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Area BCD = 0.5 * | ( x<tspan baseline-shift="sub" font-size="9">B</tspan> - x<tspan baseline-shift="sub" font-size="9">C</tspan> ) * ( y<tspan baseline-shift="sub" font-size="9">D</tspan> - y<tspan baseline-shift="sub" font-size="9">C</tspan> ) - ( y<tspan baseline-shift="sub" font-size="9">B</tspan> - y<tspan baseline-shift="sub" font-size="9">C</tspan> ) * ( x<tspan baseline-shift="sub" font-size="9">D</tspan> - x<tspan baseline-shift="sub" font-size="9">C</tspan> ) |</tspan>
+<tspan x="20" dy="2em">We can use also altitude of trapeze</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Area ABCD = 0.5 * ( length AD + length BC ) * length BH</tspan>
+<tspan x="20" dy="3em">Perimeter of trapeze</tspan>
+<tspan x="20" dy="1.5em" fill="blue">perimeter ABCD = length AB + length BC + length CD + length DA</tspan>
+
+</text></svg>

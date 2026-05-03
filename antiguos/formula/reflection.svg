@@ -1,0 +1,47 @@
+<svg width="600" height="600">
+<rect x="0" y="0" width="600" height="600" style="fill:white"/> 
+<text x="10" y="20" startOffset="0">Matrix : </text>
+<g text-anchor="middle" transform="translate(-350,20)">
+<text id="matrix_a" x="380" y="20" startOffset="0">-0.89</text>
+<text id="matrix_c" x="450" y="20" startOffset="0">-0.46</text>
+<text id="matrix_e" x="520" y="20" startOffset="0">626.34</text>
+<text id="matrix_b" x="380" y="50" startOffset="0">-0.46</text>
+<text id="matrix_d" x="450" y="50" startOffset="0">0.89</text>
+<text id="matrix_f" x="520" y="50" startOffset="0">154.41</text>
+</g>
+<path id="objet" d="M 302 216 339 287 479 128 348 48 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 259 205 193 251 143 45 296 35 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<path id="axe" d="M 329 13 258 301" style="stroke:black; fill:none"/>
+<circle id="A" cx="329" cy="13" r="3" style="stroke:red; fill:red"/>
+<circle id="B" cx="258" cy="301" r="3" style="stroke:red; fill:red"/>
+<circle id="C" cx="302" cy="216" r="3" style="stroke:red; fill:red"/>
+<circle id="D" cx="339" cy="287" r="3" style="stroke:red; fill:red"/>
+<circle id="E" cx="479" cy="128" r="3" style="stroke:red; fill:red"/>
+<circle id="F" cx="348" cy="48" r="3" style="stroke:red; fill:red"/>
+<circle id="C1" cx="259" cy="205" r="3" style="stroke:blue; fill:blue"/>
+<circle id="D1" cx="193" cy="251" r="3" style="stroke:blue; fill:blue"/>
+<circle id="E1" cx="143" cy="45" r="3" style="stroke:blue; fill:blue"/>
+<circle id="F1" cx="296" cy="35" r="3" style="stroke:blue; fill:blue"/>  
+<path d="M302 216L259 205" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M339 287L193 251" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M479 128L143 45" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M348 48L296 35" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<text x="20" y="250" font-size="15" fill="blue">Reflection by axis
+<tspan x="20" dy="2em" fill="black">Reflection need axis</tspan>
+<tspan x="20" dy="1em" fill="black">Axis : u * x + v * y + w = 0</tspan>
+<tspan x="20" dy="1.5em" fill="black">We calculate det = u<tspan baseline-shift="super" font-size="9">2</tspan> + v<tspan baseline-shift="super" font-size="9">2</tspan></tspan>
+<tspan x="20" dy="2em" fill="black">Point M in x<tspan baseline-shift="sub">m</tspan> , y<tspan baseline-shift="sub">m</tspan> give point M' in x<tspan baseline-shift="sub">m'</tspan> , y<tspan baseline-shift="sub">m'</tspan></tspan>
+<tspan x="20" dy="2em">x<tspan baseline-shift="sub">m'</tspan> =  x<tspan baseline-shift="sub">m</tspan> * ( u<tspan baseline-shift="super" font-size="9">2</tspan> - v<tspan baseline-shift="super" font-size="9">2</tspan> ) / det + y<tspan baseline-shift="sub">m</tspan> * (2 * u * v) / det + (2 * v * w) / det</tspan>
+<tspan x="20" dy="2em">y<tspan baseline-shift="sub">m'</tspan> =  y<tspan baseline-shift="sub">m</tspan> * ( 2 * u * v ) / det + y<tspan baseline-shift="sub">m</tspan> * ( v<tspan baseline-shift="super" font-size="9">2</tspan> - u<tspan baseline-shift="super" font-size="9">2</tspan> ) / det + ( - 2 * u * w) / det</tspan>
+<tspan x="20" dy="2em" fill="black">Matrix for reflection ( all values have to be divised by u<tspan baseline-shift="super" font-size="9">2</tspan> + v<tspan baseline-shift="super" font-size="9">2</tspan> ) : </tspan>
+<tspan x="60" dy="2em">u<tspan baseline-shift="super" font-size="9">2</tspan> - v<tspan baseline-shift="super" font-size="9">2</tspan></tspan>
+<tspan x="200">2 * u * v </tspan>
+<tspan x="350">2 * v *w</tspan>
+<tspan x="50" dy="2em">2 * u * v</tspan>
+<tspan x="210">v<tspan baseline-shift="super" font-size="9">2</tspan> - u<tspan baseline-shift="super" font-size="9">2</tspan></tspan>
+<tspan x="340">- 2 * u * w</tspan>
+<tspan x="80" dy="2em">0</tspan>
+<tspan x="220">0</tspan>
+<tspan x="370">1</tspan>
+</text>
+</svg>

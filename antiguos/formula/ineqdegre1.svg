@@ -1,0 +1,48 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<text id="infini" font-size="15" startOffset="0">&#x221E;</text>
+</defs>
+<rect width="700" height="600" fill="white"/>
+<rect x="325" y="125" width="351" height="451" fill="url(#Pat01)"/>
+<line id="d1" x1="452.4" y1="575" x2="632.4" y2="125" style="stroke:green;stroke-width:2"/> 
+<line x1="325" y1="350" x2="675" y2="350" style="stroke:green;stroke-width:2"/> 
+<line id="d2" x1="542.4" y1="350" x2="675" y2="350" style="stroke:blue;stroke-width:5"/> 
+<text id="a" style="text-anchor:middle;font-size:15;fill:blue" x="502" y="451" dx="-20" dy="-5" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:15;fill:blue" x="602" y="201" dx="-20" dy="-5" startOffset="0">B</text>
+<text x="420" y="20" font-size="15" startOffset="0">Equation : <tspan id="u1">2.5</tspan> * x <tspan id="v1"> - 19.24</tspan> &gt; 0</text>
+<text x="420" y="40" font-size="15" startOffset="0">Solution for x : <tspan id="solx1" fill="blue">[7.696 , + <tref xlink:href="#infini" id="inf"/></tspan><tspan id="solx2" fill="blue">[</tspan></text>
+<circle id="p5" cx="542.4" cy="350" r="4" fill="blue"/>
+<text id="m" style="text-anchor:middle;font-size:15;fill:blue" x="542.4" y="350" dx="-20" dy="-5" startOffset="0">M</text>
+<rect x="325" y="125" width="351" height="451" fill="yellow" fill-opacity="0.1"/>
+<circle id="p1" cx="502" cy="451" r="4" fill="red"/>
+<circle id="p2" cx="602" cy="201" r="4" fill="red"/>
+<text x="20" y="20" font-size="14" fill="black">Solve a * x + b &gt; 0
+<tspan x="20" dy="1.5em">We apply calculations to equation</tspan>
+<tspan x="20" dy="1.5em">We want to get x alone to read solution</tspan>
+<tspan x="20" dy="1.5em">We add - b to each part of equation</tspan>
+<tspan x="20" dy="1.5em" fill="blue">a * x + b - b &gt; 0 - b</tspan>
+<tspan x="20" dy="1.5em" fill="blue">a * x &gt; - b</tspan>
+<tspan x="20" dy="1.5em">We have to divise by a</tspan>
+<tspan x="20" dy="1.5em">If a is not equal to 0 we can</tspan>
+<tspan x="20" dy="1.5em" fill="red">Sign of a is very important</tspan>
+<tspan x="20" dy="1.5em">If a is positive</tspan>
+<tspan x="20" dy="1.5em" fill="blue">a * x * 1 / a &gt; - b * 1 / a</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x &gt; - b / a</tspan>
+<tspan x="20" dy="1.5em" fill="blue">any value between - b / a and + &#x221E; is solution</tspan>
+<tspan x="20" dy="1.5em" fill="blue">We can write S = ] - b / a , + &#x221E;[</tspan>
+<tspan x="20" dy="1.5em">If a is negative</tspan>
+<tspan x="20" dy="1.5em" fill="blue">a * x * 1 / a &lt; - b * 1 / a</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x &lt; - b / a</tspan>
+<tspan x="20" dy="1.5em" fill="blue">any value between - &#x221E; and - b / a is solution</tspan>
+<tspan x="20" dy="1.5em" fill="blue">We can write S = ] - &#x221E; , - b / a [</tspan>
+<tspan x="20" dy="1.5em">If a is equal to 0</tspan>
+<tspan x="20" dy="1.5em">For any x, equation is 0 &gt; - b</tspan>
+<tspan x="20" dy="1.5em">If b is negative</tspan>
+<tspan x="20" dy="1.5em" fill="blue">no value for x is solution</tspan>
+<tspan x="20" dy="1.5em">If b is positive</tspan>
+<tspan x="20" dy="1.5em" fill="blue">any value for x is solution</tspan>
+</text>
+</svg>

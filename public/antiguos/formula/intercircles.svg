@@ -1,0 +1,48 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<rect width="700" height="600" fill="white"/>
+<text id="a" style="text-anchor:middle;font-size:14;fill:blue" x="571" y="96" dx="14" dy="-5" startOffset="0">w'</text>
+<text id="b" style="text-anchor:middle;font-size:14;fill:blue" x="646" y="94" dx="14" dy="-5" startOffset="0">C</text>
+<text id="c" style="text-anchor:middle;font-size:14;fill:blue" x="350" y="107" dx="-14" dy="-5" startOffset="0">B</text>
+<text id="w" style="text-anchor:middle;font-size:14;fill:blue" x="454" y="118" dx="-14" dy="-5" startOffset="0">w</text>
+<circle id="circ1" cx="454" cy="118" r="104.58" fill="red" stroke="red" fill-opacity="0.1"/>
+<circle id="circ2" cx="571" cy="96" r="75.0267" fill="green" stroke="green" fill-opacity="0.1"/>
+<path d="M546 167L522 39" stroke="green" fill="none" stroke-width="2"/>
+<path d="M400 118h250" stroke="green" fill="none" stroke-dasharray="4 4"/>
+<path d="M522 39L454 118" stroke="green" fill="none" stroke-width="2"/>
+<path d="M454 118L534.5 103.8" stroke="green" fill="none" stroke-width="2"/>
+<text id="e" style="text-anchor:middle;font-size:14;fill:blue" x="546.446" y="166.895" dx="14" dy="-5" startOffset="0">E</text>
+<text id="f" style="text-anchor:middle;font-size:14;fill:blue" x="522.372" y="38.8656" dx="14" dy="-5" startOffset="0">F</text>
+<circle id="p5" cx="546.446" cy="166.895" r="4" fill="blue"/>
+<circle id="p6" cx="522.372" cy="38.8656" r="4" fill="blue"/>
+<circle cx="534.5" cy="103.8" r="4" fill="blue"/>
+<text style="text-anchor:middle;font-size:14;fill:blue" x="534.5" y="103.8" dx="14" dy="-5" startOffset="0">M</text>
+
+<circle cx="571" cy="96" r="4" fill="red"/>
+<circle cx="646" cy="94" r="4" fill="red"/>
+<circle cx="454" cy="118" r="4" fill="red"/>
+<circle cx="350" cy="107" r="4" fill="red"/>
+<text x="20" y="20" font-size="14" fill="black">Circle C defined by center W and B, circle C' by centre W' and C
+<tspan x="20" dy="1.5em">Line EF can be easily defined using power of point by circle</tspan>
+<tspan x="20" dy="1.5em">If a point M is on line EF, WM<tspan baseline-shift="super" font-size="8">2</tspan> - R<tspan baseline-shift="super" font-size="8">2</tspan> = MW'<tspan baseline-shift="super" font-size="8">2</tspan> - R'<tspan baseline-shift="super" font-size="8">2</tspan></tspan>
+<tspan x="20" dy="1.5em" fill="blue">(x - x<tspan baseline-shift="sub" font-size="8">W</tspan> )<tspan baseline-shift="super" font-size="8">2</tspan> + (y - y<tspan baseline-shift="sub" font-size="8">W</tspan> )<tspan baseline-shift="super" font-size="8">2</tspan> - R<tspan baseline-shift="super" font-size="8">2</tspan> = (x - x<tspan baseline-shift="sub" font-size="8">W'</tspan> )<tspan baseline-shift="super" font-size="8">2</tspan> + (y - y<tspan baseline-shift="sub" font-size="8">W'</tspan> )<tspan baseline-shift="super" font-size="8">2</tspan> - R'<tspan baseline-shift="super" font-size="8">2</tspan></tspan>
+<tspan x="20" dy="2.5em">Equation for line EF as u * x + v * y + w = 0 with</tspan>
+<tspan x="20" dy="1.5em">u = 2 * ( x<tspan baseline-shift="sub" font-size="8">W'</tspan> - x<tspan baseline-shift="sub" font-size="8">W</tspan> ) ; v = 2 * ( y<tspan baseline-shift="sub" font-size="8">W'</tspan> - y<tspan baseline-shift="sub" font-size="8">W</tspan> )</tspan>
+<tspan x="20" dy="1.5em">and w = x<tspan baseline-shift="sub" font-size="8">W</tspan><tspan baseline-shift="super" font-size="8">2</tspan> + y<tspan baseline-shift="sub" font-size="8">W</tspan><tspan baseline-shift="super" font-size="8">2</tspan> - x<tspan baseline-shift="sub" font-size="8">W'</tspan><tspan baseline-shift="super" font-size="8">2</tspan> - y<tspan baseline-shift="sub" font-size="8">W'</tspan><tspan baseline-shift="super" font-size="8">2</tspan> - R<tspan baseline-shift="super" font-size="8">2</tspan> + R'<tspan baseline-shift="super" font-size="8">2</tspan></tspan>
+<tspan x="20" dy="2.5em">We calculate distance from W to line EF:</tspan>
+<tspan x="20" dy="1.5em" fill="blue">dist = (u * xW + v * yW + w) / Math.sqrt(u * u + v * v)</tspan>
+<tspan x="20" dy="2.5em">We have intersections if dist &lt;= R</tspan>
+<tspan x="20" dy="1.5em">We use angles to get intersections :</tspan>
+<tspan x="20" dy="2.5em">We calculate angle for WM with dashed line :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">ag1 = Math.acos(u / Math.sqrt(u * u + v * v))</tspan>
+<tspan x="20" dy="1.5em" fill="blue">if ( v1 > 0) ag1 = - ag1</tspan>
+<tspan x="20" dy="2.5em">We calculate angle for WF with WM :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">ag2 = Math.acos( dist / R )</tspan>
+<tspan x="20" dy="2.5em">We get intersections on circle with t = ag1 + ag2</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="sub" font-size="8">F</tspan> = x<tspan baseline-shift="sub" font-size="8">W</tspan> + R * cos ( ag1 + ag2 )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y<tspan baseline-shift="sub" font-size="8">F</tspan> = y<tspan baseline-shift="sub" font-size="8">W</tspan> + R * sin ( ag1 + ag2 )</tspan>
+<tspan x="20" dy="1.5em">and t = ag1 - ag2 :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="sub" font-size="8">E</tspan> = x<tspan baseline-shift="sub" font-size="8">W</tspan> + R * cos ( ag1 - ag2 )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y<tspan baseline-shift="sub" font-size="8">E</tspan> = y<tspan baseline-shift="sub" font-size="8">W</tspan> + R * sin ( ag1 - ag2 )</tspan>
+
+</text>
+</svg>

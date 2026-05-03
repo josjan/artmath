@@ -1,0 +1,54 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<rect width="700" height="600" fill="white"/>
+<rect x="325" y="125" width="351" height="451" fill="url(#Pat01)"/>
+<line id="d1" x1="452" y1="125" x2="675" y2="571" style="stroke:green;stroke-width:2"/> 
+<line id="d2" x1="401" y1="575" x2="626" y2="125" style="stroke:green;stroke-width:2"/> 
+<text id="a" style="text-anchor:middle;font-size:20;fill:blue" x="627" y="475" dx="-20" dy="-5" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:20;fill:blue" x="477" y="175" dx="-20" dy="-5" startOffset="0">B</text>
+<text id="c" style="text-anchor:middle;font-size:20;fill:blue" x="450" y="477" dx="-20" dy="-5" startOffset="0">C</text>
+<text id="d" style="text-anchor:middle;font-size:20;fill:blue" x="600" y="177" dx="-20" dy="-5" startOffset="0">D</text>
+<text id="m" style="text-anchor:middle;font-size:20;fill:blue" x="539" y="299" dx="-20" dy="-5" startOffset="0">M</text>
+<text x="420" y="20">First equation : <tspan id="u1">12</tspan> * x <tspan id="v1"> + 6</tspan> * y = <tspan id="w1">102.96</tspan></text>
+<text x="420" y="35">Second equation : <tspan id="u2">12</tspan> * x <tspan id="v2"> - 6</tspan> * y = <tspan id="w2">78.48</tspan></text>
+<text x="420" y="50">Determinant : <tspan id="det" fill="blue">-144</tspan></text>
+<text x="420" y="65">Determinant for x : <tspan id="detx" fill="blue">-1088.64</tspan></text>
+<text x="420" y="80">Determinant for y : <tspan id="dety" fill="blue">-293.76</tspan></text>
+<text x="420" y="95">Solution for x : <tspan id="solx" fill="blue">7.56</tspan></text>
+<text x="420" y="110">Solution for y : <tspan id="soly" fill="blue">2.04</tspan></text>
+<rect x="325" y="125" width="351" height="451" fill="yellow" fill-opacity="0.1"/>
+<circle id="p5" cx="539" cy="299" r="4" fill="blue"/>
+<circle id="p1" cx="627" cy="475" r="4" fill="red"/>
+<circle id="p2" cx="477" cy="175" r="4" fill="red"/>
+<circle id="p3" cx="450" cy="477" r="4" fill="red"/>
+<circle id="p4" cx="600" cy="177" r="4" fill="red"/>
+<text x="20" y="20" font-size="14" fill="black">Solve linear system using vectors
+<tspan x="20" dy="1.5em">a * x + b * y = c</tspan>
+<tspan x="20" dy="1.5em">d * x + e * y = f</tspan>
+<tspan x="20" dy="1.5em">We calculate cross product of vectors coefficients of x and y</tspan>
+<tspan x="20" dy="1.5em">coefficients of x and y</tspan>
+<tspan x="20" dy="1.5em" fill="blue">det = a * e - d * b</tspan>
+<tspan x="20" dy="1.5em">We replace vector coefficients of x</tspan>
+<tspan x="20" dy="1.5em">by vector (c , f)</tspan>
+<tspan x="20" dy="1.5em" fill="blue">detx = c * e - f * b</tspan>
+<tspan x="20" dy="1.5em">We replace vector coefficients of y</tspan>
+<tspan x="20" dy="1.5em">by vector (c , f)</tspan>
+<tspan x="20" dy="1.5em" fill="blue">dety = a * f - d * c</tspan>
+<tspan x="20" dy="1.5em">If det is not equal to 0</tspan>
+<tspan x="20" dy="1.5em">We have as solution :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x = detx / det</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y = dety / det</tspan>
+<tspan x="20" dy="1.5em">If det is equal to 0</tspan>
+<tspan x="20" dy="1.5em">If detx is not equal to 0</tspan>
+<tspan x="20" dy="1.5em">Lines are parallel</tspan>
+<tspan x="20" dy="1.5em" fill="blue">There is no solution for equation</tspan>
+<tspan x="20" dy="1.5em">If detx is equal to 0</tspan>
+<tspan x="20" dy="1.5em">We have same line twice</tspan>
+<tspan x="20" dy="1.5em" fill="blue">any point on line is solution</tspan>
+
+</text>
+</svg>

@@ -1,0 +1,41 @@
+<svg width="600" height="600">
+<defs>
+<marker id="red" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="red"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="600" height="600" style="fill:white"/> 
+
+<path id="objet" d="M 302 216 339 287 479 128 348 48 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 259 205 193 251 143 45 296 35 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<path id="axe" d="M 329 13 258 301" style="stroke:black; fill:none"/>
+<circle id="A" cx="329" cy="13" r="3" style="stroke:red; fill:red"/>
+<text x="329" y="13" dx="5">a</text>
+<circle id="B" cx="258" cy="301" r="3" style="stroke:red; fill:red"/>
+<text x="258" y="301" dx="5">b</text>
+<circle id="E" cx="479" cy="128" r="3" style="stroke:red; fill:red"/>
+<text x="479" y="128" dx="5">M</text>
+<circle id="E1" cx="143" cy="45" r="3" style="stroke:blue; fill:blue"/>
+<text x="143" y="45" dx="-15">M'</text>
+<circle  cx="311" cy="87" r="3" style="stroke:blue; fill:green"/>
+<text x="311" y="87" dx="5" dy="-5">m</text>
+<path d="M302 216L259 205" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M339 287L193 251" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M479 128L143 45" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M348 48L296 35" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+
+<text x="20" y="300" font-size="15" fill="black">Relection by axis (ab)
+<tspan x="20" dy="1.5em">To build M' image of M :</tspan>
+<tspan x="20" dy="1.5em">- by M, we draw perpendicular to axis</tspan>
+<tspan x="20" dy="1.5em">- this line cross axis in m</tspan>
+<tspan x="20" dy="1.5em">- we build M' so vector mM' is - mM, m is midpoint of MM'</tspan>
+<tspan x="20" dy="1.5em">Reflection keep length and angle, but change orientation</tspan>
+<tspan x="20" dy="1.5em">To retrieve M from M', we apply same reflection, reflection is its own inverse</tspan>
+<tspan x="20" dy="1.5em">If we composite two reflections :</tspan>
+<tspan x="20" dy="1.5em">- If axis are parallel, we get a translation</tspan>
+<tspan x="20" dy="1.5em">- In other case, we get a rotation centered at common point of axis</tspan>
+
+</text>
+</svg>

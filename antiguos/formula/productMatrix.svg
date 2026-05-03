@@ -1,0 +1,43 @@
+<svg width="700" height="600">
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<circle cx="62" cy="80" r="15" fill="none" stroke="green"/>
+<circle cx="112" cy="80" r="15" fill="none" stroke="red"/>
+<circle cx="162" cy="80" r="15" fill="none" stroke="blue"/>
+<circle cx="362" cy="80" r="15" fill="none" stroke="green"/>
+<circle cx="362" cy="110" r="15" fill="none" stroke="red"/>
+<circle cx="362" cy="140" r="15" fill="none" stroke="blue"/>
+
+<text x="20" y="20" font-size="15" fill="black">Product of matrix A by matrix B
+<tspan x="20" dy="2em">Number of columns of A = number of rows of B</tspan>
+<tspan x="20" dy="1em">Matrix A :</tspan>
+<tspan x="50" dy="1em">a<tspan baseline-shift="sub" font-size="10">1 1</tspan></tspan>
+<tspan x="100">a<tspan baseline-shift="sub" font-size="10">1 2</tspan></tspan>
+<tspan x="150">a<tspan baseline-shift="sub" font-size="10">1 3</tspan></tspan>
+<tspan x="50" dy="2em">a<tspan baseline-shift="sub" font-size="10">2 1</tspan></tspan>
+<tspan x="100">a<tspan baseline-shift="sub" font-size="10">2 2</tspan></tspan>
+<tspan x="150">a<tspan baseline-shift="sub" font-size="10">2 3</tspan></tspan>
+<tspan x="320" dy="-3em">Matrix B :</tspan>
+<tspan x="350" dy="1em">b<tspan baseline-shift="sub" font-size="10">1 1</tspan></tspan>
+<tspan x="400">b<tspan baseline-shift="sub" font-size="10">1 2</tspan></tspan>
+<tspan x="350" dy="2em">b<tspan baseline-shift="sub" font-size="10">2 1</tspan></tspan>
+<tspan x="400">b<tspan baseline-shift="sub" font-size="10">2 2</tspan></tspan>
+<tspan x="350" dy="2em">b<tspan baseline-shift="sub" font-size="10">3 1</tspan></tspan>
+<tspan x="400">b<tspan baseline-shift="sub" font-size="10">3 2</tspan></tspan>
+<tspan x="20" dy="3em">Rule :</tspan>
+<tspan x="20" dy="1em">We multiply each term of row in A by each term of column in B and sum this products</tspan>
+<tspan x="20" dy="1em">If A has n rows and p columns, B has p rows and q columns, product has n rows and q columns</tspan>
+
+<tspan x="20" dy="3em">Matrix A x B :</tspan>
+<tspan x="50" dy="1em">a<tspan baseline-shift="sub" font-size="10">1 1</tspan> * b<tspan baseline-shift="sub" font-size="10">1 1</tspan> + a<tspan baseline-shift="sub" font-size="10">1 2</tspan> * b<tspan baseline-shift="sub" font-size="10">2 1</tspan> + a<tspan baseline-shift="sub" font-size="10">1 3</tspan> * b<tspan baseline-shift="sub" font-size="10">3 1</tspan></tspan>
+<tspan x="350">a<tspan baseline-shift="sub" font-size="10">1 1</tspan> * b<tspan baseline-shift="sub" font-size="10">1 2</tspan> + a<tspan baseline-shift="sub" font-size="10">1 2</tspan> * b<tspan baseline-shift="sub" font-size="10">2 2</tspan> + a<tspan baseline-shift="sub" font-size="10">1 3</tspan> * b<tspan baseline-shift="sub" font-size="10">3 2</tspan></tspan>
+<tspan x="50" dy="2em">a<tspan baseline-shift="sub" font-size="10">2 1</tspan> * b<tspan baseline-shift="sub" font-size="10">1 1</tspan> + a<tspan baseline-shift="sub" font-size="10">2 2</tspan> * b<tspan baseline-shift="sub" font-size="10">2 1</tspan> + a<tspan baseline-shift="sub" font-size="10">2 3</tspan> * b<tspan baseline-shift="sub" font-size="10">3 1</tspan></tspan>
+<tspan x="350">a<tspan baseline-shift="sub" font-size="10">2 1</tspan> * b<tspan baseline-shift="sub" font-size="10">1 2</tspan> + a<tspan baseline-shift="sub" font-size="10">2 2</tspan> * b<tspan baseline-shift="sub" font-size="10">2 2</tspan> + a<tspan baseline-shift="sub" font-size="10">2 3</tspan> * b<tspan baseline-shift="sub" font-size="10">3 2</tspan></tspan>
+<tspan x="20" dy="3em">Properties</tspan>
+<tspan x="20" dy="2em">In most cases A x B is not equal to B x A</tspan>
+<tspan x="20" dy="2em">k * ( A x B ) = ( k * A ) x B</tspan>
+<tspan x="20" dy="2em">A x ( B x C ) = ( A x B ) x C</tspan>
+<tspan x="20" dy="2em">We define identity matrix I with a<tspan baseline-shift="sub" font-size="10"> i j</tspan> = 0 for i not equal to j and a<tspan baseline-shift="sub" font-size="10"> i i</tspan> = 1</tspan>
+<tspan x="20" dy="2em">If A and I have same number of rows and columns A x I = I x A = A</tspan>
+
+</text>
+</svg>

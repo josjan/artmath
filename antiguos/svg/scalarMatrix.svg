@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="600">
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<text x="20" y="20" font-size="15" fill="black">Product of matrix by scalar
+<tspan x="20" dy="2em">Matrix A :</tspan>
+<tspan x="50" dy="1em">a</tspan>
+<tspan x="100">c</tspan>
+<tspan x="150">e</tspan>
+<tspan x="50" dy="2em">b</tspan>
+<tspan x="100">d</tspan>
+<tspan x="150">f</tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">1</tspan>
+<tspan x="20" dy="3em">Scalar is k</tspan>
+<tspan x="20" dy="3em">Matrix k * A :</tspan>
+<tspan x="50" dy="1em">k * a</tspan>
+<tspan x="200">k * c</tspan>
+<tspan x="350">k * e</tspan>
+<tspan x="50" dy="2em">k * b</tspan>
+<tspan x="200">k * d</tspan>
+<tspan x="350">k * f</tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="200">0</tspan>
+<tspan x="350">k</tspan>
+
+<tspan x="20" dy="3em">Properties</tspan>
+<tspan x="20" dy="2em" fill="red">k * A is not matrix for transformation</tspan>
+<tspan x="20" dy="2em">We don't use these operation in SVG</tspan>
+<tspan x="20" dy="2em">To scale object we use matrix for scale :</tspan>
+<tspan x="50" dy="2em">k<tspan baseline-shift="sub" font-size="10">1</tspan></tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">0</tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">k<tspan baseline-shift="sub" font-size="10">2</tspan></tspan>
+<tspan x="150">0</tspan>
+<tspan x="50" dy="2em">0</tspan>
+<tspan x="100">0</tspan>
+<tspan x="150">1</tspan>
+</text>
+</svg>

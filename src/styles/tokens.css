@@ -1,0 +1,104 @@
+/* ── ArtMath Design Tokens ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Typography */
+  --font-display: 'Lora', Georgia, serif;
+  --font-sans:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Fira Code', monospace;
+  --font-math:    'Lora', Georgia, serif;
+
+  /* Radii */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --dur-fast:  120ms;
+  --dur-base:  220ms;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Shadows */
+  --shadow-1: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-2: 0 4px 12px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.06);
+  --shadow-3: 0 8px 24px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.08);
+}
+
+/* ── Light theme ─────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:          #f6f5f0;
+  --surface:     #ffffff;
+  --surface-2:   #f8f7f3;
+  --surface-3:   #efeee9;
+  --fg-1:        #1a1916;
+  --fg-2:        #3d3b35;
+  --fg-3:        #6b6860;
+  --fg-4:        #9e9b94;
+  --hairline:    #e4e2dc;
+  --border:      #c8c5bd;
+
+  --accent:       #2563eb;
+  --accent-soft:  #eff6ff;
+  --on-accent:    #ffffff;
+
+  --formula:      #0f766e;
+  --handle:       #7c3aed;
+  --construction: #d97706;
+  --highlight:    #2563eb;
+  --highlight-soft: rgba(37,99,235,0.06);
+
+  --diagram-grid:      rgba(0,0,0,.06);
+  --diagram-grid-bold: rgba(0,0,0,.10);
+}
+
+/* ── Dark theme ──────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg:          #111110;
+  --surface:     #1a1917;
+  --surface-2:   #222220;
+  --surface-3:   #2a2926;
+  --fg-1:        #f0ede6;
+  --fg-2:        #b8b4ac;
+  --fg-3:        #7a776f;
+  --fg-4:        #4e4c47;
+  --hairline:    #2e2c29;
+  --border:      #3d3b37;
+
+  --accent:       #60a5fa;
+  --accent-soft:  rgba(96,165,250,0.1);
+  --on-accent:    #0f172a;
+
+  --formula:      #2dd4bf;
+  --handle:       #a78bfa;
+  --construction: #fbbf24;
+  --highlight:    #60a5fa;
+  --highlight-soft: rgba(96,165,250,0.08);
+
+  --diagram-grid:      rgba(255,255,255,.04);
+  --diagram-grid-bold: rgba(255,255,255,.08);
+}
+
+/* ── Global reset ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--fg-1);
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; }
+
+i.math { font-family: var(--font-math); font-style: italic; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-track { background: transparent; }

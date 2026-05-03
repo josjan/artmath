@@ -1,0 +1,22 @@
+<svg width="840" height="600" viewBox="-420 -300 840 600">
+<rect x="-420" y="-300" width="840" height="600" style="fill:white"/> 
+<text x="0" y="-270" font-size="15" fill="blue" text-anchor="middle">We replace matrix by predefined transformations in SVG as translate scale skewX skewY rotate</text>
+<text x="-400" y="-240" font-size="15">Matrix : </text>
+<g text-anchor="middle" transform="translate(-350,40)">
+<text id="matrix_a" x="30" y="-280"> : </text>
+<text id="matrix_c" x="100" y="-280"> : </text>
+<text id="matrix_e" x="170" y="-280"> : </text>
+<text id="matrix_b" x="30" y="-250"> : </text>
+<text id="matrix_d" x="100" y="-250"> : </text>
+<text id="matrix_f" x="170" y="-250"> : </text>
+</g>
+<text x="-400" y="-180" font-size="15">transform = "<tspan id="transform"> </tspan>"</text>
+<path d="M 0 0 100 70 250 40 150 -30 z" style="stroke:yellow;fill-opacity:0.3; fill:green"/>
+<path transform="matrix(1 0 0 1 0 0)" id="test1" d="M 0 0 100 70 250 40 150 -30 z" style="stroke:blue;fill-opacity:0.3; fill:red"/>
+<path transform="matrix(1 0 0 1 0 0)" id="test2" d="M 0 0 100 70 250 40 150 -30 z" style="stroke:red;fill-opacity:0.3; fill:yellow"/>
+<circle id="A" cx="0" cy="0" r="3" style="stroke:red; fill:red"/>
+<text x="260" y="240">Enter values for matrix</text>
+<rect onclick="enter_matrix(evt)" x="250" y="225" width="140" height="20" fill="red" fill-opacity="0.3"/>
+<text x="-400" y="270" font-size="15" fill="blue">We draw result of transformation of green shape with given matrix (red) and also with transform="..." (yellow) to verify</text>
+</svg>
+

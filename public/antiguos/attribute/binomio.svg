@@ -1,0 +1,50 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"> 
+<svg 
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="600">
+	
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<text x="20" y="20" font-size="15" fill="black">Cómo calcular ( a + b )<tspan baseline-shift="super" font-size="9">n</tspan> ?
+<tspan x="20" dy="2em">Cada término es el resultado de la elección entre a y b en n factores</tspan>
+<tspan x="20" dy="1.5em">de esta forma: a<tspan baseline-shift="super" font-size="9">n</tspan> ; a<tspan baseline-shift="super" font-size="9">n - 1</tspan> * b ; a<tspan baseline-shift="super" font-size="9">n - 2</tspan> * b<tspan baseline-shift="super" font-size="9">2</tspan> ; ........ ; a * b<tspan baseline-shift="super" font-size="9">n - 1</tspan> ; b<tspan baseline-shift="super" font-size="9">n</tspan></tspan>
+<tspan x="20" dy="1.5em">¿Cuántas veces, tenemos a<tspan baseline-shift="super" font-size="9">n - i</tspan> * b<tspan baseline-shift="super" font-size="9">i</tspan> ?</tspan>
+<tspan x="20" dy="2em">Podemos encontrar facilmente para n = 1, n = 2, n = 3</tspan>
+<tspan x="20" dy="1.5em">a + b = 1 * a + 1 * b</tspan>
+<tspan x="20" dy="1.5em">( a + b )<tspan baseline-shift="super" font-size="9">2</tspan> = 1 * a<tspan baseline-shift="super" font-size="9">2</tspan> + 2 * a * b + 1 * b<tspan baseline-shift="super" font-size="9">2</tspan></tspan>
+<tspan x="20" dy="1.5em">( a + b )<tspan baseline-shift="super" font-size="9">3</tspan> = 1 * a<tspan baseline-shift="super" font-size="9">3</tspan> + 3 * a<tspan baseline-shift="super" font-size="9">2</tspan> * b + 3 * a * b<tspan baseline-shift="super" font-size="9">2</tspan> + 1 * b<tspan baseline-shift="super" font-size="9">3</tspan></tspan>
+<tspan x="20" dy="2em">Escribimos sólo estos coeficientes :</tspan>
+<tspan x="20" dy="2em">1</tspan>
+<tspan x="70">1</tspan>
+<tspan x="20" dy="2em">1</tspan>
+<tspan x="70">2</tspan>
+<tspan x="95" fill="red">+</tspan>
+<tspan x="120">1</tspan>
+<tspan x="20" dy="2em">1</tspan>
+<tspan x="70">3</tspan>
+<tspan x="120">3</tspan>
+<tspan x="170">1</tspan>
+<tspan x="20" dy="2em">We see that each term is sum of term above and term to left ( 0 if term don't exist )</tspan>
+<tspan x="20" dy="2em">We can write next rows :</tspan>
+<tspan x="20" dy="1.5em">1</tspan>
+<tspan x="70">4</tspan>
+<tspan x="120">6</tspan>
+<tspan x="170">4</tspan>
+<tspan x="220">1</tspan>
+<tspan x="20" dy="1.5em">1</tspan>
+<tspan x="70">5</tspan>
+<tspan x="120">10</tspan>
+<tspan x="170">10</tspan>
+<tspan x="220">5</tspan>
+<tspan x="270">1</tspan>
+<tspan x="20" dy="2em" fill="blue">( a + b )<tspan baseline-shift="super" font-size="9">5</tspan> = a<tspan baseline-shift="super" font-size="9">5</tspan> + 5 * a<tspan baseline-shift="super" font-size="9">4</tspan> * b + 10 * a<tspan baseline-shift="super" font-size="9">3</tspan> * b<tspan baseline-shift="super" font-size="9">2</tspan> + 10 * a<tspan baseline-shift="super" font-size="9">2</tspan> * b<tspan baseline-shift="super" font-size="9">3</tspan> + 5 * a * b<tspan baseline-shift="super" font-size="9">4</tspan> + b<tspan baseline-shift="super" font-size="9">5</tspan></tspan>
+<tspan x="20" dy="1.5em">We can sum all terms on each row :</tspan>
+<tspan x="20" dy="1.5em">We get 2, 4 = 2<tspan baseline-shift="super" font-size="9">2</tspan>, 8 = 2<tspan baseline-shift="super" font-size="9">3</tspan>, 16 = 2<tspan baseline-shift="super" font-size="9">4</tspan>, 32 = 2<tspan baseline-shift="super" font-size="9">5</tspan> ....</tspan>
+<tspan x="20" dy="1.5em">Each row begin and finish with 1, symetricals terms are equal</tspan>
+
+
+</text>
+<rect x="60" y="268" width="25" height="20" fill="none" stroke="red"/>
+<rect x="113" y="268" width="25" height="20" fill="none" stroke="red"/>
+<ellipse cx="125" cy="310" rx="20" ry="10" fill="none" stroke="green"/>
+</svg>

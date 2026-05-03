@@ -1,0 +1,65 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<marker id="Marker01" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" />
+</marker>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker>
+<marker id="blue" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="blue"/>
+</marker>
+<g id="system">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="25" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="-25" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+</defs>
+<g onmouseup="click=false">
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<use x="50" y="250" xlink:href="#system" fill="blue"/>
+<line id="AB" x1="300" y1="250" x2="425" y2="150" style="stroke:black;stroke-width:4"/> 
+<line id="AC" x1="300" y1="250" x2="175" y2="350" style="stroke:black;stroke-width:4"/> 
+<line id="BC" x1="200" y1="350" x2="425" y2="150" style="stroke:black;stroke-width:4"/> 
+
+<path id="ag" marker-end="url(#green)" d="M275 400a50 50 0 0 0 -23 -53" style="stroke:green;stroke-width:2;fill:none"/>
+<text id="a" style="text-anchor:middle;font-size:15;fill:blue" x="200" y="400" dx="-15" dy="-10">A</text>
+<text id="b" style="text-anchor:middle;font-size:15;fill:blue" x="400" y="200" dx="15" dy="-10">B</text>
+<text id="c" style="text-anchor:middle;font-size:15;fill:blue" x="200" y="400" dx="15" dy="-10">C</text>
+<text x="20" y="500" font-size="15">Coordinates A : <tspan id="xya"> 6 ; -6 </tspan></text>
+<text x="20" y="520" font-size="15">Coordinates B : <tspan id="xyb"> 14 ; 2 </tspan></text>
+<text x="20" y="540" font-size="15">Coordinates C : <tspan id="xyc"> 6 ; -6 </tspan></text>
+<text x="20" y="20" font-size="15">Vector AB</text>
+<text x="20" y="40" font-size="15">Ux : <tspan id="vxt"> 8 </tspan></text>
+<text x="20" y="60" font-size="15">Uy : <tspan id="vyt"> 8 </tspan></text>
+<text x="20" y="80" font-size="15">Length : <tspan id="vl"> 11.31 </tspan></text>
+<text x="150" y="20" font-size="15">Vector AC :</text>
+<text x="150" y="40" font-size="15">Ux : <tspan id="vxt2"> 8 </tspan></text>
+<text x="150" y="60" font-size="15">Uy : <tspan id="vyt2"> 8 </tspan></text>
+<text x="150" y="80" font-size="15">Length : <tspan id="vl2"> 11.31 </tspan></text>
+<text x="280" y="20" font-size="15">Vector BC :</text>
+<text x="280" y="40" font-size="15">Ux : <tspan id="vxt3"> 8 </tspan></text>
+<text x="280" y="60" font-size="15">Uy : <tspan id="vyt3"> 8 </tspan></text>
+<text x="280" y="80" font-size="15">Length : <tspan id="vl3"> 11.31 </tspan></text>
+<text x="480" y="20" font-size="15">Vector W = AB ^ AC :</text>
+<text x="480" y="40" font-size="15">Vector Wz : <tspan id="vxs"> 8 </tspan></text>
+<text x="480" y="60" font-size="15">Vector length : <tspan id="vls"> 11.31 </tspan></text>
+<text x="480" y="80" font-size="15" fill="blue">Area ABC : <tspan id="area"> 11.31 </tspan></text>
+<text x="480" y="100" font-size="15" fill="blue">Angle A : <tspan id="ang"> 11.31 </tspan> degrees</text>
+<text x="480" y="120" font-size="15" fill="blue">Perimeter ABC : <tspan id="peri"> 11.31 </tspan></text>
+<g onmousedown="click=true" onmousemove="triangleArea_move(evt)">
+<circle id="p1" cx="300" cy="200" r="4" fill="red"/>
+<circle id="p2" cx="400" cy="100" r="4" fill="red"/>
+<circle id="p3" cx="300" cy="200" r="4" fill="red"/>
+</g>
+</g>
+</svg>

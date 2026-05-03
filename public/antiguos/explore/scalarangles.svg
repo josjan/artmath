@@ -1,0 +1,24 @@
+<svg width="700" height="600">
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<text x="20" y="20" font-size="15" fill="black">And if k isn't integer ?
+<tspan x="20" dy="2em">For k = 0.5, we can find interesting fomula :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">cos ( 2 * A ) = cos<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) - sin<tspan baseline-shift="super" font-size="9">2</tspan> ( A )</tspan>
+<tspan x="20" dy="1.5em">As cos<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) + sin<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) = 1</tspan>
+<tspan x="20" dy="1.5em" fill="blue">cos ( 2 * A ) = ( cos<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) - sin<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) ) / ( cos<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) + sin<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) )</tspan>
+<tspan x="20" dy="1.5em">We divise all terms by cos<tspan baseline-shift="super" font-size="9">2</tspan> ( A )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">cos ( 2 * A ) = ( 1 - tan<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) ) / ( 1 + tan<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) )</tspan>
+<tspan x="20" dy="1.5em">We use t = tan ( A / 2 )</tspan>
+<tspan x="20" dy="1.5em" fill="green">cos ( A ) = ( 1 - t<tspan baseline-shift="super" font-size="9">2</tspan> ) / ( 1 + t<tspan baseline-shift="super" font-size="9">2</tspan> )</tspan>
+<tspan x="20" dy="1.5em">For sinus, we use same method</tspan>
+<tspan x="20" dy="1.5em" fill="blue">sin ( 2 * A ) = 2 * sin ( A ) * cos ( A )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">sin ( 2 * A ) = 2 * sin ( A ) * cos ( A ) / ( cos<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) + sin<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">sin ( 2 * A ) = 2 * tan ( A ) / ( 1 + tan<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) )</tspan>
+<tspan x="20" dy="1.5em" fill="green">sin ( A ) = 2 * t / ( 1 + t<tspan baseline-shift="super" font-size="9">2</tspan> )</tspan>
+<tspan x="20" dy="1.5em">For tangente we have</tspan>
+<tspan x="20" dy="1.5em" fill="blue">tan ( 2 * A ) = 2 * tan ( A ) / ( 1 - tan<tspan baseline-shift="super" font-size="9">2</tspan> ( A ) )</tspan>
+<tspan x="20" dy="1.5em" fill="green">tan ( A ) = 2 * t / ( 1 - t<tspan baseline-shift="super" font-size="9">2</tspan> )</tspan>
+<tspan x="20" dy="2em">We can replace sin ( A ), cos ( A ) and tan ( A ) by single variable t in equation</tspan>
+<tspan x="20" dy="2em">Of course, we multiply degree for equation by two ... </tspan>
+</text>
+
+</svg>

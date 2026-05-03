@@ -1,0 +1,26 @@
+<svg width="600" height="600">
+<rect x="0" y="0" width="600" height="600" style="fill:white"/> 
+<rect x="440" y="0" width="160" height="50" style="fill:white;fill-opacity:0"/>  
+<path id="objet" d="M 351 221 455 271 553 226 359 59 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 286 114 234 89 184 111 282 196 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<circle id="A" cx="308" cy="150" r="3" style="stroke:red; fill:red"/>
+<text x="308" y="150" dy="15">C</text>
+<circle id="F" cx="359" cy="59" r="3" style="stroke:red; fill:red"/>
+<text x="359" y="59" dy="-5">M</text>
+<circle id="F1" cx="282" cy="196" r="3" style="stroke:blue; fill:blue"/>  
+<text x="282" y="196" dx="-15" dy="15">M'</text>
+<path d="M359 59L282 196" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<text x="20" y="250" font-size="15" fill="black">Uniform scale 
+<tspan x="20" dy="1.5em">Center is C and ratio k</tspan>
+<tspan x="20" dy="1.5em">To draw M' image of M in transformation :</tspan>
+<tspan x="20" dy="1.5em">- we draw line (CM)</tspan>
+<tspan x="20" dy="1.5em">- we put M' so vector (CM') = k * vector (CM)</tspan>
+<tspan x="20" dy="1.5em">On our example k is - 0.5</tspan>
+<tspan x="20" dy="1.5em">This transformation preserve angle and direction</tspan>
+<tspan x="20" dy="1.5em">This transformation preserve length only if k is 1 ( identity ) or -1 ( symetry )</tspan>
+<tspan x="20" dy="1.5em">To retrieve M from M', we have only to apply uniform scale with 1 / k as ratio</tspan>
+<tspan x="20" dy="1.5em">If we composite two transformations, we get same transformation with k<tspan baseline-shift="sub" font-size="9">1</tspan> * k<tspan baseline-shift="sub" font-size="9">2</tspan> as ratio</tspan>
+<tspan x="20" dy="1.5em">If centers are different, we can build center of composite or on matrix</tspan>
+<tspan x="20" dy="1.5em">find invariant point</tspan>
+</text>
+</svg>

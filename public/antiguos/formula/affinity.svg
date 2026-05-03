@@ -1,0 +1,52 @@
+<svg width="700" height="600">
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<text x="300" y="20" startOffset="0">Matrix : </text>
+<g text-anchor="middle">
+<text id="matrix_a" x="380" y="20" startOffset="0">1.05</text>
+<text id="matrix_c" x="450" y="20" startOffset="0">0.2</text>
+<text id="matrix_e" x="520" y="20" startOffset="0">- 48.45</text>
+<text id="matrix_b" x="380" y="50" startOffset="0">- 0.53</text>
+<text id="matrix_d" x="450" y="50" startOffset="0">- 0.99</text>
+<text id="matrix_f" x="520" y="50" startOffset="0">487.03</text>
+</g>
+<rect x="440" y="0" width="160" height="25" style="fill:white;fill-opacity:0"/>  
+<path id="objet" d="M 124 151 331 150 331 91 124 93 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 112 271 330 162 318 221 101 329 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<path id="axe" d="M 24 238 527 104" style="stroke:blue;fill-opacity:0.3; fill:blue"/>
+<path id="direc" d="M108 7 74 356" style="stroke:green;fill-opacity:0.3; fill:green"/>
+<circle id="A" cx="24" cy="238" r="3" style="stroke:red; fill:red"/>
+<circle id="B" cx="527" cy="104" r="3" style="stroke:red; fill:red"/>
+<circle id="H" cx="108" cy="7" r="3" style="stroke:red; fill:red"/>
+<circle id="K" cx="74" cy="356" r="3" style="stroke:red; fill:red"/>
+<circle id="C" cx="124" cy="151" r="3" style="stroke:red; fill:red"/>
+<circle id="D" cx="331" cy="150" r="3" style="stroke:red; fill:red"/>
+<circle id="E" cx="331" cy="91" r="3" style="stroke:red; fill:red"/>
+<circle id="F" cx="124" cy="93" r="3" style="stroke:red; fill:red"/>
+<circle id="C1" cx="112" cy="271" r="3" style="stroke:blue; fill:blue"/>
+<circle id="D1" cx="330" cy="162" r="3" style="stroke:blue; fill:blue"/>
+<circle id="E1" cx="318" cy="221" r="3" style="stroke:blue; fill:blue"/>
+<circle id="F1" cx="101" cy="329" r="3" style="stroke:blue; fill:blue"/>  
+<path d="M124 151L112 271" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M331 150L330 162" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M331 91L318 221" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M124 93L101 329" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<text x="350" y="250" font-size="15" fill="blue">Affinity on shape
+<tspan x="310" dy="2em" fill="black">Affinity need axis and direction - Ratio is k</tspan>
+<tspan x="310" dy="1em" fill="black">Axis : u * x + v * y + w = 0</tspan>
+<tspan x="310" dy="1em" fill="black">Vector for direction is ud , vd</tspan>
+<tspan x="310" dy="1em" fill="black">We calculate det = u * ud + v * vd</tspan>
+<tspan x="310" dy="2em" fill="black">Point M in x<tspan baseline-shift="sub">m</tspan> , y<tspan baseline-shift="sub">m</tspan> give point M' in x<tspan baseline-shift="sub">m'</tspan> , y<tspan baseline-shift="sub">m'</tspan></tspan>
+<tspan x="20" dy="2em">x<tspan baseline-shift="sub">m'</tspan> =  x<tspan baseline-shift="sub">m</tspan> * ( k * u * ud + v * vd ) / det + y<tspan baseline-shift="sub">m</tspan> * (( k - 1 ) * v * ud) / det + (( 1 - k ) * ud * w) / det</tspan>
+<tspan x="20" dy="2em">y<tspan baseline-shift="sub">m'</tspan> =  y<tspan baseline-shift="sub">m</tspan> * (( k - 1 ) * u * vd) / det + y<tspan baseline-shift="sub">m</tspan> * ( u * ud + k * vd * v ) / det + (( 1 - k ) * vd * w) / det</tspan>
+<tspan x="20" dy="2em" fill="black">Matrix for affinity ( all values have to be divised by u * ud + v * vd ) : </tspan>
+<tspan x="50" dy="2em">k * u * ud + v * vd</tspan>
+<tspan x="200">( k - 1 ) * v * ud) </tspan>
+<tspan x="350">( 1 - k ) * ud * w)</tspan>
+<tspan x="50" dy="2em">( k - 1 ) * u * vd</tspan>
+<tspan x="200">u * ud + k * vd * v</tspan>
+<tspan x="350">( 1 - k ) * vd * w)</tspan>
+<tspan x="100" dy="2em">0</tspan>
+<tspan x="250">0</tspan>
+<tspan x="400">1</tspan>
+</text>
+</svg>

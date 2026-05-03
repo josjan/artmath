@@ -1,0 +1,44 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="none" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<marker id="Marker01" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="10" markerHeight="6" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z"/>
+</marker>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="20" markerHeight="12" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker><g id="system">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="25" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="-25" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+</defs>
+<rect width="700" height="600" fill="white"/>
+<use x="350" y="350" xlink:href="#system" fill="blue"/>
+<line id="v1" x1="25" y1="248.438" x2="675" y2="126.563" style="stroke:green;stroke-width:2"/> 
+<line id="v2" x1="25" y1="345.313" x2="675" y2="223.438" style="stroke:green;stroke-width:2"/> 
+<text id="a" style="text-anchor:middle;font-size:20;fill:blue" x="150" y="225" dx="-20" dy="-5" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:20;fill:blue" x="550" y="150" dx="-20" dy="-5" startOffset="0">B</text>
+<text id="c" style="text-anchor:middle;font-size:20;fill:blue" x="400" y="275" dx="-20" dy="-5" startOffset="0">C</text>
+<text x="20" y="20" font-size="15" startOffset="0">Coordinates A : <tspan id="xya">-8 ; 5</tspan></text>
+<text x="20" y="40" font-size="15" startOffset="0">Coordinates B : <tspan id="xyb">8 ; 8</tspan></text>
+<text x="20" y="60" font-size="15" startOffset="0">Coordinates C : <tspan id="xyc">2 ; 3</tspan></text>
+<text x="320" y="20" font-size="15" startOffset="0">Vector Vx : <tspan id="vxt">16</tspan></text>
+<text x="320" y="40" font-size="15" startOffset="0">Vector Vy : <tspan id="vyt">3</tspan></text>
+<text x="20" y="80" font-size="15" startOffset="0">Line (AB) equation : <tspan id="ut">3* x -16 * y + 104 = 0</tspan></text>
+<text x="20" y="100" font-size="15" startOffset="0">Line parallel equation : <tspan id="ut2">3* x -16 * y + 42 = 0</tspan></text>
+<rect x="25" y="125" width="651" height="451" fill="yellow" fill-opacity="0.1"/>
+<circle id="p1" cx="150" cy="225" r="4" fill="red"/>
+<circle id="p2" cx="550" cy="150" r="4" fill="red"/>
+<circle id="p3" cx="400" cy="275" r="4" fill="red"/>
+<text x="150" y="350" font-size="15" fill="black">Equation of parallel
+<tspan x="50" dy="2em">Line (AB) is defined by equation u * x + v * y + w = 0</tspan>
+<tspan x="50" dy="1.5em">We know coordinates of C : x<tspan baseline-shift="sub" font-size="9">C</tspan> and y<tspan baseline-shift="sub" font-size="9">C</tspan></tspan>
+<tspan x="50" dy="1.5em">Equation begin by u * x + v * y ....</tspan>
+<tspan x="50" dy="1.5em">C is on parallel and verify this equation :</tspan>
+<tspan x="50" dy="1.5em" fill="blue">u * x + v * y - u * x<tspan baseline-shift="sub" font-size="9">C</tspan> - v * y<tspan baseline-shift="sub" font-size="9">C</tspan> = 0</tspan>
+<tspan x="50" dy="1.5em">If (AB) equation is given as y = a * x + b</tspan>
+<tspan x="50" dy="1.5em" fill="blue">y = a * x + y<tspan baseline-shift="sub" font-size="9">C</tspan> - a * x<tspan baseline-shift="sub" font-size="9">C</tspan> <tspan fill="black"> is equation for parallel</tspan></tspan>
+</text>
+</svg>

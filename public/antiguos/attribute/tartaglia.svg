@@ -1,0 +1,62 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"> 
+<svg 
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="600">
+	
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<text x="20" y="20" font-size="15" fill="black">
+
+<tspan font-size="35" x="210" dy="2em">Triángulo de Tartaglia</tspan> 
+<tspan x="210" dy="2em">----------------------------------------------------------------</tspan>
+<tspan x="350" dy="2em">1</tspan>
+<tspan x="330" dy="2em">1</tspan>
+<tspan x="370" >1</tspan>
+
+<tspan x="310" dy="2em">1</tspan>
+<tspan x="350" >2</tspan>
+<tspan x="390" >1</tspan>
+
+<tspan x="290" dy="2em">1</tspan>
+<tspan x="330">3</tspan>
+<tspan x="370">3</tspan>
+<tspan x="410">1</tspan>
+
+<tspan x="270" dy="2em">1</tspan>
+<tspan x="310">4</tspan>
+<tspan x="350">6</tspan>
+<tspan x="390">4</tspan>
+<tspan x="430">1</tspan>
+
+<tspan x="250" dy="2em">1</tspan>
+<tspan x="290">5</tspan>
+<tspan x="330">10</tspan>
+<tspan x="353" fill="red">+</tspan>
+<tspan x="370">10</tspan>
+<tspan x="410">5</tspan>
+<tspan x="450">1</tspan>
+
+<tspan x="230" dy="2em">1</tspan>
+<tspan x="270">6</tspan>
+<tspan x="310">15</tspan>
+<tspan x="350">20</tspan>
+<tspan x="390">15</tspan>
+<tspan x="430">6</tspan>
+<tspan x="470">1</tspan>
+
+<tspan x="210" dy="2em">1</tspan>
+<tspan x="250">7</tspan>
+<tspan x="290">21</tspan>
+<tspan x="330">35</tspan>
+<tspan x="370">35</tspan>
+<tspan x="410">21</tspan>
+<tspan x="450">7</tspan>
+<tspan x="490">1</tspan>
+
+<tspan x="170" dy="2em">...................................................................................................</tspan>
+
+</text>
+<rect x="325" y="285" width="25" height="20" fill="none" stroke="red"/>
+<rect x="365" y="285" width="25" height="20" fill="none" stroke="red"/>
+<ellipse cx="358" cy="325" rx="20" ry="10" fill="none" stroke="green"/>
+</svg>

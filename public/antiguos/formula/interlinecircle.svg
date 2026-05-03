@@ -1,0 +1,49 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<rect width="700" height="600" fill="white"/>
+<rect x="0" y="0" width="700" height="600" fill="url(#Pat01)"/>
+<text id="a" style="text-anchor:middle;font-size:14;fill:blue" x="396" y="25" dx="-14" dy="-5" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:14;fill:blue" x="661" y="140" dx="14" dy="-5" startOffset="0">B</text>
+<text id="c" style="text-anchor:middle;font-size:14;fill:blue" x="552" y="202" dx="-14" dy="-5" startOffset="0">C</text>
+<text id="w" style="text-anchor:middle;font-size:14;fill:blue" x="487" y="129" dx="14" dy="-5" startOffset="0">w</text>
+<circle id="circ1" cx="487" cy="129" r="97.7446" fill="red" stroke="red" fill-opacity="0.1"/>
+<line id="line1" x1="338.391" y1="0" x2="700" y2="156.925" fill="none" stroke="green" stroke-width="2"/>
+<line x1="300" y1="129" x2="700" y2="129" fill="none" stroke="green" stroke-width="2" stroke-dasharray="4 4"/>
+<line x1="487" y1="129" x2="511" y2="75" fill="none" stroke="green" stroke-width="1"/>
+<line x1="487" y1="129" x2="440" y2="44" fill="none" stroke="green" stroke-width="1"/>
+
+<text id="e" style="text-anchor:middle;font-size:14;fill:blue" x="581.923" y="105.683" dx="14" dy="-5" startOffset="0">E</text>
+<text id="f" style="text-anchor:middle;font-size:14;fill:blue" x="439.193" y="43.7443" dx="14" dy="-5" startOffset="0">F</text>
+<text style="text-anchor:middle;font-size:14;fill:blue" x="511" y="75" dx="14" dy="-5" startOffset="0">M</text>
+<circle id="p5" cx="582" cy="106" r="4" fill="blue"/>
+<circle id="p6" cx="440" cy="44" r="4" fill="blue"/>
+<circle id="p6" cx="511" cy="75" r="4" fill="blue"/>
+
+<circle id="p1" cx="396" cy="25" r="4" fill="red"/>
+<circle id="p2" cx="661" cy="140" r="4" fill="red"/>
+<circle id="p3" cx="487" cy="129" r="4" fill="red"/>
+<circle id="p4" cx="552" cy="202" r="4" fill="red"/>
+<text x="20" y="20" font-size="14" fill="black">Circle defined by center W and a point C
+<tspan x="20" dy="1.5em">Line is defined by points A and B</tspan>
+<tspan x="20" dy="1.5em">We use parametric equation for circle with R = WC length :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x = x<tspan baseline-shift="sub" font-size="8">W</tspan> + R * cos ( t ) with t from 0 to 2 * PI</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y = y<tspan baseline-shift="sub" font-size="8">W</tspan> + R * sin ( t )</tspan>
+<tspan x="20" dy="2.5em">Equation for line AB as u * x + v * y + w = 0 with</tspan>
+<tspan x="20" dy="1.5em">u = yB - yA ; v = xA - xB ; w = - u * xA - v * yA</tspan>
+<tspan x="20" dy="2.5em">We calculate distance from W to line AB:</tspan>
+<tspan x="20" dy="1.5em" fill="blue">dist = (u * xW + v * yW + w) / Math.sqrt(u * u + v * v)</tspan>
+<tspan x="20" dy="2.5em">We have intersections if dist &lt;= R</tspan>
+<tspan x="20" dy="1.5em">We use angles to get intersections :</tspan>
+<tspan x="20" dy="2.5em">We calculate angle for WM with dashed line :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">ag1 = Math.acos(u / Math.sqrt(u * u + v * v))</tspan>
+<tspan x="20" dy="1.5em" fill="blue">if ( v1 > 0) ag1 = - ag1</tspan>
+<tspan x="20" dy="2.5em">We calculate angle for WF with WM :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">ag2 = Math.acos( dist / R )</tspan>
+<tspan x="20" dy="2.5em">We get intersections on circle with t = ag1 + ag2</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="sub" font-size="8">F</tspan> = x<tspan baseline-shift="sub" font-size="8">W</tspan> + R * cos ( ag1 + ag2 )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y<tspan baseline-shift="sub" font-size="8">F</tspan> = y<tspan baseline-shift="sub" font-size="8">W</tspan> + R * sin ( ag1 + ag2 )</tspan>
+<tspan x="20" dy="1.5em">and t = ag1 - ag2 :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="sub" font-size="8">E</tspan> = x<tspan baseline-shift="sub" font-size="8">W</tspan> + R * cos ( ag1 - ag2 )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y<tspan baseline-shift="sub" font-size="8">E</tspan> = y<tspan baseline-shift="sub" font-size="8">W</tspan> + R * sin ( ag1 - ag2 )</tspan>
+
+</text>
+</svg>

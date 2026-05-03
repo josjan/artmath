@@ -1,0 +1,28 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<g onmouseup="click=false">
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<text x="20" y="20" font-size="14">We transform green circle by affinity to get ellipse
+<tspan x="20" dy="1.3em">On load axis is horizontal, direction is vertical and ratio value is 0.5</tspan>
+<tspan x="20" dy="1.3em">You can move axis with red point and modify ratio with slider</tspan>
+</text>
+<circle cx="350" cy="250" r="3" fill="green"/>
+<circle cx="350" cy="250" r="125" fill="none" stroke="green"/>
+<line id="axis" x1="100" y1="250" x2="600" y2="250" stroke="green"/>
+<ellipse id="ellipse" transform="translate(350,250)" rx="125" ry="62.5" fill="none" stroke="blue"/>
+<g onmousedown="click=true" onmousemove="ellipse_move(evt)">
+<circle id="p1" cx="600" cy="250" r="4" fill="red"/>
+</g>
+<g id="slider" transform="translate(0,100)">
+<rect x="100" y="450" width="400" height="10" fill="lightgray" stroke="gray"/>
+<path d="M300 448v14 M400 448v14 M500 448v14 M200 448v14 M100 448v14" fill="none" stroke="blue"/>
+<text x="100" y="445" style="font-size:15" dx="-5,85,0,0,90,80,0,0,85" >00.511.52</text>
+<rect x="90" y="430" width="420" height="50" fill="green" fill-opacity="0.1"/>
+<rect onmousedown="click=true" onmousemove="ellipse_cursor(evt)" id="cursor" x="195" y="447" width="10" height="16" fill="red"/>
+</g>
+</g>
+</svg>

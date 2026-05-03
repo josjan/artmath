@@ -1,0 +1,76 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="none" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<marker id="Marker01" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="10" markerHeight="6" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z"/>
+</marker>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="20" markerHeight="12" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker>
+<marker id="red" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="10" markerHeight="6" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="red"/>
+</marker>
+<g id="system">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="25" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="-25" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+<g id="system2">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="25" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="25" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+</defs>
+<rect width="700" height="600" fill="white"/>
+<text style="text-anchor:middle;font-size:18;fill:blue" x="300" y="20">Caution in SVG plane is oriented clockwise</text>
+<rect x="25" y="175" width="226" height="301" fill="url(#Pat01)"/>
+<use x="50" y="225" xlink:href="#system" fill="blue"/>
+<line marker-end="url(#Marker01)" x1="50" y1="425" x2="200" y2="275" style="stroke:black;stroke-width:4"/> 
+<line x1="200" y1="0" x2="200" y2="500" style="stroke:blue;stroke-width:1;stroke-dasharray:3 3"/> 
+<line x1="0" y1="275" x2="600" y2="275" style="stroke:blue;stroke-width:1;stroke-dasharray:3 3"/> 
+<line x1="0" y1="425" x2="600" y2="425" style="stroke:green;stroke-width:1;stroke-dasharray:3 3"/> 
+<line marker-end="url(#green)" x1="50" y1="425" x2="200" y2="425" style="stroke:green;stroke-width:2"/> 
+<line marker-end="url(#green)" x1="50" y1="425" x2="50" y2="275" style="stroke:green;stroke-width:2"/> 
+<path marker-end="url(#green)" d="M125 425a 75 75 0 0 0 -21.966991411008933 -53.03300858899106" style="stroke:green;stroke-width:2;fill:none"/>
+<text style="text-anchor:middle;font-size:18" x="125" y="425" dy="20" startOffset="0">V<tspan baseline-shift="sub">x</tspan></text>
+<text style="text-anchor:middle;font-size:18" x="50" y="350" dx="-30" startOffset="0">V<tspan baseline-shift="sub">y</tspan></text>
+<text style="text-anchor:middle;font-size:20;fill:blue" x="50" y="425" dx="-20" dy="20" startOffset="0">A</text>
+<text style="text-anchor:middle;font-size:20;fill:blue" x="200" y="275" dx="20" dy="-10" startOffset="0">B</text>
+<text x="20" y="40" font-size="15" startOffset="0">Coordinates A : <tspan id="xya">0 ; - 8</tspan></text>
+<text x="20" y="60" font-size="15" startOffset="0">Coordinates B : <tspan id="xyb">6 ; - 2</tspan></text>
+<text x="20" y="80" font-size="15" startOffset="0">Vector Vx : <tspan id="vxt">6</tspan></text>
+<text x="20" y="100" font-size="15" startOffset="0">Vector Vy : <tspan id="vyt">6</tspan></text>
+<text x="20" y="120" font-size="15" startOffset="0">Vector length : <tspan id="vl">8.48</tspan></text>
+<text x="20" y="140" font-size="15" startOffset="0">Vector angle : <tspan id="agt">45</tspan> degrees</text>
+<circle cx="50" cy="425" r="4" fill="red"/>
+<circle cx="200" cy="275" r="4" fill="red"/>
+<g transform="translate(300,0)">
+<rect x="25" y="175" width="226" height="301" fill="url(#Pat01)"/>
+<use x="50" y="225" xlink:href="#system2" fill="blue"/>
+<line marker-end="url(#Marker01)" x1="50" y1="425" x2="200" y2="275" style="stroke:black;stroke-width:4"/> 
+<line x1="200" y1="0" x2="200" y2="500" style="stroke:blue;stroke-width:1;stroke-dasharray:3 3"/> 
+<line x1="0" y1="275" x2="600" y2="275" style="stroke:blue;stroke-width:1;stroke-dasharray:3 3"/> 
+<line x1="0" y1="425" x2="600" y2="425" style="stroke:green;stroke-width:1;stroke-dasharray:3 3"/> 
+<line marker-end="url(#green)" x1="50" y1="425" x2="200" y2="425" style="stroke:green;stroke-width:2"/> 
+<line marker-end="url(#green)" x1="50" y1="425" x2="50" y2="275" style="stroke:green;stroke-width:2"/> 
+<path marker-end="url(#green)" d="M125 425a 75 75 0 0 0 -21.966991411008933 -53.03300858899106" style="stroke:green;stroke-width:2;fill:none"/>
+<text style="text-anchor:middle;font-size:18" x="125" y="425" dy="20" startOffset="0">V<tspan baseline-shift="sub">x</tspan></text>
+<text style="text-anchor:middle;font-size:18" x="50" y="350" dx="-30" startOffset="0">V<tspan baseline-shift="sub">y</tspan></text>
+<text style="text-anchor:middle;font-size:20;fill:blue" x="50" y="425" dx="-20" dy="20" startOffset="0">A</text>
+<text style="text-anchor:middle;font-size:20;fill:blue" x="200" y="275" dx="20" dy="-10" startOffset="0">B</text>
+<text x="20" y="40" font-size="15" startOffset="0">Coordinates A : <tspan id="xya">0 ; <tspan fill="red">8</tspan></tspan></text>
+<text x="20" y="60" font-size="15" startOffset="0">Coordinates B : <tspan id="xyb">6 ; <tspan fill="red">2</tspan></tspan></text>
+<text x="20" y="80" font-size="15" startOffset="0">Vector Vx : <tspan id="vxt">6</tspan></text>
+<text x="20" y="100" font-size="15" startOffset="0">Vector Vy : <tspan fill="red">- 6</tspan></text>
+<text x="20" y="120" font-size="15" startOffset="0">Vector length : <tspan id="vl">8.48</tspan></text>
+<text x="20" y="140" font-size="15" startOffset="0">Vector angle : <tspan fill="red">- 45</tspan> degrees</text>
+<circle cx="50" cy="425" r="4" fill="red"/>
+<circle cx="200" cy="275" r="4" fill="red"/>
+</g>
+<line marker-end="url(#red)" x1="300" y1="510" x2="300" y2="350" style="stroke:red;stroke-width:3"/> 
+<text x="100" y="530" fill="red" font-size="15">Differences in maths and svg</text>
+<text x="100" y="550" fill="red" font-size="15">or SVG example using item</text>
+
+</svg>

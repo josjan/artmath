@@ -1,0 +1,46 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<rect x="80" y="112" width="338" height="112" fill="yellow" fill-opacity="0.2"/>
+<line id="AB" x1="80" y1="224" x2="80" y2="112" style="stroke:black;stroke-width:4"/> 
+<line id="AC" x1="80" y1="224" x2="418" y2="224" style="stroke:black;stroke-width:4"/> 
+<line id="BD" x1="80" y1="112" x2="418" y2="112" style="stroke:black;stroke-width:4"/> 
+<line id="CD" x1="418" y1="224" x2="418" y2="112" style="stroke:black;stroke-width:4"/> 
+<text id="a" style="text-anchor:middle;font-size:15;fill:blue" x="80" y="224" dx="-15" dy="-10" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:15;fill:blue" x="80" y="112" dx="15" dy="-10" startOffset="0">B</text>
+<text id="d" style="text-anchor:middle;font-size:15;fill:blue" x="418" y="112" dx="15" dy="-10" startOffset="0">C</text>
+<text id="c" style="text-anchor:middle;font-size:15;fill:blue" x="418" y="224" dx="15" dy="15" startOffset="0">D</text>
+<text x="20" y="20" font-size="15" startOffset="0">Vector AB</text>
+<text x="20" y="40" font-size="15" startOffset="0">Ux : <tspan id="vxt">0</tspan></text>
+<text x="20" y="60" font-size="15" startOffset="0">Uy : <tspan id="vyt">4.48</tspan></text>
+<text x="20" y="80" font-size="15" startOffset="0">Length : <tspan id="vl">4.48</tspan></text>
+<text x="150" y="20" font-size="15" startOffset="0">Vector AD :</text>
+<text x="150" y="40" font-size="15" startOffset="0">Ux : <tspan id="vxt2">13.52</tspan></text>
+<text x="150" y="60" font-size="15" startOffset="0">Uy : <tspan id="vyt2">0</tspan></text>
+<text x="150" y="80" font-size="15" startOffset="0">Length : <tspan id="vl2">13.52</tspan></text>
+<text x="480" y="20" font-size="15" startOffset="0">Vector W = AB ^ AC :</text>
+<text x="480" y="40" font-size="15" startOffset="0">Vector Wz : <tspan id="vxs">-60.5696</tspan></text>
+<text x="480" y="60" font-size="15" startOffset="0">Vector length : <tspan id="vls">60.5696</tspan></text>
+<text x="480" y="80" font-size="15" fill="blue" startOffset="0">Area ABCD : <tspan id="area">60.5696</tspan></text>
+<text x="480" y="100" font-size="15" fill="blue" startOffset="0">Angle A : <tspan id="ang">90</tspan> degrees</text>
+<text x="480" y="120" font-size="15" fill="blue" startOffset="0">Perimeter ABCD : <tspan id="peri">36</tspan></text>
+<circle id="p1" cx="80" cy="224" r="4" fill="red"/>
+<circle id="p2" cx="80" cy="112" r="4" fill="red"/>
+<circle id="p3" cx="418" cy="224" r="4" fill="red"/>
+<circle id="p4" cx="418" cy="112" r="4" fill="red"/>
+<text x="20" y="320" font-size="15" fill="black">Area of rectangle :
+<tspan x="20" dy="2em">We can use cross product of vectors AB and AD</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Area ABCD = length ( AB ^ AD )</tspan>
+<tspan x="20" dy="2em">With coordinates of A B D we have this formula</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Area ABCD = | ( x<tspan baseline-shift="sub" font-size="9">B</tspan> - x<tspan baseline-shift="sub" font-size="9">A</tspan> ) * ( y<tspan baseline-shift="sub" font-size="9">D</tspan> - y<tspan baseline-shift="sub" font-size="9">A</tspan> ) - ( y<tspan baseline-shift="sub" font-size="9">B</tspan> - y<tspan baseline-shift="sub" font-size="9">A</tspan> ) * ( x<tspan baseline-shift="sub" font-size="9">D</tspan> - x<tspan baseline-shift="sub" font-size="9">A</tspan> ) |</tspan>
+<tspan x="20" dy="2em">We can use length of AB and AC with angle in A ( 90 degrees )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Area ABCD = length AB * length AD </tspan>
+<tspan x="20" dy="3em">Perimeter of parallelogram</tspan>
+<tspan x="20" dy="1.5em" fill="blue">perimeter ABCD = 2 * ( length AB + length AD ) </tspan>
+
+</text>
+</svg>

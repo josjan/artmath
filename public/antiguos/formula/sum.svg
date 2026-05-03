@@ -1,0 +1,66 @@
+<svg width="600" height="500" viewBox="0 0 600 500">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<marker id="Marker01" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" />
+</marker>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker>
+<marker id="blue" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="blue"/>
+</marker>
+<g id="system">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="25" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="-25" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+</defs>
+<rect width="600" height="500" fill="url(#Pat01)"/>
+<use x="50" y="250" xlink:href="#system" fill="blue"/>
+<line id="v1" marker-end="url(#Marker01)" x1="200" y1="150" x2="400" y2="100" style="stroke:black;stroke-width:4"/> 
+<line id="v2" marker-end="url(#Marker01)" x1="300" y1="175" x2="425" y2="225" style="stroke:black;stroke-width:4"/> 
+<line id="v1b" marker-end="url(#green)" x1="100" y1="251" x2="300" y2="201" style="stroke:green;stroke-width:4"/> 
+<line id="v2b" marker-end="url(#green)" x1="100" y1="251" x2="225" y2="301" style="stroke:green;stroke-width:4"/> 
+<line id="v1c" marker-end="url(#green)" x1="225" y1="301" x2="425" y2="251" style="stroke:green;stroke-width:2;stroke-dasharray:3 3"/> 
+<line id="v2c" marker-end="url(#green)" x1="300" y1="201" x2="425" y2="251" style="stroke:green;stroke-width:2;stroke-dasharray:3 3"/> 
+<line id="vs" marker-end="url(#blue)" x1="100" y1="251" x2="425" y2="251" style="stroke:blue;stroke-width:4"/> 
+<text id="a" style="text-anchor:middle;font-size:20;fill:blue" x="200" y="150" dx="-20" dy="-10" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:20;fill:blue" x="400" y="100" dx="20" dy="-10" startOffset="0">B</text>
+<text id="c" style="text-anchor:middle;font-size:20;fill:blue" x="300" y="175" dx="-20" dy="-10" startOffset="0">C</text>
+<text id="d" style="text-anchor:middle;font-size:20;fill:blue" x="425" y="225" dx="20" dy="-10" startOffset="0">D</text>
+<text x="20" y="420" font-size="15" startOffset="0">Coordinates A : <tspan id="xya">6 ; 4</tspan></text>
+<text x="20" y="440" font-size="15" startOffset="0">Coordinates B : <tspan id="xyb">14 ; 6</tspan></text>
+<text x="20" y="460" font-size="15" startOffset="0">Coordinates C : <tspan id="xyc">10 ; 3</tspan></text>
+<text x="20" y="480" font-size="15" startOffset="0">Coordinates D : <tspan id="xyd">15 ; 1</tspan></text>
+<text x="20" y="20" font-size="15" startOffset="0">Vector AB</text>
+<text x="20" y="40" font-size="15" startOffset="0">Vector Vx : <tspan id="vxt">8</tspan></text>
+<text x="20" y="60" font-size="15" startOffset="0">Vector Vy : <tspan id="vyt">2</tspan></text>
+<text x="20" y="80" font-size="15" startOffset="0">Vector length : <tspan id="vl">8.24</tspan></text>
+<text x="220" y="20" font-size="15" startOffset="0">Vector CD :</text>
+<text x="220" y="40" font-size="15" startOffset="0">Vector Ux : <tspan id="vxt2">5</tspan></text>
+<text x="220" y="60" font-size="15" startOffset="0">Vector Uy : <tspan id="vyt2">-2</tspan></text>
+<text x="220" y="80" font-size="15" startOffset="0">Vector length : <tspan id="vl2">5.38</tspan></text>
+<text x="420" y="20" font-size="15" startOffset="0">Vector AB + CD :</text>
+<text x="420" y="40" font-size="15" startOffset="0">Vector Wx : <tspan id="vxs">13</tspan></text>
+<text x="420" y="60" font-size="15" startOffset="0">Vector Wy : <tspan id="vys">0</tspan></text>
+<text x="420" y="80" font-size="15" startOffset="0">Vector length : <tspan id="vls">13</tspan></text>
+<circle id="p0" cx="100" cy="251" r="4" fill="red"/>
+<circle id="p1" cx="200" cy="150" r="4" fill="red"/>
+<circle id="p2" cx="400" cy="100" r="4" fill="red"/>
+<circle id="p3" cx="300" cy="175" r="4" fill="red"/>
+<circle id="p4" cx="425" cy="225" r="4" fill="red"/>
+<text x="350" y="350" font-size="18" fill="blue">Vector W = U + V</text>
+<text x="350" y="375" font-size="18" fill="blue">W<tspan baseline-shift="sub">x</tspan> = U<tspan baseline-shift="sub">x</tspan> + V<tspan baseline-shift="sub">x</tspan></text>
+<text x="350" y="400" font-size="18" fill="blue">W<tspan baseline-shift="sub">y</tspan> = U<tspan baseline-shift="sub">y</tspan> + V<tspan baseline-shift="sub">y</tspan></text>
+<text x="350" y="425" font-size="18" fill="blue">L<tspan baseline-shift="sub">w</tspan> = L<tspan baseline-shift="sub">U</tspan> + L<tspan baseline-shift="sub">V</tspan> ( no colinear )</text>
+<path d="M385 410l-3 15" fill="none" stroke="blue" stroke-width="2"/>
+</svg>

@@ -1,0 +1,25 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<g onmouseup="click=false">
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<text x="20" y="20" font-size="14">In SVG, we can define center and radius for ellipse
+<tspan x="20" dy="1.3em">To modify axis, we have to add rotation to ellipse element</tspan>
+<tspan x="20" dy="1.3em">You can move axis with red point and change center and radius</tspan>
+</text>
+<line id="axis" x1="100" y1="250" x2="600" y2="250" stroke="green"/>
+<g id="rotate" transform="rotate(0,350,250)">
+<rect id="box" x="250" y="175" width="200" height="150" fill="none" stroke="green" stroke-dasharray="4 4"/>
+<ellipse id="ellipse" cx="350" cy="250" rx="100" ry="75" fill="none" stroke="blue"/>
+</g>
+<g onmousedown="click=true" onmousemove="ellipse_svg_move(evt)">
+<circle id="p1" cx="600" cy="250" r="4" fill="red"/>
+<circle id="p2" cx="350" cy="250" r="4" fill="red"/>
+<circle id="p3" transform="rotate(0,350,250)" cx="450" cy="325" r="4" fill="red"/>
+</g>
+</g>
+<text x="20" y="550" font-size="14">&lt;ellipse transform="rotate(<tspan id="ag">0</tspan>,<tspan id="cx2">350</tspan>,<tspan id="cy2">250</tspan>) cx="<tspan id="cx">350</tspan>" cy="<tspan id="cy">250</tspan>" rx="<tspan id="rx">100</tspan>" ry="<tspan id="ry">75</tspan>" fill="none" stroke="blue"/&gt;</text> 
+</svg>

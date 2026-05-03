@@ -1,0 +1,25 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+</defs>
+<g onmouseup="click=false">
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<text x="20" y="20" font-size="14">Arc is defined by points M and M' on circle
+<tspan x="20" dy="1.3em">You can move this points on circle</tspan>
+</text>
+<text x="20" y="500" font-size="14">Angle for M : <tspan id="atx1"> 0 </tspan></text>
+<text x="20" y="520" font-size="14">Angle for M' : <tspan id="atx2"> 90 </tspan></text>
+<circle cx="350" cy="250" r="3" fill="green"/>
+<circle cx="350" cy="250" r="150" fill="none" stroke="green"/>
+<text id="m1" x="500" y="250" font-size="10" dx="10">M</text>
+<text id="m2" x="350" y="100" font-size="10" dx="-15" dy="-10">M'</text>
+
+<path id="arc" d="M 350 250 L500 250 A150 150 0 0 0 350 100z" fill="orange" fill-opacity="0.2" stroke="blue" stroke-width="2"/>
+<g onmousedown="click=true" onmousemove="arcCircle_move(evt)">
+<circle id="p1" cx="500" cy="250" r="4" fill="red"/>
+<circle id="p2" cx="350" cy="100" r="4" fill="red"/>
+</g>
+</g>
+</svg>

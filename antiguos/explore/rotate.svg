@@ -1,0 +1,32 @@
+<svg width="600" height="600">
+<g onmousedown="rot_cliquer(evt)" onmousemove="rot_bouger(evt)" onmouseup="appui=false">
+<rect x="0" y="0" width="600" height="600" style="fill:#E0E0E0"/> 
+<text x="350" y="20">transform="rotate(<tspan id="angle_val">180,300,300</tspan>)"</text>
+<text x="300" y="520">Matrix : </text>
+<g text-anchor="middle" transform="translate(0,500)">
+<text id="matrix_a" x="380" y="20"> : </text>
+<text id="matrix_c" x="450" y="20"> : </text>
+<text id="matrix_e" x="520" y="20"> : </text>
+<text id="matrix_b" x="380" y="50"> : </text>
+<text id="matrix_d" x="450" y="50"> : </text>
+<text id="matrix_f" x="520" y="50"> : </text>
+</g>
+<rect x="440" y="0" width="160" height="50" style="fill:white;fill-opacity:0"/>  
+<path id="objet" d="M 350 250 450 320 550 290 400 100 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 250 350 150 280 50 310 200 500 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<circle cx="30" cy="30" r="24" style="stroke:red; fill:yellow"/>
+<circle cx="54" cy="30" r="3" style="stroke:blue; fill:blue"/>
+<path id="angle" d="M 54 30 A 24 24 0 0 0 6 30 L 30 30 z" style="stroke:blue; fill:purple"/>
+<circle id="B" cx="6" cy="30" r="3"  style="stroke:red; fill:red"/>
+<circle id="A" cx="300" cy="300" r="3" style="stroke:red; fill:red"/>
+<circle id="C" cx="350" cy="250" r="3" style="stroke:red; fill:red"/>
+<circle id="D" cx="450" cy="320" r="3" style="stroke:red; fill:red"/>
+<circle id="E" cx="550" cy="290" r="3" style="stroke:red; fill:red"/>
+<circle id="F" cx="400" cy="100" r="3" style="stroke:red; fill:red"/>
+<circle id="C1" cx="250" cy="350" r="3" style="stroke:blue; fill:blue"/>
+<circle id="D1" cx="150" cy="280" r="3" style="stroke:blue; fill:blue"/>
+<circle id="E1" cx="50" cy="310" r="3" style="stroke:blue; fill:blue"/>
+<circle id="F1" cx="200" cy="500" r="3" style="stroke:blue; fill:blue"/>  
+</g>
+</svg>
+

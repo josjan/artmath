@@ -1,0 +1,36 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<rect width="700" height="600" fill="white"/>
+<text id="a" style="text-anchor:middle;font-size:14;fill:blue" x="408" y="29" dx="-14" dy="-5" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:14;fill:blue" x="661" y="156" dx="14" dy="-5" startOffset="0">B</text>
+<text id="c" style="text-anchor:middle;font-size:14;fill:blue" x="676" y="27" dx="-14" dy="-5" startOffset="0">C</text>
+<text id="d" style="text-anchor:middle;font-size:14;fill:blue" x="423" y="108" dx="14" dy="-5" startOffset="0">D</text>
+<line id="line1" x1="408" y1="29" x2="661" y2="156" fill="none" stroke="green" stroke-width="2"/>
+<line id="line2" x1="676" y1="27" x2="423" y2="108" fill="none" stroke="green" stroke-width="2"/>
+<text id="e" style="text-anchor:middle;font-size:14;fill:blue" x="509.933" y="80.1678" dx="14" dy="-5" startOffset="0">E</text>
+<circle id="p5" cx="509.933" cy="80.1678" r="4" fill="blue"/>
+<circle id="p1" cx="408" cy="29" r="4" fill="red"/>
+<circle id="p2" cx="661" cy="156" r="4" fill="red"/>
+<circle id="p3" cx="676" cy="27" r="4" fill="red"/>
+<circle id="p4" cx="423" cy="108" r="4" fill="red"/>
+<text x="20" y="20" font-size="14" fill="black">We use parametric equations for segments
+<tspan x="20" dy="1.5em">For segment AB :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x = x<tspan baseline-shift="sub" font-size="8">A</tspan> + t * ( x<tspan baseline-shift="sub" font-size="8">B</tspan> - x<tspan baseline-shift="sub" font-size="8">A</tspan> ) with t from 0 to 1</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y = y<tspan baseline-shift="sub" font-size="8">A</tspan> + t * ( y<tspan baseline-shift="sub" font-size="8">B</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan> )</tspan>
+<tspan x="20" dy="1.5em">For segment CD :</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x = x<tspan baseline-shift="sub" font-size="8">C</tspan> + k * ( x<tspan baseline-shift="sub" font-size="8">D</tspan> - x<tspan baseline-shift="sub" font-size="8">C</tspan> ) with k from 0 to 1</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y = y<tspan baseline-shift="sub" font-size="8">C</tspan> + k * ( y<tspan baseline-shift="sub" font-size="8">D</tspan> - y<tspan baseline-shift="sub" font-size="8">C</tspan> )</tspan>
+<tspan x="20" dy="1.5em">We solve linear system :</tspan>
+<tspan x="20" dy="1.5em">t * ( x<tspan baseline-shift="sub" font-size="8">B</tspan> - x<tspan baseline-shift="sub" font-size="8">A</tspan> ) - k * ( x<tspan baseline-shift="sub" font-size="8">D</tspan> - x<tspan baseline-shift="sub" font-size="8">C</tspan> ) = x<tspan baseline-shift="sub" font-size="8">C</tspan> - x<tspan baseline-shift="sub" font-size="8">A</tspan></tspan>
+<tspan x="20" dy="1.5em">t * ( y<tspan baseline-shift="sub" font-size="8">B</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan> ) - k * ( y<tspan baseline-shift="sub" font-size="8">D</tspan> - y<tspan baseline-shift="sub" font-size="8">C</tspan> ) = y<tspan baseline-shift="sub" font-size="8">C</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan></tspan>
+<tspan x="20" dy="2.5em">We calculate determinant</tspan>
+<tspan x="20" dy="1.5em" fill="blue">det = - ( x<tspan baseline-shift="sub" font-size="8">B</tspan> - x<tspan baseline-shift="sub" font-size="8">A</tspan> ) * ( y<tspan baseline-shift="sub" font-size="8">D</tspan> - y<tspan baseline-shift="sub" font-size="8">C</tspan> ) + ( y<tspan baseline-shift="sub" font-size="8">B</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan> ) * ( x<tspan baseline-shift="sub" font-size="8">D</tspan> - x<tspan baseline-shift="sub" font-size="8">C</tspan> )</tspan>
+<tspan x="20" dy="2.5em">We have intersections if det is not equal to 0</tspan>
+<tspan x="20" dy="1.5em" fill="blue">t = ( - ( x<tspan baseline-shift="sub" font-size="8">C</tspan> - x<tspan baseline-shift="sub" font-size="8">A</tspan> ) * ( y<tspan baseline-shift="sub" font-size="8">D</tspan> - y<tspan baseline-shift="sub" font-size="8">C</tspan> ) + ( y<tspan baseline-shift="sub" font-size="8">C</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan> ) * ( x<tspan baseline-shift="sub" font-size="8">D</tspan> - x<tspan baseline-shift="sub" font-size="8">C</tspan> ) ) / det</tspan>
+<tspan x="20" dy="1.5em" fill="blue">k = ( ( x<tspan baseline-shift="sub" font-size="8">B</tspan> - x<tspan baseline-shift="sub" font-size="8">A</tspan> ) * ( y<tspan baseline-shift="sub" font-size="8">C</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan> ) - ( y<tspan baseline-shift="sub" font-size="8">B</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan> ) * ( x<tspan baseline-shift="sub" font-size="8">C</tspan> - x<tspan baseline-shift="sub" font-size="8">A</tspan> ) ) / det</tspan>
+<tspan x="20" dy="2.5em">We must verify that solutions for k and t are between 0 and 1</tspan>
+<tspan x="20" dy="1.5em" fill="blue">If ( ( t &gt;= 0 ) &amp;&amp; ( t &lt;= 1 ) &amp;&amp;( k &gt;= 0 ) &amp;&amp; ( k &lt;= 1 ) )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="sub" font-size="8">E</tspan> = x<tspan baseline-shift="sub" font-size="8">A</tspan> + t * ( x<tspan baseline-shift="sub" font-size="8">B</tspan> - x<tspan baseline-shift="sub" font-size="8">A</tspan> )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">y<tspan baseline-shift="sub" font-size="8">E</tspan> = y<tspan baseline-shift="sub" font-size="8">A</tspan> + t * ( y<tspan baseline-shift="sub" font-size="8">B</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan> )</tspan>
+
+</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg width="700" height="500" viewBox="0 0 700 500">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<marker id="Marker01" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="10" markerHeight="6" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z"/>
+</marker>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" markerUnits="strokeWidth" markerWidth="20" markerHeight="12" orient="auto" preserveAspectRatio="xMidYMid meet">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker><g id="system">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="25" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="-25" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+</defs>
+<rect width="700" height="500" fill="url(#Pat01)"/>
+<text id="a" style="text-anchor:middle;font-size:14;fill:blue" x="532" y="125" dx="-14" dy="-5" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:14;fill:blue" x="493" y="225" dx="14" dy="-5" startOffset="0">B</text>
+<text id="c" style="text-anchor:middle;font-size:14;fill:blue" x="307" y="173" dx="-14" dy="-5" startOffset="0">C</text>
+<text id="d" style="text-anchor:middle;font-size:14;fill:blue" x="417.11" y="137.798" dx="14" dy="-5" startOffset="0">w</text>
+<circle id="p4" cx="417.11" cy="137.798" r="4" fill="blue"/>
+<circle id="circ" cx="417.11" cy="137.798" r="115.6" fill="yellow" stroke="green" fill-opacity="0.2"/>
+<circle id="p1" cx="532" cy="125" r="4" fill="red"/>
+<circle id="p2" cx="493" cy="225" r="4" fill="red"/>
+<circle id="p3" cx="307" cy="173" r="4" fill="red"/>
+<text x="20" y="20" font-size="14" startOffset="0">Circle :
+<tspan x="20" dy="1.5em">Radius is <tspan id="r">4.624</tspan></tspan>
+<tspan x="20" dy="1.5em">Area is <tspan id="area">67.172</tspan></tspan>
+<tspan x="20" dy="1.5em">Perimeter is <tspan id="perimeter">29.054</tspan></tspan>
+</text>
+<text x="20" y="260" font-size="15" fill="black">Area of circle with radius = R
+<tspan x="20" dy="2em">Pi is ratio between circle's area and square with R as side</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Area circle = Pi * R<tspan baseline-shift="super" font-size="9">2</tspan></tspan>
+<tspan x="20" dy="2em">Pi is also ratio between circle's perimeter and diameter</tspan>
+<tspan x="20" dy="1.5em" fill="blue">Perimeter circle = 2 * Pi * R</tspan>
+
+</text>
+</svg>

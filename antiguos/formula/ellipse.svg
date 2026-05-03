@@ -1,0 +1,45 @@
+<svg width="700" height="600">
+<rect x="0" y="0" width="700" height="600" style="fill:white"/> 
+<circle cx="580" cy="120" r="100" style="stroke:green; fill:none"/>
+<circle cx="580" cy="120" r="3" style="stroke:red; fill:red"/>
+<text x="580" y="120" dx="5">C</text>
+<path d="M460 120h240" fill="none" stroke="red"/>
+<path d="M630 10v220" fill="none" stroke="green" stroke-dasharray="4 4"/>
+<ellipse cx="580" cy="120" rx="100" ry="70" style="stroke:blue; fill:none"/>
+<circle cx="630" cy="33" r="3" style="fill:green"/>
+<circle cx="630" cy="60" r="3" style="fill:red"/>
+<text x="630" y="33" dx="5">M</text>
+<text x="630" y="60" dx="5">M'</text>
+
+
+<text x="20" y="20" font-size="14" fill="black">Circle defined by center C and radius R
+<tspan x="20" dy="1.2em">If M is on circle, length CM = length CA</tspan>
+<tspan x="20" dy="1.2em">(x - x<tspan baseline-shift="sub" font-size="8">C</tspan>)<tspan baseline-shift="super" font-size="8">2</tspan> + (y - y<tspan baseline-shift="sub" font-size="8">C</tspan>)<tspan baseline-shift="super" font-size="8">2</tspan> = (x<tspan baseline-shift="sub" font-size="8">A</tspan> - x<tspan baseline-shift="sub" font-size="8">C</tspan>)<tspan baseline-shift="super" font-size="8">2</tspan> + (y<tspan baseline-shift="sub" font-size="8">A</tspan> - y<tspan baseline-shift="sub" font-size="8">C</tspan>)<tspan baseline-shift="super" font-size="8">2</tspan> = R<tspan baseline-shift="super" font-size="8">2</tspan></tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="super" font-size="8">2</tspan> + y<tspan baseline-shift="super" font-size="8">2</tspan> - 2 * x<tspan baseline-shift="sub" font-size="8">C</tspan> * x - 2 * y<tspan baseline-shift="sub" font-size="8">C</tspan> - x<tspan baseline-shift="sub"  font-size="8">A</tspan><tspan baseline-shift="super" font-size="8">2</tspan> - y<tspan baseline-shift="sub" font-size="8">A</tspan><tspan baseline-shift="super" font-size="8">2</tspan> + 2 * x<tspan baseline-shift="sub" font-size="8">A</tspan> * x<tspan baseline-shift="sub" font-size="8">C</tspan> + 2 * y<tspan baseline-shift="sub" font-size="8">A</tspan> * y<tspan baseline-shift="sub" font-size="8">C</tspan> = 0</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="super" font-size="8">2</tspan> + y<tspan baseline-shift="super" font-size="8">2</tspan> - 2 * x<tspan baseline-shift="sub" font-size="8">C</tspan> * x - 2 * y<tspan baseline-shift="sub" font-size="8">C</tspan> + x<tspan baseline-shift="sub"  font-size="8">C</tspan><tspan baseline-shift="super" font-size="8">2</tspan> + y<tspan baseline-shift="sub" font-size="8">C</tspan><tspan baseline-shift="super" font-size="8">2</tspan> - R<tspan baseline-shift="super" font-size="8">2</tspan> = 0</tspan>
+<tspan x="20" dy="1.2em">We can also get parametric equation :</tspan>
+<tspan x="20" dy="1.2em" fill="blue">x = x<tspan baseline-shift="sub" font-size="8">C</tspan> + R * cos ( t ) and y = y<tspan baseline-shift="sub" font-size="8">C</tspan> + R * sin ( t ) with t from 0 to 2 * PI</tspan>
+
+<tspan x="20" dy="3.2em">Ellipse is defined using affinity, M on circle give M' on ellipse</tspan>
+<tspan x="20" dy="1.2em">Ratio define semi-axis for ellipse, if ratio is k, they are R and R * k</tspan>
+<tspan x="20" dy="1.2em">We have x<tspan baseline-shift="sub" font-size="8">M'</tspan> = x<tspan baseline-shift="sub" font-size="8">M</tspan> and y<tspan baseline-shift="sub" font-size="8">M'</tspan> = k * y<tspan baseline-shift="sub" font-size="8">M</tspan></tspan>
+<tspan x="20" dy="1.2em">We replace y by y / k in circle's equation :</tspan>
+<tspan x="20" dy="1.2em" fill="blue">(x - x<tspan baseline-shift="sub" font-size="8">C</tspan>)<tspan baseline-shift="super" font-size="8">2</tspan> + (y / k - y<tspan baseline-shift="sub" font-size="8">C</tspan>)<tspan baseline-shift="super" font-size="8">2</tspan> = R<tspan baseline-shift="super" font-size="8">2</tspan></tspan>
+
+
+<tspan x="20" dy="1.2em">If ellipse has origin as center, using semi-axis a ( R ) and b ( k * R ), equation is :</tspan>
+<tspan x="20" dy="1.2em" fill="blue">x<tspan baseline-shift="super" font-size="8">2</tspan> / a<tspan baseline-shift="super" font-size="8">2</tspan> + y<tspan baseline-shift="super" font-size="8">2</tspan> / b<tspan baseline-shift="super" font-size="8">2</tspan> = 1</tspan>
+<tspan x="20" dy="1.2em">We can also get parametric equation :</tspan>
+<tspan x="20" dy="1.2em" fill="blue">x = x<tspan baseline-shift="sub" font-size="8">C</tspan> + a * cos ( t ) and y = y<tspan baseline-shift="sub" font-size="8">C</tspan> + b * sin ( t ) with t from 0 to 2 * PI</tspan>
+
+
+
+<tspan x="20" dy="3.2em">If we know conic's equation as a * x<tspan baseline-shift="super" font-size="8">2</tspan> + b * x * y + c * y<tspan baseline-shift="super" font-size="8">2</tspan> + .............. = 0 </tspan>
+<tspan x="20" dy="1.2em">If b = 0 and  a = c, this curve is a circle</tspan>
+<tspan x="20" dy="1.2em">if b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c &lt; 0, conic is ellipse</tspan>
+<tspan x="20" dy="1.2em">if b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c = 0, conic is parabola</tspan>
+<tspan x="20" dy="1.2em">if b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c &gt; 0, conic is hyperbola</tspan>
+
+
+</text>
+</svg>

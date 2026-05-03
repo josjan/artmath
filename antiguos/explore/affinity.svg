@@ -1,0 +1,35 @@
+<svg width="600" height="600">
+<g onmousedown="aff_cliquer(evt)" onmousemove="aff_bouger(evt)" onmouseup="appui=false">
+<rect x="0" y="0" width="600" height="600" style="fill:#E0E0E0"/> 
+<text x="300" y="20">Matrix : </text>
+<g text-anchor="middle">
+<text id="matrix_a" x="380" y="20"> : </text>
+<text id="matrix_c" x="450" y="20"> : </text>
+<text id="matrix_e" x="520" y="20"> : </text>
+<text id="matrix_b" x="380" y="50"> : </text>
+<text id="matrix_d" x="450" y="50"> : </text>
+<text id="matrix_f" x="520" y="50"> : </text>
+</g>
+<rect x="440" y="0" width="160" height="25" style="fill:white;fill-opacity:0"/>  
+<path id="objet" d="M 150 250 350 280 450 150 200 200 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 150 350 350 320 450 450 200 400 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<path id="axe" d="M 10 300 590 300" style="stroke:blue;fill-opacity:0.3; fill:blue"/>
+<path id="direc" d="M 50 10 50 590" style="stroke:green;fill-opacity:0.3; fill:green"/>
+<rect id="rapp" x="10" y="10" width="10" height="200" style="stroke:red; fill:yellow"/>
+<rect id="rapp" x="11" y="106" width="8" height="8" style="stroke:blue; fill:blue"/>
+<rect id="R" x="11" y="156" width="8" height="8" style="stroke:red; fill:red"/>
+<circle id="A" cx="10" cy="300" r="3" style="stroke:red; fill:red"/>
+<circle id="B" cx="590" cy="300" r="3" style="stroke:red; fill:red"/>
+<circle id="H" cx="50" cy="10" r="3" style="stroke:red; fill:red"/>
+<circle id="K" cx="50" cy="590" r="3" style="stroke:red; fill:red"/>
+<circle id="C" cx="150" cy="250" r="3" style="stroke:red; fill:red"/>
+<circle id="D" cx="350" cy="280" r="3" style="stroke:red; fill:red"/>
+<circle id="E" cx="450" cy="150" r="3" style="stroke:red; fill:red"/>
+<circle id="F" cx="200" cy="200" r="3" style="stroke:red; fill:red"/>
+<circle id="C1" cx="150" cy="350" r="3" style="stroke:blue; fill:blue"/>
+<circle id="D1" cx="350" cy="320" r="3" style="stroke:blue; fill:blue"/>
+<circle id="E1" cx="450" cy="450" r="3" style="stroke:blue; fill:blue"/>
+<circle id="F1" cx="200" cy="400" r="3" style="stroke:blue; fill:blue"/>  
+</g>
+</svg>
+

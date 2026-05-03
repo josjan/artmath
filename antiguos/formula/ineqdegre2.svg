@@ -1,0 +1,60 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid meet">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<clipPath id="cache">
+<rect x="325" y="125" width="351" height="451"/>
+</clipPath>
+<text id="infini" font-size="15" startOffset="0">&#x221E;</text>
+</defs>
+<rect width="700" height="600" fill="white"/>
+<rect x="325" y="125" width="351" height="451" fill="url(#Pat01)"/>
+<line x1="325" y1="350" x2="675" y2="350" style="stroke:green;stroke-width:2"/> 
+<path id="parabole" clip-path="url(#cache)" d="M670.159760784936,575Q529.5276606714991,-260.412313610718 388.8955605580623,575" style="stroke:blue;stroke-width:2;fill:none"/> 
+<text id="a" style="text-anchor:middle;font-size:15;fill:blue" x="614" y="308" dx="-20" dy="-5" startOffset="0">A</text>
+<text id="b" style="text-anchor:middle;font-size:15;fill:blue" x="428" y="375" dx="-20" dy="-5" startOffset="0">B</text>
+<text id="c" style="text-anchor:middle;font-size:15;fill:blue" x="505" y="170" dx="-20" dy="-5" startOffset="0">C</text>
+<text x="400" y="20" font-size="15" startOffset="0">Equation : <tspan id="u1">-0.53</tspan> * x<tspan baseline-shift="super" font-size="9">2</tspan> <tspan id="v1"> + 7.58</tspan> * x <tspan id="w1">-19.52</tspan> &gt; 0</text>
+<text x="400" y="40" font-size="15" startOffset="0">Discriminant : <tspan id="det" fill="blue">16.28</tspan></text>
+<text x="400" y="60" font-size="15" startOffset="0">Solution for x : <tspan id="sol1" fill="blue">] 3.36 , </tspan><tspan id="sol2" fill="blue">11 [</tspan><tspan id="sol3" fill="blue"> </tspan></text>
+<circle id="p4" cx="625.048" cy="350" r="4" fill="blue"/>
+<circle id="p5" cx="434.007" cy="350" r="4" fill="blue"/>
+<text id="m" style="text-anchor:middle;font-size:15;fill:blue" x="625.048" y="350" dx="-20" dy="-5" startOffset="0">M</text>
+<text id="n" style="text-anchor:middle;font-size:15;fill:blue" x="434.007" y="350" dx="-20" dy="-5" startOffset="0">N</text>
+<path id="sol_show" d="M434.00710964285406 350L625.0482117001443 350" style="stroke:blue;stroke-width:5;fill:none"/> 
+<rect x="325" y="125" width="351" height="451" fill="yellow" fill-opacity="0.1"/>
+<circle id="p1" cx="614" cy="308" r="4" fill="red"/>
+<circle id="p2" cx="428" cy="375" r="4" fill="red"/>
+<circle id="p3" cx="505" cy="170" r="4" fill="red"/>
+<text x="20" y="20" font-size="14" fill="black">Solve a * x<tspan baseline-shift="super" font-size="8">2</tspan> + b * x + c &gt; 0
+<tspan x="20" dy="1.5em">We suppose that a is not equal to 0</tspan>
+<tspan x="20" dy="1.5em">We solve equation</tspan>
+<tspan x="20" dy="1.5em">All depend of sign of b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c</tspan>
+<tspan x="20" dy="1.5em">If b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c &gt; 0, we have two solutions</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="sub" font-size="8">1</tspan> = ( - b - . b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c ) / ( 2 * a )</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="sub" font-size="8">2</tspan> = ( - b + . b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c ) / ( 2 * a )</tspan>
+<tspan x="20" dy="1.5em">If a is positive</tspan>
+<tspan x="20" dy="1.5em">polynom is also positive for</tspan>
+<tspan x="20" dy="1.5em">x &lt; x<tspan baseline-shift="sub" font-size="8">1</tspan> or x &gt; x<tspan baseline-shift="sub" font-size="8">2</tspan></tspan>
+<tspan x="20" dy="1.5em">On example a is negative</tspan>
+<tspan x="20" dy="1.5em">polynom is positive for</tspan>
+<tspan x="20" dy="1.5em">x between x<tspan baseline-shift="sub" font-size="8">1</tspan> and x<tspan baseline-shift="sub" font-size="8">2</tspan></tspan>
+<tspan x="20" dy="1.5em">If b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c is equal to 0</tspan>
+<tspan x="20" dy="1.5em">we have only a solution</tspan>
+<tspan x="20" dy="1.5em" fill="blue">x<tspan baseline-shift="sub" font-size="8">12</tspan> = - b / ( 2 * a )</tspan>
+<tspan x="20" dy="1.5em">If a is positive</tspan>
+<tspan x="20" dy="1.5em">polynom is always positive ( 0 for x = - b / ( 2 * a ) )</tspan>
+<tspan x="20" dy="1.5em">If a is negative</tspan>
+<tspan x="20" dy="1.5em">polynom is always negative ( 0 for x = - b / ( 2 * a ) )</tspan>
+<tspan x="20" dy="1.5em">If b<tspan baseline-shift="super" font-size="8">2</tspan> - 4 * a * c &lt; 0</tspan>
+<tspan x="20" dy="1.5em" fill="blue">No real value for x is solution</tspan>
+<tspan x="20" dy="1.5em">If a is positive</tspan>
+<tspan x="20" dy="1.5em">polynom is always positive</tspan>
+<tspan x="20" dy="1.5em">If a is negative</tspan>
+<tspan x="20" dy="1.5em">polynom is always negative</tspan>
+
+
+</text>
+<path d="M82 110l5 15 5 -15h80" fill="none" stroke="blue"/>
+<path d="M85 130l5 15 5 -15h80" fill="none" stroke="blue"/></svg>

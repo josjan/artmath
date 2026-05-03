@@ -1,0 +1,42 @@
+<svg width="600" height="600">
+<rect x="0" y="0" width="600" height="600" style="fill:white"/> 
+<text x="50" y="20" startOffset="0">Matrix : </text>
+<g text-anchor="middle" transform="translate(-250,0)">
+<text id="matrix_a" x="380" y="20" startOffset="0">-1</text>
+<text id="matrix_c" x="450" y="20" startOffset="0">0</text>
+<text id="matrix_e" x="520" y="20" startOffset="0">614</text>
+<text id="matrix_b" x="380" y="50" startOffset="0">0</text>
+<text id="matrix_d" x="450" y="50" startOffset="0">-1</text>
+<text id="matrix_f" x="520" y="50" startOffset="0">348</text>
+</g><path id="objet" d="M 349 208 451 261 530 158 400 100 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 265 140 163 87 84 190 214 248 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<circle id="A" cx="307" cy="174" r="3" style="stroke:red; fill:red"/>
+<circle id="C" cx="349" cy="208" r="3" style="stroke:red; fill:red"/>
+<circle id="D" cx="451" cy="261" r="3" style="stroke:red; fill:red"/>
+<circle id="E" cx="530" cy="158" r="3" style="stroke:red; fill:red"/>
+<circle id="F" cx="400" cy="100" r="3" style="stroke:red; fill:red"/>
+<circle id="C1" cx="265" cy="140" r="3" style="stroke:blue; fill:blue"/>
+<circle id="D1" cx="163" cy="87" r="3" style="stroke:blue; fill:blue"/>
+<circle id="E1" cx="84" cy="190" r="3" style="stroke:blue; fill:blue"/>
+<circle id="F1" cx="214" cy="248" r="3" style="stroke:blue; fill:blue"/>  
+<path d="M349 208L265 140" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M451 261L163 87" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M530 158L84 190" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M400 100L214 248" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<text x="20" y="250" font-size="15" fill="blue">Symetry :
+<tspan x="20" dy="2em" fill="black">Center is in x<tspan baseline-shift="sub">c</tspan> , y<tspan baseline-shift="sub">c</tspan></tspan>
+<tspan x="20" dy="2em" fill="black">Point M in x<tspan baseline-shift="sub">m</tspan> , y<tspan baseline-shift="sub">m</tspan> give point M' in x<tspan baseline-shift="sub">m'</tspan> , y<tspan baseline-shift="sub">m'</tspan></tspan>
+<tspan x="20" dy="2em">x<tspan baseline-shift="sub">m'</tspan> =  - x<tspan baseline-shift="sub">m</tspan> + 2 * x<tspan baseline-shift="sub">c</tspan></tspan>
+<tspan x="20" dy="2em">y<tspan baseline-shift="sub">m'</tspan> =  - y<tspan baseline-shift="sub">m</tspan> + 2 * y<tspan baseline-shift="sub">c</tspan></tspan>
+<tspan x="20" dy="2em" fill="black">Matrix for symetry is : </tspan>
+<tspan x="90" dy="2em">- 1</tspan>
+<tspan x="220">0</tspan>
+<tspan x="330">2 * x<tspan baseline-shift="sub">c</tspan></tspan>
+<tspan x="100" dy="2em">0</tspan>
+<tspan x="210">- 1</tspan>
+<tspan x="330">2 * y<tspan baseline-shift="sub">c</tspan></tspan>
+<tspan x="100" dy="2em">0</tspan>
+<tspan x="220">0</tspan>
+<tspan x="345">1</tspan>
+</text>
+</svg>

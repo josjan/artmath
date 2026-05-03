@@ -1,0 +1,56 @@
+<svg width="700" height="600" viewBox="0 0 700 600">
+<defs>
+<pattern id="Pat01" width="25" height="25" patternUnits="userSpaceOnUse">
+	<rect width="25" height="25" fill="white" stroke="#000000" stroke-width="0.1"/>
+</pattern>
+<marker id="Marker01" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" />
+</marker>
+<marker id="green" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="green"/>
+</marker>
+<marker id="blue" viewBox="-15 -5 20 20" refX="0" refY="0" 
+            	markerUnits="strokeWidth" markerWidth="10" markerHeight="6" 
+	        orient="auto">
+    		    <path d="M -15 -5 L 0 0 L -15 5 z" fill="blue"/>
+</marker>
+<g id="system">
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="25" y2="0" style="stroke:black;stroke-width:2"/> 
+    <line marker-end="url(#Marker01)" x1="0" y1="0" x2="0" y2="-25" style="stroke:black;stroke-width:2"/> 
+    <circle cx="0" cy="0" r="3" stroke="black"/>
+</g>
+</defs>
+<rect width="700" height="600" fill="url(#Pat01)"/>
+<text x="20" y="20" font-size="15">Use trapezes to calculate polygon's area</text>
+<text x="20" y="40" font-size="15">From horizontal line we draw trapezes with polygon's sides</text>
+<text x="20" y="60" font-size="15">If side is clockwise, you fill with red, with yellow for other case</text>
+<text x="20" y="80" font-size="15">We use vector to calculate area of trapezes, positive number for yellow, negative for red</text>
+<text x="20" y="100" font-size="15">We sum all areas, remain only red area, the polygon.</text>
+<text x="20" y="120" font-size="15">Orange area is twice in sum, one with positive value and one with negative.</text>
+<g id="triangles" fill-opacity="0.2" stroke="black" stroke-width="0.5">
+<path id="t1" d="M100 350L100,250 125,175 125,350z" fill="red"/>
+<path id="t2" d="M125 350L125,175 200,150 200,350z" fill="red"/>
+<path id="t3" d="M200 350L200,150 275,150 275,350z" fill="red"/>
+<path id="t4" d="M275 350L275,150 325,225 325,350z" fill="red"/>
+<path id="t5" d="M325 350L325,225 275,300 275,350z" fill="yellow"/>
+<path id="t6" d="M275 350L275,300 250,225 250,350z" fill="yellow"/>
+<path id="t7" d="M250 350L250,225 150,275 150,350z" fill="yellow"/>
+<path id="t8" d="M150 350L150,275 100,250 100,350z" fill="yellow"/>
+<path transform="translate(300,0)" d="M100 250 L125 175 200 150 275 150 325 225 275 300 250 225 150 275z" fill="red" stroke="green"/>
+</g>
+<text x="100" y="350" dy="15">M<tspan baseline-shift="sub" font-size="9">1</tspan></text>
+<text x="125" y="350" dy="15">M<tspan baseline-shift="sub" font-size="9">2</tspan></text>
+<text x="100" y="250" dx="-15">P<tspan baseline-shift="sub" font-size="9">1</tspan></text>
+<text x="125" y="175" dx="-15" dy="-5">P<tspan baseline-shift="sub" font-size="9">2</tspan></text>
+<path d="M100 250 L125 175 200 150 275 150 325 225 275 300 250 225 150 275z" fill="none" stroke="green"/>
+<text x="20" y="400" font-size="15">We begin with trapeze M<tspan baseline-shift="sub" font-size="9">1</tspan> P<tspan baseline-shift="sub" font-size="9">1</tspan> P<tspan baseline-shift="sub" font-size="9">2</tspan> M<tspan baseline-shift="sub" font-size="9">2</tspan></text>
+<text x="20" y="420" font-size="15">Trapezes area are <tspan id="aires"> </tspan></text>
+<text x="20" y="440" font-size="15">Polygon's area is <tspan id="poly"> </tspan></text>
+<text x="20" y="500" font-size="15">You can see animation showing trapezes</text>
+<rect onclick="trapezeArea_svg_area()" x="15" y="485" width="280" height="20" fill="red" fill-opacity="0.2"/>
+<text x="20" y="540" font-size="15">This method give false result if polygon is crossed with holes.</text>
+</svg>

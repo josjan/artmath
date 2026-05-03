@@ -1,0 +1,45 @@
+<svg width="600" height="600">
+<rect x="0" y="0" width="600" height="600" style="fill:white"/> 
+<text x="450" y="20" startOffset="0">Scale : <tspan id="rapp_val">- 0.51</tspan></text>
+<text x="20" y="20" startOffset="0">Matrix : </text>
+<g text-anchor="middle" transform="translate(-300,0)">
+<text id="matrix_a" x="380" y="20" startOffset="0">- 0.51</text>
+<text id="matrix_c" x="450" y="20" startOffset="0">0</text>
+<text id="matrix_e" x="520" y="20" startOffset="0">464.05</text>
+<text id="matrix_b" x="380" y="50" startOffset="0">0</text>
+<text id="matrix_d" x="450" y="50" startOffset="0">- 0.51</text>
+<text id="matrix_f" x="520" y="50" startOffset="0">226</text>
+</g>
+<rect x="440" y="0" width="160" height="50" style="fill:white;fill-opacity:0"/>  
+<path id="objet" d="M 351 221 455 271 553 226 359 59 z" style="stroke:blue;fill-opacity:0.3; fill:aqua"/>
+<path id="image" d="M 286 114 234 89 184 111 282 196 z" style="stroke:red;fill-opacity:0.3; fill:maroon"/>
+<circle id="C" cx="351" cy="221" r="3" style="stroke:red; fill:red"/>
+<circle id="D" cx="455" cy="271" r="3" style="stroke:red; fill:red"/>
+<circle id="E" cx="553" cy="226" r="3" style="stroke:red; fill:red"/>
+<circle id="F" cx="359" cy="59" r="3" style="stroke:red; fill:red"/>
+<circle id="C1" cx="286" cy="114" r="3" style="stroke:blue; fill:blue"/>
+<circle id="D1" cx="234" cy="89" r="3" style="stroke:blue; fill:blue"/>
+<circle id="E1" cx="184" cy="111" r="3" style="stroke:blue; fill:blue"/>
+<circle id="F1" cx="282" cy="196" r="3" style="stroke:blue; fill:blue"/>  
+<path d="M351 221L286 114" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M455 271L234 89" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M553 226L184 111" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<path d="M359 59L282 196" style="stroke-dasharray:3 3;stroke:green;stroke-width:1;fill:none"/>
+<circle id="A" cx="308" cy="150" r="3" style="stroke:red; fill:red"/>
+<text x="20" y="250" font-size="15" fill="blue">Uniform scale on shape
+<tspan x="20" dy="2em" fill="black">Center is in x<tspan baseline-shift="sub">c</tspan> , y<tspan baseline-shift="sub">c</tspan> - Ratio is k</tspan>
+<tspan x="20" dy="2em" fill="black">Point M in x<tspan baseline-shift="sub">m</tspan> , y<tspan baseline-shift="sub">m</tspan> give point M' in x<tspan baseline-shift="sub">m'</tspan> , y<tspan baseline-shift="sub">m'</tspan></tspan>
+<tspan x="20" dy="2em">x<tspan baseline-shift="sub">m'</tspan> =  x<tspan baseline-shift="sub">m</tspan> * k + x<tspan baseline-shift="sub">c</tspan> * ( 1 - k )</tspan>
+<tspan x="20" dy="2em">y<tspan baseline-shift="sub">m'</tspan> =  y<tspan baseline-shift="sub">m</tspan> * k + y<tspan baseline-shift="sub">c</tspan> * ( 1 - k )</tspan>
+<tspan x="20" dy="2em" fill="black">Matrix for uniform scale is : </tspan>
+<tspan x="100" dy="2em">k</tspan>
+<tspan x="200">0 </tspan>
+<tspan x="300">x<tspan baseline-shift="sub">c</tspan> * ( 1 - k )</tspan>
+<tspan x="100" dy="2em">0</tspan>
+<tspan x="200">k</tspan>
+<tspan x="300">y<tspan baseline-shift="sub">c</tspan> * ( 1 - k )</tspan>
+<tspan x="100" dy="2em">0</tspan>
+<tspan x="200">0</tspan>
+<tspan x="340">1</tspan>
+</text>
+</svg>
