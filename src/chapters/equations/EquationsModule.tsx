@@ -1,10 +1,10 @@
 // EquationsModule.tsx — Equations chapter: interactive equations + tabs + derivation
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Icon } from '../../components/Icon';
 import { EQUATION_ITEMS, STRINGS, type Lang } from '../../lib/data';
 import { ghostBtn, type Route } from '../../components/AppShell';
-import { Degree1EquationItem, CubicFigure, QuarticFigure, calculateCubicRoots, calculateQuarticRoots } from './EquationsItems';
+import { Degree1EquationItem, CubicFigure, QuarticFigure, calculateCubicRoots, calculateQuarticRoots } from './EquationsItems.tsx';
 import { System2Figure, System3Figure } from './SystemComponents';
 import { QuadraticInequalityFigure } from './InequalityComponents';
 
@@ -12,6 +12,45 @@ interface Props {
   lang: Lang;
   setRoute: (r: Route) => void;
 }
+
+// ── Derivation steps per degree ───────────────────────────────────
+const CUBIC_DERIV = {
+  es: [
+    'La forma general es ax³ + bx² + cx + d = 0, con a ≠ 0.',
+    'Se sustituye x = t − b/(3a) para eliminar el término cuadrático y obtener la cúbica deprimida t³ + pt + q = 0.',
+    'Se calculan los coeficientes: p = (3ac − b²) / 3a²  y  q = (2b³ − 9abc + 27a²d) / 27a³.',
+    'El discriminante Δ = −4p³ − 27q² indica las raíces: Δ > 0 → 3 reales; Δ = 0 → raíz doble; Δ < 0 → 1 real.',
+    'La fórmula de Cardano: t = ∛(−q/2 + √(q²/4 + p³/27)) + ∛(−q/2 − √(q²/4 + p³/27)).',
+    'Finalmente se recupera la variable original: x = t − b/(3a).',
+  ],
+  en: [
+    'The general form is ax³ + bx² + cx + d = 0, with a ≠ 0.',
+    'Substitute x = t − b/(3a) to eliminate the quadratic term and get the depressed cubic t³ + pt + q = 0.',
+    'Compute the coefficients: p = (3ac − b²) / 3a²  and  q = (2b³ − 9abc + 27a²d) / 27a³.',
+    'The discriminant Δ = −4p³ − 27q² tells the roots: Δ > 0 → 3 real; Δ = 0 → double root; Δ < 0 → 1 real.',
+    "Cardano's formula: t = ∛(−q/2 + √(q²/4 + p³/27)) + ∛(−q/2 − √(q²/4 + p³/27)).",
+    'Recover the original variable: x = t − b/(3a).',
+  ],
+};
+
+const QUARTIC_DERIV = {
+  es: [
+    'La forma general es ax⁴ + bx³ + cx² + dx + e = 0, con a ≠ 0.',
+    'Se divide entre a y se sustituye x = t − b/(4a) para eliminar el término cúbico.',
+    'Se obtiene la cuártica deprimida: t⁴ + pt² + qt + r = 0 (sin término en t³).',
+    'Se introduce un parámetro m y se construye la ecuación resolvente cúbica en m.',
+    'Con m conocido, la cuártica se factoriza en dos cuadráticas: (t² + m)² = (…)² .',
+    'Se resuelven las dos ecuaciones cuadráticas para obtener hasta 4 raíces reales.',
+  ],
+  en: [
+    'The general form is ax⁴ + bx³ + cx² + dx + e = 0, with a ≠ 0.',
+    'Divide by a and substitute x = t − b/(4a) to eliminate the cubic term.',
+    'This gives the depressed quartic: t⁴ + pt² + qt + r = 0 (no t³ term).',
+    'Introduce a parameter m and build the resolvent cubic equation in m.',
+    'With m known, the quartic factors into two quadratics: (t² + m)² = (…)².',
+    'Solve the two quadratic equations to obtain up to 4 real roots.',
+  ],
+};
 
 export const EquationsModule = ({ lang, setRoute }: Props) => {
   const C = STRINGS[lang].chapter;
@@ -111,7 +150,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
       </div>
 
       {/* Main grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr 280px', gap: 20, alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 20, alignItems: 'start' }}>
 
         {/* Item list */}
         <nav style={{
@@ -176,7 +215,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                 background: 'var(--surface)', border: '1px solid var(--hairline)',
                 borderRadius: 'var(--r-md)', boxShadow: 'var(--shadow-1)', overflow: 'hidden',
               }}>
-                {tab === 'explore' && <ParabolaFigure a={a} b={b} c={c} roots={roots} vx={vx} vy={vy} />}
+                {tab === 'explore' && <ParabolaFigure a={a} b={b} c={c} roots={roots} vx={vx} vy={vy} setB={setB} setC={setC} />}
                 {tab === 'formula' && (item === 'degree2' ? <EqFormulaPane lang={lang} /> : <CubicFormulaPane lang={lang} />)}
                 {tab === 'svg'     && (item === 'degree2' ? <EqSvgPane /> : <EqSvgPane />)}
               </div>
@@ -266,7 +305,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                 background: 'var(--surface)', border: '1px solid var(--hairline)',
                 borderRadius: 'var(--r-md)', boxShadow: 'var(--shadow-1)', overflow: 'hidden',
               }}>
-                {tab === 'explore' && <CubicFigure a={a} b={b} c={c} d={d} />}
+                {tab === 'explore' && <CubicFigure a={a} b={b} c={c} d={d} setD={setD} />}
                 {tab === 'formula' && <CubicFormulaPane lang={lang} />}
                 {tab === 'svg'     && <EqSvgPane />}
               </div>
@@ -289,7 +328,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                 </div>
               )}
 
-              {/* Derivation */}
+              {/* Derivation — cubic */}
               <div style={{
                 background: 'var(--surface)', border: '1px solid var(--hairline)',
                 borderRadius: 'var(--r-md)', padding: 18,
@@ -299,13 +338,13 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--fg-3)', fontSize: 12 }}>
                     <button onClick={() => setStep(Math.max(0, step - 1))} style={stepBtn}><Icon name="ChevronLeft" size={14}/></button>
                     <span style={{ fontFamily: 'var(--font-mono)' }}>
-                      {C.step} {step + 1} {C.of} {C.eqDerivation.length}
+                      {C.step} {step + 1} {C.of} {CUBIC_DERIV[lang].length}
                     </span>
-                    <button onClick={() => setStep(Math.min(C.eqDerivation.length - 1, step + 1))} style={stepBtn}><Icon name="ChevronRight" size={14}/></button>
+                    <button onClick={() => setStep(Math.min(CUBIC_DERIV[lang].length - 1, step + 1))} style={stepBtn}><Icon name="ChevronRight" size={14}/></button>
                   </div>
                 </div>
                 <ol style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {C.eqDerivation.map((s, i) => (
+                  {CUBIC_DERIV[lang].map((txt, i) => (
                     <li key={i} style={{
                       display: 'flex', gap: 12, padding: '8px 12px',
                       background: i === step ? 'var(--highlight-soft)' : 'transparent',
@@ -318,7 +357,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                       <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-4)', fontSize: 12 }}>
                         {String(i + 1).padStart(2, '0')}
                       </span>
-                      <span>{s}</span>
+                      <span>{txt}</span>
                     </li>
                   ))}
                 </ol>
@@ -357,7 +396,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                 background: 'var(--surface)', border: '1px solid var(--hairline)',
                 borderRadius: 'var(--r-md)', boxShadow: 'var(--shadow-1)', overflow: 'hidden',
               }}>
-                {tab === 'explore' && <QuarticFigure a={a} b={b} c={c} d={d} e={e} />}
+                {tab === 'explore' && <QuarticFigure a={a} b={b} c={c} d={d} e={e} setE={setE} />}
                 {tab === 'formula' && <QuarticFormulaPane lang={lang} />}
                 {tab === 'svg'     && (item === 'degree4' ? <QuarticSvgPane /> : <EqSvgPane />)}
               </div>
@@ -381,7 +420,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                 </div>
               )}
 
-              {/* Derivation */}
+              {/* Derivation — quartic */}
               <div style={{
                 background: 'var(--surface)', border: '1px solid var(--hairline)',
                 borderRadius: 'var(--r-md)', padding: 18,
@@ -391,13 +430,13 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--fg-3)', fontSize: 12 }}>
                     <button onClick={() => setStep(Math.max(0, step - 1))} style={stepBtn}><Icon name="ChevronLeft" size={14}/></button>
                     <span style={{ fontFamily: 'var(--font-mono)' }}>
-                      {C.step} {step + 1} {C.of} {C.eqDerivation.length}
+                      {C.step} {step + 1} {C.of} {QUARTIC_DERIV[lang].length}
                     </span>
-                    <button onClick={() => setStep(Math.min(C.eqDerivation.length - 1, step + 1))} style={stepBtn}><Icon name="ChevronRight" size={14}/></button>
+                    <button onClick={() => setStep(Math.min(QUARTIC_DERIV[lang].length - 1, step + 1))} style={stepBtn}><Icon name="ChevronRight" size={14}/></button>
                   </div>
                 </div>
                 <ol style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {C.eqDerivation.map((s, i) => (
+                  {QUARTIC_DERIV[lang].map((txt, i) => (
                     <li key={i} style={{
                       display: 'flex', gap: 12, padding: '8px 12px',
                       background: i === step ? 'var(--highlight-soft)' : 'transparent',
@@ -410,7 +449,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
                       <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-4)', fontSize: 12 }}>
                         {String(i + 1).padStart(2, '0')}
                       </span>
-                      <span>{s}</span>
+                      <span>{txt}</span>
                     </li>
                   ))}
                 </ol>
@@ -589,104 +628,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
           )}
         </div>
 
-        {/* Inspector */}
-        <aside style={{
-          background: 'var(--surface)', border: '1px solid var(--hairline)',
-          borderRadius: 'var(--r-md)', padding: 18, position: 'sticky', top: 76,
-        }}>
-          <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--fg-3)', marginBottom: 6 }}>
-            {C.inspector}
-          </div>
-
-          {/* Live equation */}
-          <div style={{
-            fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 16,
-            color: 'var(--fg-1)', padding: '10px 0', borderBottom: '1px solid var(--hairline)',
-          }}>
-            {item === 'degree4' ? (
-              <>
-                <span style={{ color: 'var(--accent)' }}>{fmt(a)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x⁴ + </span>
-                <span style={{ color: 'var(--formula)' }}>{fmt(b)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x³ + </span>
-                <span style={{ color: 'var(--construction)' }}>{fmt(c)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x² + </span>
-                <span style={{ color: 'var(--handle)' }}>{fmt(d)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x + </span>
-                <span style={{ color: 'var(--accent)' }}>{fmt(e)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}> = 0</span>
-              </>
-            ) : item === 'degree3' ? (
-              <>
-                <span style={{ color: 'var(--accent)' }}>{fmt(a)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x³ + </span>
-                <span style={{ color: 'var(--formula)' }}>{fmt(b)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x² + </span>
-                <span style={{ color: 'var(--construction)' }}>{fmt(c)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x + </span>
-                <span style={{ color: 'var(--handle)' }}>{fmt(d)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}> = 0</span>
-              </>
-            ) : (
-              <>
-                <span style={{ color: 'var(--accent)' }}>{fmt(a)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x² + </span>
-                <span style={{ color: 'var(--formula)' }}>{fmt(b)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}>x + </span>
-                <span style={{ color: 'var(--handle)' }}>{fmt(c)}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontStyle: 'normal' }}> = 0</span>
-              </>
-            )}
-          </div>
-
-          {/* Discriminant */}
-          {item === 'degree2' && (
-            <div style={{ marginTop: 12 }}>
-              <div style={{ fontSize: 10, color: 'var(--fg-4)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                {C.eqDiscriminant}
-              </div>
-              <div style={{ fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 16, color: discTone, marginTop: 2 }}>
-                Δ = {fmt(disc)}
-              </div>
-              <div style={{ fontSize: 12, color: discTone, marginTop: 2 }}>{discLabel}</div>
-            </div>
-          )}
-
-          {/* Roots */}
-          <div style={{ marginTop: 12 }}>
-            <div style={{ fontSize: 10, color: 'var(--fg-4)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
-              {C.eqRoots}
-            </div>
-            {roots.length === 0 && <div style={{ fontSize: 13, color: 'var(--fg-3)' }}>—</div>}
-            {roots.map((r, i) => (
-              <div key={i} style={{
-                display: 'flex', justifyContent: 'space-between',
-                fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 14,
-                padding: '3px 0', color: 'var(--fg-1)',
-              }}>
-                <span>x<sub style={{ fontSize: 10 }}>{i + 1}</sub></span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontStyle: 'normal', color: 'var(--accent)' }}>{fmt(r)}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Vertex */}
-          {item === 'degree2' && (
-            <div style={{ marginTop: 12 }}>
-              <div style={{ fontSize: 10, color: 'var(--fg-4)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                {C.eqVertex}
-              </div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--fg-2)', marginTop: 2 }}>
-                ({fmt(vx)}, {fmt(vy)})
-              </div>
-            </div>
-          )}
-
-          <button onClick={() => { setA(1); setB(-2); setC(-3); setD(2); setE(1); }}
-            style={{ ...ghostBtn, width: '100%', marginTop: 16, justifyContent: 'center' }}>
-            <Icon name="RotateCcw" size={13}/> {C.reset}
-          </button>
-        </aside>
+        {/* Inspector removed */}
       </div>
     </div>
   );
@@ -709,61 +651,82 @@ const CoefSlider = ({ name, value, setValue, min, max, step, accent }: {
 );
 
 // ── Parabola figure ───────────────────────────────────────────────
-const ParabolaFigure = ({ a, b, c, roots, vx, vy }: {
+const ParabolaFigure = ({ a, b, c, roots, vx, vy, setB, setC }: {
   a: number; b: number; c: number;
   roots: number[]; vx: number; vy: number;
+  setB: (v: number) => void;
+  setC: (v: number) => void;
 }) => {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const isDragging = useRef(false);
+
   const W = 720, H = 460;
-  const ox = W / 2, oy = H / 2 + 60;
-  const sx = 40, sy = 20;
-  const toPx = (x: number, y: number) => ({ X: ox + x * sx, Y: oy - y * sy });
+  const ox = W / 2, oy = H / 2;
+  const scale = Math.min(W, H) / 20;
+  const toPx = (x: number, y: number) => ({ X: ox + x * scale, Y: oy - y * scale });
 
   const samples: string[] = [];
-  const xMin = -ox / sx, xMax = (W - ox) / sx;
-  for (let x = xMin; x <= xMax; x += 0.1) {
+  for (let x = -ox / scale; x <= (W - ox) / scale; x += 0.1) {
     const y = a * x * x + b * x + c;
     const p = toPx(x, y);
     if (p.Y >= -100 && p.Y <= H + 100)
       samples.push(`${samples.length === 0 ? 'M' : 'L'}${p.X.toFixed(1)} ${p.Y.toFixed(1)}`);
   }
 
+  const onVertexDown = (e: React.PointerEvent) => {
+    if (Math.abs(a) < 0.001) return;
+    e.preventDefault(); e.stopPropagation();
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+    isDragging.current = true;
+  };
+  const onPointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!isDragging.current || !svgRef.current || Math.abs(a) < 0.001) return;
+    const r  = svgRef.current.getBoundingClientRect();
+    const rawX = ((e.clientX - r.left) * (W / r.width) - ox) / scale;
+    const rawY = (oy - (e.clientY - r.top) * (H / r.height)) / scale;
+    const newVx = Math.round(rawX * 2) / 2;
+    const newVy = Math.round(rawY * 2) / 2;
+    setB(-2 * a * newVx);
+    setC(newVy - a * newVx * newVx);
+  };
+
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block', background: 'var(--surface)' }}>
+    <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`}
+      style={{ width: '100%', height: 'auto', display: 'block', touchAction: 'none', background: 'var(--surface)' }}
+      onPointerMove={onPointerMove}
+      onPointerUp={() => { isDragging.current = false; }}
+      onPointerLeave={() => { isDragging.current = false; }}>
       <defs>
-        <pattern id="eqgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+        <pattern id="para-grid" width="20" height="20" patternUnits="userSpaceOnUse">
           <rect width="20" height="20" fill="none" stroke="var(--diagram-grid)" strokeWidth="0.5"/>
         </pattern>
-        <pattern id="eqgridBold" width="100" height="100" patternUnits="userSpaceOnUse">
-          <rect width="100" height="100" fill="url(#eqgrid)" stroke="var(--diagram-grid-bold)" strokeWidth="0.8"/>
+        <pattern id="para-grid-bold" width="100" height="100" patternUnits="userSpaceOnUse">
+          <rect width="100" height="100" fill="url(#para-grid)" stroke="var(--diagram-grid-bold)" strokeWidth="0.8"/>
         </pattern>
       </defs>
-      <rect width={W} height={H} fill="url(#eqgridBold)"/>
+      <rect width={W} height={H} fill="url(#para-grid-bold)"/>
 
       <line x1={0} y1={oy} x2={W} y2={oy} stroke="var(--fg-2)" strokeWidth={1.2}/>
       <line x1={ox} y1={0} x2={ox} y2={H} stroke="var(--fg-2)" strokeWidth={1.2}/>
       <text x={W - 14} y={oy - 8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)" textAnchor="end">x</text>
       <text x={ox + 8}  y={14}    fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">y</text>
 
+      {[-8, -6, -4, -2, 2, 4, 6, 8].map(t => (
+        <g key={t}>
+          <line x1={ox + t * scale} y1={oy - 4} x2={ox + t * scale} y2={oy + 4} stroke="var(--fg-3)" strokeWidth="0.8"/>
+          <text x={ox + t * scale} y={oy + 16} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="middle">{t}</text>
+        </g>
+      ))}
       {[-6, -4, -2, 2, 4, 6].map(t => (
         <g key={t}>
-          <line x1={ox + t * sx} y1={oy - 4} x2={ox + t * sx} y2={oy + 4} stroke="var(--fg-3)" strokeWidth="0.8"/>
-          <text x={ox + t * sx} y={oy + 16} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="middle">{t}</text>
+          <line x1={ox - 4} y1={oy - t * scale} x2={ox + 4} y2={oy - t * scale} stroke="var(--fg-3)" strokeWidth="0.8"/>
+          <text x={ox - 8} y={oy - t * scale + 3} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="end">{t}</text>
         </g>
       ))}
 
       <path d={samples.join(' ')} fill="none" stroke="var(--accent)" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round"/>
 
-      {Number.isFinite(vx) && Number.isFinite(vy) && (() => {
-        const v = toPx(vx, vy);
-        return (
-          <g>
-            <line x1={v.X} y1={v.Y} x2={v.X} y2={oy} stroke="var(--construction)" strokeWidth="1" strokeDasharray="3 3"/>
-            <circle cx={v.X} cy={v.Y} r="6" fill="var(--construction)" stroke="white" strokeWidth="2"/>
-            <text x={v.X + 10} y={v.Y - 8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="13" fill="var(--construction)">V</text>
-          </g>
-        );
-      })()}
-
+      {/* Root markers */}
       {roots.map((r, i) => {
         const p = toPx(r, 0);
         return (
@@ -777,6 +740,20 @@ const ParabolaFigure = ({ a, b, c, roots, vx, vy }: {
       })}
 
       <circle cx={ox} cy={oy} r="3" fill="var(--fg-1)"/>
+
+      {/* Vertex — draggable handle */}
+      {Number.isFinite(vx) && Number.isFinite(vy) && Math.abs(a) > 0.001 && (() => {
+        const v = toPx(vx, vy);
+        const inView = v.Y > 10 && v.Y < H - 10;
+        return inView ? (
+          <g style={{ cursor: 'grab' }} onPointerDown={onVertexDown}>
+            <line x1={v.X} y1={v.Y} x2={v.X} y2={oy} stroke="var(--construction)" strokeWidth="1" strokeDasharray="3 3"/>
+            <circle cx={v.X} cy={v.Y} r="14" fill="var(--construction)" fillOpacity="0.15"/>
+            <circle cx={v.X} cy={v.Y} r="6"  fill="var(--construction)" stroke="white" strokeWidth="2"/>
+            <text x={v.X + 16} y={v.Y - 6} fontFamily="var(--font-math)" fontStyle="italic" fontSize="13" fill="var(--construction)">V</text>
+          </g>
+        ) : null;
+      })()}
     </svg>
   );
 };
@@ -806,69 +783,141 @@ const EqFormulaPane = ({ lang }: { lang: Lang }) => {
   );
 };
 
-// ── Cubic Formula pane ──────────────────────────────────────────────────
+// ── Cubic Formula pane ───────────────────────────────────────────
 const CubicFormulaPane = ({ lang }: { lang: Lang }) => {
-  const C = STRINGS[lang].chapter;
+  const es = lang === 'es';
   return (
     <div style={{ padding: '32px 40px', minHeight: 460 }}>
-      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, marginBottom: 12 }}>{C.eqFormulaTitle}</h3>
-      <p style={{ color: 'var(--fg-2)', maxWidth: 560 }}>{C.eqFormulaBody}</p>
+      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, marginBottom: 12 }}>
+        {es ? 'Ecuación cúbica' : 'Cubic equation'}
+      </h3>
+      <p style={{ color: 'var(--fg-2)', maxWidth: 580, lineHeight: 1.6 }}>
+        {es
+          ? 'Una ecuación cúbica tiene la forma ax³ + bx² + cx + d = 0 y posee hasta 3 raíces reales. Para resolverla se reduce a una cúbica deprimida mediante la sustitución x = t − b/(3a).'
+          : 'A cubic equation has the form ax³ + bx² + cx + d = 0 and has up to 3 real roots. It is solved by reducing to a depressed cubic via the substitution x = t − b/(3a).'}
+      </p>
+
+      {/* General form */}
       <div style={{
-        marginTop: 24, padding: 28, background: 'var(--surface-2)',
+        marginTop: 24, padding: 20, background: 'var(--surface-2)',
         borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
-        textAlign: 'center', fontFamily: 'var(--font-math)', fontSize: 32,
+        textAlign: 'center', fontFamily: 'var(--font-math)', fontSize: 28,
       }}>
-        <i>x</i>³ + <i>b</i>x² + <i>c</i>x + <i>d</i> = 0
+        <i style={{ color: 'var(--accent)' }}>a</i><i>x</i>³ + <i style={{ color: 'var(--formula)' }}>b</i><i>x</i>² + <i style={{ color: 'var(--construction)' }}>c</i><i>x</i> + <i style={{ color: 'var(--handle)' }}>d</i> = 0
       </div>
-      <div style={{
-        marginTop: 16, padding: 18, background: 'var(--surface-2)',
-        borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
-        textAlign: 'center', fontFamily: 'var(--font-math)', fontSize: 20, color: 'var(--fg-2)',
-      }}>
-        <i>x</i> = (−<i>b</i> ± √(<i>b</i>² − 4<i>ac</i>)) / 2<i>a</i>
+
+      {/* Depressed cubic */}
+      <div style={{ marginTop: 16, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div style={{
+          padding: 18, background: 'var(--surface-2)',
+          borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--fg-3)', marginBottom: 10 }}>
+            {es ? 'Cúbica deprimida (t³ + pt + q = 0)' : 'Depressed cubic (t³ + pt + q = 0)'}
+          </div>
+          <div style={{ fontFamily: 'var(--font-math)', fontSize: 15, lineHeight: 2, color: 'var(--fg-2)' }}>
+            <div><i>p</i> = (3<i>ac</i> − <i>b</i>²) / 3<i>a</i>²</div>
+            <div><i>q</i> = (2<i>b</i>³ − 9<i>abc</i> + 27<i>a</i>²<i>d</i>) / 27<i>a</i>³</div>
+          </div>
+        </div>
+        <div style={{
+          padding: 18, background: 'var(--surface-2)',
+          borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--fg-3)', marginBottom: 10 }}>
+            {es ? 'Discriminante' : 'Discriminant'}
+          </div>
+          <div style={{ fontFamily: 'var(--font-math)', fontSize: 15, lineHeight: 2, color: 'var(--fg-2)' }}>
+            <div>Δ = −4<i>p</i>³ − 27<i>q</i>²</div>
+          </div>
+          <div style={{ marginTop: 12, fontSize: 12, color: 'var(--fg-3)', lineHeight: 1.7 }}>
+            <div>Δ &gt; 0 → {es ? '3 raíces reales distintas' : '3 distinct real roots'}</div>
+            <div>Δ = 0 → {es ? 'raíz repetida' : 'repeated root'}</div>
+            <div>Δ &lt; 0 → {es ? '1 raíz real' : '1 real root'}</div>
+          </div>
+        </div>
       </div>
+
+      {/* Cardano note */}
       <div style={{
-        marginTop: 16, padding: 18, background: 'var(--surface-2)',
+        marginTop: 12, padding: 14, background: 'var(--surface-2)',
         borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
-        textAlign: 'center', fontFamily: 'var(--font-math)', fontSize: 18, color: 'var(--fg-2)',
+        fontSize: 13, color: 'var(--fg-3)', lineHeight: 1.6,
       }}>
-        Δ = <i>b</i>² − 4<i>ac</i>
+        {es
+          ? 'Fórmula de Cardano (1545): t = ∛(−q/2 + √(q²/4 + p³/27)) + ∛(−q/2 − √(q²/4 + p³/27))'
+          : "Cardano's formula (1545): t = ∛(−q/2 + √(q²/4 + p³/27)) + ∛(−q/2 − √(q²/4 + p³/27))"}
       </div>
     </div>
   );
 };
 
-// ── Quartic Formula pane ──────────────────────────────────────────────────
+// ── Quartic Formula pane ──────────────────────────────────────────
 const QuarticFormulaPane = ({ lang }: { lang: Lang }) => {
-  const C = STRINGS[lang].chapter;
+  const es = lang === 'es';
   return (
     <div style={{ padding: '32px 40px', minHeight: 460 }}>
-      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, marginBottom: 12 }}>{C.eqFormulaTitle}</h3>
-      <p style={{ color: 'var(--fg-2)', maxWidth: 560 }}>{C.eqFormulaBody}</p>
+      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, marginBottom: 12 }}>
+        {es ? 'Ecuación cuártica' : 'Quartic equation'}
+      </h3>
+      <p style={{ color: 'var(--fg-2)', maxWidth: 580, lineHeight: 1.6 }}>
+        {es
+          ? 'Una ecuación cuártica tiene la forma ax⁴ + bx³ + cx² + dx + e = 0 y posee hasta 4 raíces reales. El método de Ferrari (1540) la reduce a dos ecuaciones cuadráticas.'
+          : 'A quartic equation has the form ax⁴ + bx³ + cx² + dx + e = 0 and has up to 4 real roots. Ferrari\'s method (1540) reduces it to two quadratic equations.'}
+      </p>
+
+      {/* General form */}
       <div style={{
-        marginTop: 24, padding: 28, background: 'var(--surface-2)',
+        marginTop: 24, padding: 20, background: 'var(--surface-2)',
         borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
-        textAlign: 'center', fontFamily: 'var(--font-math)', fontSize: 30,
+        textAlign: 'center', fontFamily: 'var(--font-math)', fontSize: 26,
       }}>
-        <span style={{ color: 'var(--accent)' }}>ax</span>⁴ + 
-        <span style={{ color: 'var(--formula)' }}>bx</span>³ + 
-        <span style={{ color: 'var(--construction)' }}>cx</span>² + 
-        <span style={{ color: 'var(--handle)' }}>dx</span> + 
-        <span style={{ color: 'var(--accent)' }}>e</span> = 0
+        <i style={{ color: 'var(--accent)' }}>a</i><i>x</i>⁴ + <i style={{ color: 'var(--formula)' }}>b</i><i>x</i>³ + <i style={{ color: 'var(--construction)' }}>c</i><i>x</i>² + <i style={{ color: 'var(--handle)' }}>d</i><i>x</i> + <i style={{ color: 'var(--accent)' }}>e</i> = 0
       </div>
-      <div style={{
-        marginTop: 16, padding: 18, background: 'var(--surface-2)',
-        borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
-        textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 14, color: 'var(--fg-3)',
-      }}>
-        {lang === 'es' ? 'Máximo 4 raíces reales' : 'Maximum 4 real roots'}
+
+      {/* Ferrari steps */}
+      <div style={{ marginTop: 16, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div style={{
+          padding: 18, background: 'var(--surface-2)',
+          borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--fg-3)', marginBottom: 10 }}>
+            {es ? 'Método de Ferrari' : "Ferrari's method"}
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--fg-2)', lineHeight: 1.8 }}>
+            <div>1. {es ? 'Dividir entre a, obtener cuártica mónica' : 'Divide by a → monic quartic'}</div>
+            <div>2. {es ? 'Sustituir x = t − b/(4a) para eliminar x³' : 'Sub x = t − b/(4a) to remove x³'}</div>
+            <div>3. {es ? 'Resolver la cúbica auxiliar (resolvente)' : 'Solve auxiliary cubic (resolvent)'}</div>
+            <div>4. {es ? 'Resolver dos ecuaciones cuadráticas' : 'Solve two quadratic equations'}</div>
+          </div>
+        </div>
+        <div style={{
+          padding: 18, background: 'var(--surface-2)',
+          borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--fg-3)', marginBottom: 10 }}>
+            {es ? 'Número de raíces reales' : 'Number of real roots'}
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--fg-3)', lineHeight: 1.9 }}>
+            <div>0 {es ? 'raíces reales' : 'real roots'}</div>
+            <div>2 {es ? 'raíces reales' : 'real roots'}</div>
+            <div>4 {es ? 'raíces reales' : 'real roots'}</div>
+            <div style={{ marginTop: 8, color: 'var(--fg-4)', fontSize: 12 }}>
+              {es ? '(1 o 3 solo con raíces repetidas)' : '(1 or 3 only with repeated roots)'}
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Discriminant note */}
       <div style={{
-        marginTop: 16, padding: 18, background: 'var(--surface-2)',
+        marginTop: 12, padding: 14, background: 'var(--surface-2)',
         borderRadius: 'var(--r-md)', border: '1px solid var(--hairline)',
-        textAlign: 'center', fontFamily: 'var(--font-math)', fontSize: 18, color: 'var(--fg-2)',
+        fontSize: 13, color: 'var(--fg-3)', lineHeight: 1.6,
       }}>
-        {lang === 'es' ? 'Fórmula general: ax⁴ + bx³ + cx² + dx + e = 0' : 'General formula: ax⁴ + bx³ + cx² + dx + e = 0'}
+        {es
+          ? 'El discriminante Δ determina la naturaleza de las raíces: Δ > 0 → 0 ó 4 reales; Δ = 0 → raíz múltiple; Δ < 0 → 2 reales y 2 complejas.'
+          : 'The discriminant Δ determines root nature: Δ > 0 → 0 or 4 real; Δ = 0 → multiple root; Δ < 0 → 2 real and 2 complex.'}
       </div>
     </div>
   );
