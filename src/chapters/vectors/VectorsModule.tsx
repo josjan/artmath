@@ -1,6 +1,6 @@
 // VectorsModule.tsx — Vectors chapter: item list + interactive figure + tabs + derivation
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Icon } from '../../components/Icon';
 import { VECTOR_ITEMS, STRINGS, type Lang } from '../../lib/data';
 import { ghostBtn, type Route } from '../../components/AppShell';
@@ -18,8 +18,6 @@ interface Props {
   lang: Lang;
   setRoute: (r: Route) => void;
 }
-
-interface Vec2 { x: number; y: number; }
 
 export const VectorsModule = ({ lang, setRoute }: Props) => {
   const C = STRINGS[lang].chapter;
@@ -66,97 +64,46 @@ export const VectorsModule = ({ lang, setRoute }: Props) => {
         </div>
       </div>
 
-      {/* Main grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr 280px', gap: 20, alignItems: 'start' }}>
+      {/* Tab nav horizontal */}
+      <div style={{
+        display: 'flex', gap: 6, flexWrap: 'wrap',
+        background: 'var(--surface)', border: '1px solid var(--hairline)',
+        borderRadius: 'var(--r-md)', padding: '10px 12px', marginBottom: 20,
+      }}>
+        {VECTOR_ITEMS.map((it, i) => {
+          const active = item === it.id;
+          return (
+            <button key={it.id} onClick={() => setItem(it.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                padding: '7px 14px', borderRadius: 'var(--r-sm)',
+                background: active ? 'var(--accent-soft)' : 'transparent',
+                border: '1px solid ' + (active ? 'var(--accent)' : 'transparent'),
+                color: active ? 'var(--fg-1)' : 'var(--fg-2)',
+                fontFamily: 'var(--font-sans)', fontSize: 13,
+                fontWeight: active ? 600 : 500,
+                cursor: 'pointer', whiteSpace: 'nowrap',
+              }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-4)' }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              {labels[lang][i]}
+            </button>
+          );
+        })}
+      </div>
 
-        {/* Item list — always visible */}
-        <nav style={{
-          background: 'var(--surface)', border: '1px solid var(--hairline)',
-          borderRadius: 'var(--r-md)', padding: 6, position: 'sticky', top: 76,
-        }}>
-          {VECTOR_ITEMS.map((it, i) => {
-            const active = item === it.id;
-            return (
-              <button key={it.id} onClick={() => setItem(it.id)}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 8, width: '100%',
-                  padding: '8px 10px', borderRadius: 'var(--r-sm)',
-                  background: active ? 'var(--accent-soft)' : 'transparent',
-                  border: 'none', color: active ? 'var(--fg-1)' : 'var(--fg-2)',
-                  fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: active ? 600 : 500,
-                  cursor: 'pointer', textAlign: 'left',
-                }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-4)', width: 22 }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                {labels[lang][i]}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* ── Sistema cartesiano: ocupa las 2 columnas restantes ── */}
-        {item === 'cartesian' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <CartesianItem lang={lang} setRoute={setRoute} />
-          </div>
-        )}
-
-        {/* ── Sistema polar: igual que cartesiano ── */}
-        {item === 'polar' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <PolarItem lang={lang} />
-          </div>
-        )}
-
-        {/* ── Producto por escalar ── */}
-        {item === 'scalar' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <ScalarItem lang={lang} />
-          </div>
-        )}
-
-        {/* ── Producto escalar (dot) ── */}
-        {item === 'dot' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <DotItem lang={lang} />
-          </div>
-        )}
-
-        {/* ── Producto vectorial (cross) ── */}
-        {item === 'cross' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <CrossItem lang={lang} />
-          </div>
-        )}
-
-        {/* ── Punto medio ── */}
-        {item === 'midpoint' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <MidpointItem lang={lang} />
-          </div>
-        )}
-
-        {/* ── Baricentro ── */}
-        {item === 'barycenter' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <BarycenterItem lang={lang} />
-          </div>
-        )}
-
-        {/* ── Sistema lineal — último ítem del capítulo ── */}
-        {item === 'system' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <LinearSystemItem lang={lang} />
-          </div>
-        )}
-
-        {/* ── Suma de vectores: usa el nuevo componente iPad-friendly ── */}
-        {item === 'sum' && (
-          <div style={{ gridColumn: 'span 2' }}>
-            <VectorAdditionItem lang={lang} setRoute={setRoute} />
-          </div>
-        )}
+      {/* Content — pleno ancho */}
+      <div>
+        {item === 'cartesian'  && <CartesianItem     lang={lang} setRoute={setRoute} />}
+        {item === 'polar'      && <PolarItem         lang={lang} />}
+        {item === 'scalar'     && <ScalarItem        lang={lang} />}
+        {item === 'dot'        && <DotItem           lang={lang} />}
+        {item === 'cross'      && <CrossItem         lang={lang} />}
+        {item === 'midpoint'   && <MidpointItem      lang={lang} />}
+        {item === 'barycenter' && <BarycenterItem    lang={lang} />}
+        {item === 'system'     && <LinearSystemItem  lang={lang} />}
+        {item === 'sum'        && <VectorAdditionItem lang={lang} setRoute={setRoute} />}
       </div>
     </div>
   );

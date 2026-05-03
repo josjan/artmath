@@ -90,46 +90,45 @@ export const TrigModule = ({ lang, setRoute }: Props) => {
         </div>
       </div>
 
-      {/* Main 3-column grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr 1fr', gap: 20, alignItems: 'start' }}>
+      {/* Tab nav horizontal */}
+      <div style={{
+        display: 'flex', gap: 6, flexWrap: 'wrap',
+        background: 'var(--surface)', border: '1px solid var(--hairline)',
+        borderRadius: 'var(--r-md)', padding: '10px 12px', marginBottom: 20,
+      }}>
+        {TRIG_ITEMS.map((it, i) => {
+          const active = item === it.id;
+          return (
+            <button key={it.id} onClick={() => setItem(it.id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                padding: '7px 14px', borderRadius: 'var(--r-sm)',
+                background: active ? 'var(--accent-soft)' : 'transparent',
+                border: '1px solid ' + (active ? 'var(--accent)' : 'transparent'),
+                color: active ? 'var(--fg-1)' : 'var(--fg-2)',
+                fontFamily: 'var(--font-sans)', fontSize: 13,
+                fontWeight: active ? 600 : 500,
+                cursor: 'pointer', whiteSpace: 'nowrap',
+              }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-4)' }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              {labels[i]}
+            </button>
+          );
+        })}
+      </div>
 
-        {/* Item list — always visible */}
-        <nav style={{
-          background: 'var(--surface)', border: '1px solid var(--hairline)',
-          borderRadius: 'var(--r-md)', padding: 6, position: 'sticky', top: 76,
-        }}>
-          {TRIG_ITEMS.map((it, i) => {
-            const active = item === it.id;
-            return (
-              <button key={it.id} onClick={() => setItem(it.id)}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 8, width: '100%',
-                  padding: '8px 10px', borderRadius: 'var(--r-sm)',
-                  background: active ? 'var(--accent-soft)' : 'transparent',
-                  border: 'none', color: active ? 'var(--fg-1)' : 'var(--fg-2)',
-                  fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: active ? 600 : 500,
-                  cursor: 'pointer', textAlign: 'left',
-                }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-4)', width: 22 }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                {labels[i]}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Content — spans 2 columns */}
-        <div style={{ gridColumn: 'span 2' }}>
-          {item === 'sinus'        && <SinusItem        lang={lang} />}
-          {item === 'cosinus'      && <CosinusItem       lang={lang} />}
-          {item === 'tangent'      && <TangentItem       lang={lang} />}
-          {item === 'arcsinus'     && <ArcSinusItem      lang={lang} />}
-          {item === 'arccosinus'   && <ArcCosinusItem    lang={lang} />}
-          {item === 'arctangent'   && <ArcTangentItem    lang={lang} />}
-          {item === 'sumangles'    && <SumAnglesItem     lang={lang} />}
-          {item === 'scalarangles' && <ScalarAnglesItem  lang={lang} />}
-        </div>
+      {/* Content — pleno ancho */}
+      <div>
+        {item === 'sinus'        && <SinusItem        lang={lang} />}
+        {item === 'cosinus'      && <CosinusItem       lang={lang} />}
+        {item === 'tangent'      && <TangentItem       lang={lang} />}
+        {item === 'arcsinus'     && <ArcSinusItem      lang={lang} />}
+        {item === 'arccosinus'   && <ArcCosinusItem    lang={lang} />}
+        {item === 'arctangent'   && <ArcTangentItem    lang={lang} />}
+        {item === 'sumangles'    && <SumAnglesItem     lang={lang} />}
+        {item === 'scalarangles' && <ScalarAnglesItem  lang={lang} />}
       </div>
     </div>
   );
