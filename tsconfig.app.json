@@ -10,6 +10,7 @@
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "moduleDetection": "force",
+    "types": ["node"],
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,

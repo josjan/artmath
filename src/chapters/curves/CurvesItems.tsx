@@ -191,6 +191,7 @@ export const CircleItem = ({ lang }: { lang: Lang }) => {
   const [cy, setCy] = useState(0);
   const [r, setR] = useState(80);
   const [rAngle, setRAngle] = useState(0); // angle of radius handle in radians
+  const [useSliders, setUseSliders] = useState(false); // Toggle between drag and sliders
 
   type D = 'center' | 'radius' | null;
   const [drag, setDrag] = useState<D>(null);
@@ -199,7 +200,7 @@ export const CircleItem = ({ lang }: { lang: Lang }) => {
   const rhy = cy + r * Math.sin(rAngle);
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (!drag) return;
+    if (!drag || useSliders) return; // Disable drag when using sliders
     const p = getSVGPoint(e.currentTarget, e.clientX, e.clientY);
     if (drag === 'center') {
       setCx(clamp(ro(p.x), -190, 190));
@@ -215,9 +216,9 @@ export const CircleItem = ({ lang }: { lang: Lang }) => {
   };
 
   const title = lang === 'es' ? 'Círculo' : 'Circle';
-  const hint = lang === 'es'
-    ? 'Arrastra C para mover el centro. Arrastra el punto naranja para cambiar el radio.'
-    : 'Drag C to move the center. Drag the orange point to change the radius.';
+  const hint = useSliders 
+    ? (lang === 'es' ? 'Usa los deslizadores para ajustar el círculo.' : 'Use the sliders to adjust the circle.')
+    : (lang === 'es' ? 'Arrastra C para mover el centro. Arrastra el punto naranja para cambiar el radio.' : 'Drag C to move the center. Drag the orange point to change the radius.');
 
   const formulaContent = (
     <div style={formulaBox}>
@@ -236,24 +237,167 @@ export const CircleItem = ({ lang }: { lang: Lang }) => {
 
   return (
     <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
-      <div style={rowStyle}>
-        <svg width="500" height="400" viewBox="-250 -200 500 400"
-          style={canvasStyle(!!drag)}
-          onMouseMove={onMove} onMouseUp={() => setDrag(null)} onMouseLeave={() => setDrag(null)}>
-          <SvgGrid id="g-circle"/>
-          <circle cx={cx} cy={cy} r={r} fill="var(--accent)" fillOpacity="0.15" stroke="var(--accent)" strokeWidth="2"/>
-          <line x1={cx} y1={cy} x2={rhx} y2={rhy} stroke="var(--fg-3)" strokeWidth="1" strokeDasharray="4,2"/>
-          <text x={(cx+rhx)/2+4} y={(cy+rhy)/2-7} fontSize="11" fill="var(--fg-3)"
-            style={{ pointerEvents:'none', userSelect:'none' }}>r={r}</text>
-          <Handle x={cx} y={cy} active={drag==='center'} onDown={() => setDrag('center')} label="C"/>
-          <Handle x={rhx} y={rhy} fill="#f59e0b" active={drag==='radius'} onDown={() => setDrag('radius')}/>
-        </svg>
-        <InfoPanel
-          params={[['cx', cx], ['cy', cy], ['r', r]]}
-          code={`<circle\n  cx="${cx}" cy="${cy}"\n  r="${r}"/>`}
-          hint={hint}
-        />
-      </div>
+      <>
+        {/* Toggle button for iPad/Desktop */}
+        <div style={{ marginBottom: '16px', textAlign: 'center' }}>
+          <button
+            onClick={() => setUseSliders(!useSliders)}
+            style={{
+              padding: '8px 16px',
+              background: useSliders ? 'var(--accent)' : 'var(--surface-2)',
+              color: useSliders ? 'white' : 'var(--fg-1)',
+              border: '1px solid var(--hairline)',
+              borderRadius: 'var(--r-sm)',
+              fontSize: '14px',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-sans)'
+            }}
+          >
+            {useSliders 
+              ? (lang === 'es' ? 'Modo Deslizadores' : 'Slider Mode')
+              : (lang === 'es' ? 'Modo Arrastrar' : 'Drag Mode')
+            }
+          </button>
+        </div>
+
+        <div style={rowStyle}>
+          <svg width="500" height="400" viewBox="-250 -200 500 400"
+            style={canvasStyle(!!drag && !useSliders)}
+            onMouseMove={onMove} onMouseUp={() => setDrag(null)} onMouseLeave={() => setDrag(null)}>
+            <SvgGrid id="g-circle"/>
+            <circle cx={cx} cy={cy} r={r} fill="var(--accent)" fillOpacity="0.15" stroke="var(--accent)" strokeWidth="2"/>
+            <line x1={cx} y1={cy} x2={rhx} y2={rhy} stroke="var(--fg-3)" strokeWidth="1" strokeDasharray="4,2"/>
+            <text x={(cx+rhx)/2+4} y={(cy+rhy)/2-7} fontSize="11" fill="var(--fg-3)"
+              style={{ pointerEvents:'none', userSelect:'none' }}>r={r}</text>
+            {/* Hide handles when in slider mode */}
+            {!useSliders && (
+              <>
+                <Handle x={cx} y={cy} active={drag==='center'} onDown={() => setDrag('center')} label="C"/>
+                <Handle x={rhx} y={rhy} fill="#f59e0b" active={drag==='radius'} onDown={() => setDrag('radius')}/>
+              </>
+            )}
+          </svg>
+          <InfoPanel
+            params={[['cx', cx], ['cy', cy], ['r', r]]}
+            code={`<circle\n  cx="${cx}" cy="${cy}"\n  r="${r}"/>`}
+            hint={hint}
+          />
+        </div>
+
+        {/* iPad-friendly slider controls */}
+        {useSliders && (
+          <div style={{
+            background: 'var(--surface)', 
+            border: '1px solid var(--hairline)',
+            borderRadius: 'var(--r-md)', 
+            padding: '24px', 
+            marginTop: '20px'
+          }}>
+            <div style={{ fontSize: 16, fontWeight: 600, marginBottom: '20', textAlign: 'center' }}>
+              {lang === 'es' ? 'Controles del Círculo' : 'Circle Controls'}
+            </div>
+            
+            {/* Center X control */}
+            <div style={{ marginBottom: '24px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16', marginBottom: '12' }}>
+                <span style={{ fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 20, color: 'var(--accent)', minWidth: '40' }}>cx</span>
+                <input
+                  type="range"
+                  min="-190"
+                  max="190"
+                  step="5"
+                  value={cx}
+                  onChange={(e) => setCx(parseInt(e.target.value))}
+                  style={{ 
+                    flex: 1, 
+                    height: '12px', 
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    touchAction: 'none'
+                  }}
+                />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--fg-2)', minWidth: '60', textAlign: 'right' }}>
+                  {cx}
+                </span>
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--fg-3)', textAlign: 'center' }}>
+                {lang === 'es' ? 'Centro X' : 'Center X'}
+              </div>
+            </div>
+
+            {/* Center Y control */}
+            <div style={{ marginBottom: '24px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16', marginBottom: '12' }}>
+                <span style={{ fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 20, color: 'var(--accent)', minWidth: '40' }}>cy</span>
+                <input
+                  type="range"
+                  min="-150"
+                  max="150"
+                  step="5"
+                  value={cy}
+                  onChange={(e) => setCy(parseInt(e.target.value))}
+                  style={{ 
+                    flex: 1, 
+                    height: '12px', 
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    touchAction: 'none'
+                  }}
+                />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--fg-2)', minWidth: '60', textAlign: 'right' }}>
+                  {cy}
+                </span>
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--fg-3)', textAlign: 'center' }}>
+                {lang === 'es' ? 'Centro Y' : 'Center Y'}
+              </div>
+            </div>
+
+            {/* Radius control */}
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16', marginBottom: '12' }}>
+                <span style={{ fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 20, color: 'var(--formula)', minWidth: '40' }}>r</span>
+                <input
+                  type="range"
+                  min="10"
+                  max="170"
+                  step="5"
+                  value={r}
+                  onChange={(e) => setR(parseInt(e.target.value))}
+                  style={{ 
+                    flex: 1, 
+                    height: '12px', 
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    touchAction: 'none'
+                  }}
+                />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--fg-2)', minWidth: '60', textAlign: 'right' }}>
+                  {r}
+                </span>
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--fg-3)', textAlign: 'center' }}>
+                {lang === 'es' ? 'Radio' : 'Radius'}
+              </div>
+            </div>
+
+            {/* Equation display */}
+            <div style={{
+              fontSize: 18, 
+              fontFamily: 'var(--font-math)', 
+              fontStyle: 'italic', 
+              textAlign: 'center',
+              padding: '16px',
+              background: 'var(--surface-2)',
+              borderRadius: 'var(--r-sm)',
+              border: '1px solid var(--hairline)',
+              marginTop: '20px'
+            }}>
+              (x - {cx})² + (y - {cy})² = {r}²
+            </div>
+          </div>
+        )}
+      </>
     }/>
   );
 };

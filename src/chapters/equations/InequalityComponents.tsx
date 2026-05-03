@@ -106,6 +106,9 @@ export const LinearInequalityFigure = ({ a, b, operator }: {
   a: number; b: number; operator: string;
 }) => {
   const result = solveLinearInequality(a, b, operator);
+  const W = 720, H = 460;
+  const ox = W / 2, oy = H / 2;
+  const scale = Math.min(W, H) / 20; // Equal scale for both axes
   
   // Generate line and shaded region
   const generateVisualization = () => {
@@ -114,26 +117,25 @@ export const LinearInequalityFigure = ({ a, b, operator }: {
     
     if (Math.abs(a) > 0.0001) {
       
-      // Generate the line y = (-a*x + b) / a? Wait, this is ax + b > 0
-      // For visualization, we'll show y = 0 and shade the region where ax + b satisfies the inequality
-      for (let x = -10; x <= 10; x += 0.1) {
-        const px = 360 + x * 30;
-        const py = 230; // y = 0 line
-        points.push(`${points.length === 0 ? 'M' : 'L'}${px} ${py}`);
+      // Generate the line y = 0
+      for (let x = -8; x <= 8; x += 0.1) {
+        const px = ox + x * scale;
+        const py = oy; // y = 0 line
+        points.push(`${points.length === 0 ? 'M' : 'L'}${px.toFixed(1)} ${py.toFixed(1)}`);
       }
       
       // Add shading based on solution
       if (result.hasSolution && result.solution && typeof result.solution === 'object' && 'type' in result.solution) {
         const sol = result.solution as any;
         if (sol.type === 'interval') {
-          const startX = sol.start === 'negative_infinity' ? -10 : 
-                        sol.start === 'infinity' ? 10 : Number(sol.start);
-          const endX = sol.end === 'infinity' ? 10 : 
-                      sol.end === 'negative_infinity' ? -10 : Number(sol.end);
+          const startX = sol.start === 'negative_infinity' ? -8 : 
+                        sol.start === 'infinity' ? 8 : Number(sol.start);
+          const endX = sol.end === 'infinity' ? 8 : 
+                      sol.end === 'negative_infinity' ? -8 : Number(sol.end);
           
-          for (let x = Math.max(-10, startX); x <= Math.min(10, endX); x += 0.2) {
-            const px = 360 + x * 30;
-            shadePoints.push(`M${px} 230 L${px} 280`); // Shade below the line
+          for (let x = Math.max(-8, startX); x <= Math.min(8, endX); x += 0.2) {
+            const px = ox + x * scale;
+            shadePoints.push(`M${px.toFixed(1)} ${oy.toFixed(1)} L${px.toFixed(1)} ${(oy + 50).toFixed(1)}`); // Shade below the line
           }
         }
       }
@@ -142,11 +144,11 @@ export const LinearInequalityFigure = ({ a, b, operator }: {
       if (result.hasSolution && result.solution && typeof result.solution === 'object' && 'start' in result.solution) {
         const sol = result.solution as any;
         if (sol.start !== 'negative_infinity' && sol.start !== 'infinity') {
-          const px = 360 + Number(sol.start) * 30;
+          const px = ox + Number(sol.start) * scale;
           return {
             linePath: points.join(' '),
             shadePath: shadePoints.join(' '),
-            criticalPoint: { x: px, y: 230, value: Number(sol.start) },
+            criticalPoint: { x: px, y: oy, value: Number(sol.start) },
             isOpen: sol.openStart || false
           };
         }
@@ -164,7 +166,7 @@ export const LinearInequalityFigure = ({ a, b, operator }: {
   const viz = generateVisualization();
 
   return (
-    <svg width="720" height="460" style={{ width: '100%', height: 'auto', display: 'block', background: 'var(--surface)' }}>
+    <svg width="100%" height="600" viewBox="0 0 720 460" style={{ width: '100%', height: 'auto', display: 'block', background: 'var(--surface)' }}>
       <defs>
         <pattern id="ineqgrid" width="20" height="20" patternUnits="userSpaceOnUse">
           <rect width="20" height="20" fill="none" stroke="var(--diagram-grid)" strokeWidth="0.5"/>
@@ -173,17 +175,26 @@ export const LinearInequalityFigure = ({ a, b, operator }: {
           <rect width="100" height="100" fill="url(#ineqgrid)" stroke="var(--diagram-grid-bold)" strokeWidth="0.8"/>
         </pattern>
       </defs>
-      <rect width={720} height={460} fill="url(#ineqgridBold)"/>
+      <rect width={W} height={H} fill="url(#ineqgridBold)"/>
 
-      <line x1={0} y1={230} x2={720} y2={230} stroke="var(--fg-2)" strokeWidth={1.2}/>
-      <line x1={360} y1={0} x2={360} y2={460} stroke="var(--fg-2)" strokeWidth={1.2}/>
-      <text x={720 - 14} y={230 - 8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)" textAnchor="end">x</text>
-      <text x={360 + 8}  y={14}    fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">y</text>
+      <line x1={0} y1={oy} x2={W} y2={oy} stroke="var(--fg-2)" strokeWidth={1.2}/>
+      <line x1={ox} y1={0} x2={ox} y2={H} stroke="var(--fg-2)" strokeWidth={1.2}/>
+      <text x={W - 14} y={oy - 8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)" textAnchor="end">x</text>
+      <text x={ox + 8}  y={14}    fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">y</text>
 
+      {/* X-axis labels */}
+      {[-8, -6, -4, -2, 2, 4, 6, 8].map(t => (
+        <g key={t}>
+          <line x1={ox + t * scale} y1={oy - 4} x2={ox + t * scale} y2={oy + 4} stroke="var(--fg-3)" strokeWidth="0.8"/>
+          <text x={ox + t * scale} y={oy + 16} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="middle">{t}</text>
+        </g>
+      ))}
+      
+      {/* Y-axis labels */}
       {[-6, -4, -2, 2, 4, 6].map(t => (
         <g key={t}>
-          <line x1={360 + t * 30} y1={230 - 4} x2={360 + t * 30} y2={230 + 4} stroke="var(--fg-3)" strokeWidth="0.8"/>
-          <text x={360 + t * 30} y={230 + 16} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="middle">{t}</text>
+          <line x1={ox - 4} y1={oy - t * scale} x2={ox + 4} y2={oy - t * scale} stroke="var(--fg-3)" strokeWidth="0.8"/>
+          <text x={ox - 8} y={oy - t * scale + 3} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="end">{t}</text>
         </g>
       ))}
 
@@ -208,7 +219,7 @@ export const LinearInequalityFigure = ({ a, b, operator }: {
         </g>
       )}
 
-      <circle cx={360} cy={230} r="3" fill="var(--fg-1)"/>
+      <circle cx={ox} cy={oy} r="3" fill="var(--fg-1)"/>
     </svg>
   );
 };

@@ -45,6 +45,9 @@ export const System2Figure = ({ a1, b1, c1, a2, b2, c2 }: {
   a2: number; b2: number; c2: number;
 }) => {
   const result = solve2x2System(a1, b1, c1, a2, b2, c2);
+  const W = 720, H = 460;
+  const ox = W / 2, oy = H / 2;
+  const scale = Math.min(W, H) / 20; // Equal scale for both axes
   
   // Generate lines for visualization
   const generateLinePoints = (a: number, b: number, c: number, color: string) => {
@@ -52,19 +55,19 @@ export const System2Figure = ({ a1, b1, c1, a2, b2, c2 }: {
     
     if (Math.abs(b) > 0.0001) {
       // y = (-a*x + c) / b
-      for (let x = -10; x <= 10; x += 0.1) {
+      for (let x = -8; x <= 8; x += 0.1) {
         const y = (-a * x + c) / b;
-        const px = 360 + x * 30;
-        const py = 230 - y * 20;
-        if (py >= 0 && py <= 460) {
-          points.push(`${points.length === 0 ? 'M' : 'L'}${px} ${py}`);
+        const px = ox + x * scale;
+        const py = oy - y * scale;
+        if (py >= 0 && py <= H) {
+          points.push(`${points.length === 0 ? 'M' : 'L'}${px.toFixed(1)} ${py.toFixed(1)}`);
         }
       }
     } else if (Math.abs(a) > 0.0001) {
       // x = c/a (vertical line)
       const x = c / a;
-      const px = 360 + x * 30;
-      points.push(`M${px} 0 L${px} 460`);
+      const px = ox + x * scale;
+      points.push(`M${px.toFixed(1)} 0 L${px.toFixed(1)} ${H}`);
     }
     
     return { path: points.join(' '), color };
@@ -74,7 +77,7 @@ export const System2Figure = ({ a1, b1, c1, a2, b2, c2 }: {
   const line2 = generateLinePoints(a2, b2, c2, 'var(--construction)');
 
   return (
-    <svg width="720" height="460" style={{ width: '100%', height: 'auto', display: 'block', background: 'var(--surface)' }}>
+    <svg width="100%" height="600" viewBox="0 0 720 460" style={{ width: '100%', height: 'auto', display: 'block', background: 'var(--surface)' }}>
       <defs>
         <pattern id="sysgrid" width="20" height="20" patternUnits="userSpaceOnUse">
           <rect width="20" height="20" fill="none" stroke="var(--diagram-grid)" strokeWidth="0.5"/>
@@ -83,17 +86,26 @@ export const System2Figure = ({ a1, b1, c1, a2, b2, c2 }: {
           <rect width="100" height="100" fill="url(#sysgrid)" stroke="var(--diagram-grid-bold)" strokeWidth="0.8"/>
         </pattern>
       </defs>
-      <rect width={720} height={460} fill="url(#sysgridBold)"/>
+      <rect width={W} height={H} fill="url(#sysgridBold)"/>
 
-      <line x1={0} y1={230} x2={720} y2={230} stroke="var(--fg-2)" strokeWidth={1.2}/>
-      <line x1={360} y1={0} x2={360} y2={460} stroke="var(--fg-2)" strokeWidth={1.2}/>
-      <text x={720 - 14} y={230 - 8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)" textAnchor="end">x</text>
-      <text x={360 + 8}  y={14}    fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">y</text>
+      <line x1={0} y1={oy} x2={W} y2={oy} stroke="var(--fg-2)" strokeWidth={1.2}/>
+      <line x1={ox} y1={0} x2={ox} y2={H} stroke="var(--fg-2)" strokeWidth={1.2}/>
+      <text x={W - 14} y={oy - 8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)" textAnchor="end">x</text>
+      <text x={ox + 8}  y={14}    fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">y</text>
 
+      {/* X-axis labels */}
+      {[-8, -6, -4, -2, 2, 4, 6, 8].map(t => (
+        <g key={t}>
+          <line x1={ox + t * scale} y1={oy - 4} x2={ox + t * scale} y2={oy + 4} stroke="var(--fg-3)" strokeWidth="0.8"/>
+          <text x={ox + t * scale} y={oy + 16} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="middle">{t}</text>
+        </g>
+      ))}
+      
+      {/* Y-axis labels */}
       {[-6, -4, -2, 2, 4, 6].map(t => (
         <g key={t}>
-          <line x1={360 + t * 30} y1={230 - 4} x2={360 + t * 30} y2={230 + 4} stroke="var(--fg-3)" strokeWidth="0.8"/>
-          <text x={360 + t * 30} y={230 + 16} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="middle">{t}</text>
+          <line x1={ox - 4} y1={oy - t * scale} x2={ox + 4} y2={oy - t * scale} stroke="var(--fg-3)" strokeWidth="0.8"/>
+          <text x={ox - 8} y={oy - t * scale + 3} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-3)" textAnchor="end">{t}</text>
         </g>
       ))}
 
@@ -103,14 +115,14 @@ export const System2Figure = ({ a1, b1, c1, a2, b2, c2 }: {
       {/* Intersection point */}
       {result.hasSolution && result.solution && (
         <g>
-          <circle cx={360 + result.solution.x * 30} cy={230 - result.solution.y * 20} r="8" fill="var(--handle)" stroke="white" strokeWidth="2"/>
-          <text x={360 + result.solution.x * 30} y={230 - result.solution.y * 20 + 25} fontFamily="var(--font-mono)" fontSize="11" fill="var(--handle)" textAnchor="middle">
+          <circle cx={ox + result.solution.x * scale} cy={oy - result.solution.y * scale} r="8" fill="var(--handle)" stroke="white" strokeWidth="2"/>
+          <text x={ox + result.solution.x * scale} y={oy - result.solution.y * scale + 25} fontFamily="var(--font-mono)" fontSize="11" fill="var(--handle)" textAnchor="middle">
             ({result.solution.x.toFixed(2)}, {result.solution.y.toFixed(2)})
           </text>
         </g>
       )}
 
-      <circle cx={360} cy={230} r="3" fill="var(--fg-1)"/>
+      <circle cx={ox} cy={oy} r="3" fill="var(--fg-1)"/>
     </svg>
   );
 };
@@ -127,7 +139,7 @@ export const System3Figure = ({ coefficients, lang }: {
   const result = solve3x3System(a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3);
 
   return (
-    <div style={{ padding: '32px 40px', minHeight: 460, fontFamily: 'var(--font-sans)' }}>
+    <div style={{ padding: '32px 40px', minHeight: 600, fontFamily: 'var(--font-sans)' }}>
       <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, marginBottom: 20 }}>
         {lang === 'es' ? 'Sistema 3×3' : '3×3 System'}
       </h3>
