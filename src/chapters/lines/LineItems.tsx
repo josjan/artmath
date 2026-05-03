@@ -5,7 +5,7 @@
 
 import { useState, useRef } from 'react';
 import { Icon } from '../../components/Icon';
-import { ghostBtn } from '../../components/AppShell';
+//import { ghostBtn } from '../../components/AppShell';
 import type { Lang } from '../../lib/data';
 
 // ── Shared types & helpers ─────────────────────────────────────────

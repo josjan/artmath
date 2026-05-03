@@ -4,7 +4,7 @@
 
 import { useState, useRef } from 'react';
 import { Icon } from '../../components/Icon';
-import { STRINGS, type Lang } from '../../lib/data';
+import { type Lang } from '../../lib/data';
 import { type Route } from '../../components/AppShell';
 
 interface Vec2 { x: number; y: number; }
