@@ -2,7 +2,7 @@
 // Todos siguen el mismo patrón: tabs Fórmula / Explorar / SVG
 // Exporta: SinusItem, CosinusItem, TangentItem, ArcSinusItem, ArcCosinusItem, ArcTangentItem, SumAnglesItem, ScalarAnglesItem
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Icon } from '../../components/Icon';
 import type { Lang } from '../../lib/data';
 
@@ -70,7 +70,7 @@ const DerivList = ({ steps, step, setStep, lang }: {
   );
 };
 
-// Unit circle SVG visualization
+// Static unit circle (used by TangentItem and ScalarAnglesItem)
 const UnitCircle = ({ angleDeg, showSin = true, showCos = true }: {
   angleDeg: number; showSin?: boolean; showCos?: boolean;
 }) => {
@@ -108,7 +108,7 @@ const FormulaCard = ({ title, children }: { title: string; children: React.React
   </div>
 );
 
-// Angle slider + display
+// Angle slider + display (used by TangentItem, ScalarAnglesItem)
 const AngleControl = ({ angleDeg, setAngleDeg, lang }: {
   angleDeg: number; setAngleDeg: (v: number) => void; lang: Lang;
 }) => (
@@ -138,11 +138,269 @@ const ResultBox = ({ label, value }: { label: string; value: string }) => (
   </div>
 );
 
+// Inspector cell (matching LinearSystemItem / VectorAdditionItem pattern)
+const InspCell = ({ label, color, main, sub }: {
+  label: string; color: string; main: string; sub?: string;
+}) => (
+  <div>
+    <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--fg-4)', marginBottom: 4 }}>{label}</div>
+    <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color, fontWeight: 600, marginBottom: 2 }}>{main}</div>
+    {sub && <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--fg-4)' }}>{sub}</div>}
+  </div>
+);
+
+// ── Interactive linked unit circle + wave ─────────────────────────
+// Círculo unitario a la izquierda con punto arrastrable.
+// La línea horizontal punteada conecta el punto del círculo con el
+// punto correspondiente en la onda: funciona porque CY == WCY y CR == WA,
+// por lo que Py = CY − CR·sin(θ) = WCY − WA·sin(θ) = Wy (modo sin).
+const TrigLinkedFigure = ({ mode, angleDeg, setAngleDeg }: {
+  mode: 'sin' | 'cos';
+  angleDeg: number;
+  setAngleDeg: (v: number) => void;
+}) => {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const dragging = useRef(false);
+
+  const W = 720, H = 380;
+  // Círculo: centro y radio
+  const CX = 155, CY = H / 2, CR = 105;
+  // Onda: rango x y amplitud (CR == WA es la condición clave para el link horizontal)
+  const WX0 = 295, WX1 = 695, WCY = H / 2, WA = CR;
+
+  const rad = angleDeg * Math.PI / 180;
+  const normDeg = ((angleDeg % 360) + 360) % 360; // siempre [0, 360)
+
+  // Punto P en el círculo (coords SVG, y invertida)
+  const Px = CX + CR * Math.cos(rad);
+  const Py = CY - CR * Math.sin(rad);
+
+  // Punto correspondiente en la onda
+  const Wx = WX0 + (normDeg / 360) * (WX1 - WX0);
+  const Wy = mode === 'sin'
+    ? WCY - WA * Math.sin(rad)   // == Py siempre (link horizontal perfecto)
+    : WCY - WA * Math.cos(rad);  // != Py en general (link diagonal, intencional)
+
+  // Arco del ángulo
+  const arcR = 28;
+  const large = normDeg > 180 ? 1 : 0;
+  const arcEx = CX + arcR * Math.cos(rad);
+  const arcEy = CY - arcR * Math.sin(rad);
+
+  // Path de la onda
+  const waveD = Array.from({ length: 361 }, (_, d) => {
+    const r = d * Math.PI / 180;
+    const wx = WX0 + (d / 360) * (WX1 - WX0);
+    const wy = mode === 'sin'
+      ? WCY - WA * Math.sin(r)
+      : WCY - WA * Math.cos(r);
+    return `${d === 0 ? 'M' : 'L'} ${wx.toFixed(1)} ${wy.toFixed(1)}`;
+  }).join(' ');
+
+  const sinVal = Math.sin(rad);
+  const cosVal = Math.cos(rad);
+  const waveColor = mode === 'sin' ? '#e05050' : 'var(--accent)';
+  const linkColor = mode === 'sin' ? '#e05050' : 'var(--formula)';
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    e.preventDefault();
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+    dragging.current = true;
+  };
+
+  const onPointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!dragging.current || !svgRef.current) return;
+    const r = svgRef.current.getBoundingClientRect();
+    const sx = (e.clientX - r.left) * (W / r.width);
+    const sy = (e.clientY - r.top)  * (H / r.height);
+    // Convertir a ángulo matemático (y invertida)
+    const dx = sx - CX;
+    const dy = -(sy - CY);
+    let deg = Math.atan2(dy, dx) * 180 / Math.PI;
+    if (deg < 0) deg += 360;
+    setAngleDeg(Math.round(deg));
+  };
+
+  const stopDrag = () => { dragging.current = false; };
+
+  return (
+    <svg
+      ref={svgRef}
+      viewBox={`0 0 ${W} ${H}`}
+      style={{ width: '100%', height: 'auto', display: 'block', touchAction: 'none', background: 'var(--surface)' }}
+      onPointerMove={onPointerMove}
+      onPointerUp={stopDrag}
+      onPointerLeave={stopDrag}
+    >
+      <defs>
+        <pattern id="trig-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+          <rect width="20" height="20" fill="none" stroke="var(--diagram-grid)" strokeWidth="0.4"/>
+        </pattern>
+        <pattern id="trig-grid-bold" width="100" height="100" patternUnits="userSpaceOnUse">
+          <rect width="100" height="100" fill="url(#trig-grid)" stroke="var(--diagram-grid-bold)" strokeWidth="0.6"/>
+        </pattern>
+      </defs>
+
+      {/* Fondo completo con rejilla */}
+      <rect width={W} height={H} fill="url(#trig-grid-bold)"/>
+
+      {/* Separador vertical entre círculo y onda */}
+      <line x1={275} y1={12} x2={275} y2={H - 12}
+        stroke="var(--hairline)" strokeWidth="1" strokeDasharray="4 4"/>
+
+      {/* ══ IZQUIERDA: Círculo unitario ══ */}
+
+      {/* Ejes */}
+      <line x1={CX - CR - 16} y1={CY} x2={CX + CR + 20} y2={CY}
+        stroke="var(--fg-3)" strokeWidth="1.2"/>
+      <line x1={CX} y1={CY + CR + 16} x2={CX} y2={CY - CR - 16}
+        stroke="var(--fg-3)" strokeWidth="1.2"/>
+      <text x={CX + CR + 14} y={CY + 5} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-3)">x</text>
+      <text x={CX + 6} y={CY - CR - 8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-3)">y</text>
+
+      {/* Marcas ±1 */}
+      {[1, -1].map(v => (
+        <g key={v}>
+          <line x1={CX + v * CR - 0.5} y1={CY - 4} x2={CX + v * CR - 0.5} y2={CY + 4} stroke="var(--fg-4)" strokeWidth="1"/>
+          <text x={CX + v * CR} y={CY + 16} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-4)" textAnchor="middle">{v}</text>
+          <line x1={CX - 4} y1={CY - v * CR} x2={CX + 4} y2={CY - v * CR} stroke="var(--fg-4)" strokeWidth="1"/>
+          <text x={CX - 10} y={CY - v * CR + 4} fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-4)" textAnchor="end">{v}</text>
+        </g>
+      ))}
+
+      {/* Círculo unitario */}
+      <circle cx={CX} cy={CY} r={CR} fill="none" stroke="var(--fg-3)" strokeWidth="1.5"/>
+
+      {/* Proyección sin (vertical, roja) */}
+      <line x1={Px} y1={CY} x2={Px} y2={Py}
+        stroke="#e05050" strokeWidth="2.5" strokeDasharray="5 3"/>
+
+      {/* Proyección cos (horizontal, azul-acento) */}
+      <line x1={CX} y1={Py} x2={Px} y2={Py}
+        stroke="var(--accent)" strokeWidth="2" strokeDasharray="4 3"/>
+
+      {/* Radio O → P */}
+      <line x1={CX} y1={CY} x2={Px} y2={Py}
+        stroke="var(--fg-1)" strokeWidth="2.5"/>
+
+      {/* Arco del ángulo θ */}
+      <path d={`M ${CX + arcR} ${CY} A ${arcR} ${arcR} 0 ${large} 0 ${arcEx} ${arcEy}`}
+        fill="none" stroke="var(--fg-2)" strokeWidth="1.5"/>
+      <text x={CX + arcR + 10} y={CY - 5}
+        fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">θ</text>
+
+      {/* Etiquetas sin θ y cos θ en el círculo */}
+      <text
+        x={Px + (cosVal >= 0 ? 7 : -7)}
+        y={(CY + Py) / 2 + 4}
+        fontFamily="var(--font-math)" fontStyle="italic" fontSize="12" fill="#e05050"
+        textAnchor={cosVal >= 0 ? 'start' : 'end'}>
+        sin θ
+      </text>
+      <text
+        x={(CX + Px) / 2}
+        y={Py + (sinVal >= 0 ? -8 : 18)}
+        fontFamily="var(--font-math)" fontStyle="italic" fontSize="12" fill="var(--accent)"
+        textAnchor="middle">
+        cos θ
+      </text>
+
+      {/* Punto origen */}
+      <circle cx={CX} cy={CY} r="3" fill="var(--fg-2)"/>
+
+      {/* Handle arrastrable en P */}
+      <g style={{ cursor: 'grab' }} onPointerDown={onPointerDown}>
+        <circle cx={Px} cy={Py} r={15} fill={waveColor} fillOpacity="0.15"/>
+        <circle cx={Px} cy={Py} r={7} fill={waveColor} stroke="white" strokeWidth="2"/>
+      </g>
+      <text x={Px + (cosVal >= 0 ? 16 : -16)} y={Py - 10}
+        fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill={waveColor}
+        textAnchor="middle">P</text>
+
+      {/* ══ LÍNEA DE ENLACE círculo → onda ══ */}
+      {/* En modo sin: Py == Wy siempre (link horizontal perfecto) */}
+      {/* En modo cos: link diagonal — muestra igualmente la conexión */}
+      <line x1={Px} y1={Py} x2={Wx} y2={Wy}
+        stroke={linkColor} strokeWidth="1.5" strokeDasharray="8 4" strokeOpacity="0.7"/>
+
+      {/* ══ DERECHA: Onda sin/cos (0° a 360°) ══ */}
+
+      {/* Ejes de la onda */}
+      <line x1={WX0 - 12} y1={WCY} x2={WX1 + 12} y2={WCY}
+        stroke="var(--fg-3)" strokeWidth="1.2"/>
+      <line x1={WX0} y1={WCY + WA + 18} x2={WX0} y2={WCY - WA - 18}
+        stroke="var(--fg-3)" strokeWidth="1"/>
+
+      {/* Líneas punteadas ±1 en la onda */}
+      {[1, -1].map(v => (
+        <g key={v}>
+          <line x1={WX0 - 6} y1={WCY - v * WA} x2={WX1 + 6} y2={WCY - v * WA}
+            stroke="var(--fg-4)" strokeWidth="0.5" strokeDasharray="3 6"/>
+          <text x={WX0 - 10} y={WCY - v * WA + 4}
+            fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-4)" textAnchor="end">{v}</text>
+        </g>
+      ))}
+
+      {/* Marcas en eje x de la onda: 0°, 90°, 180°, 270°, 360° */}
+      {([0, 90, 180, 270, 360] as const).map((d, i) => {
+        const xTick = WX0 + (d / 360) * (WX1 - WX0);
+        const labels = ['0', 'π/2', 'π', '3π/2', '2π'];
+        return (
+          <g key={d}>
+            <line x1={xTick} y1={WCY - 5} x2={xTick} y2={WCY + 5}
+              stroke="var(--fg-3)" strokeWidth="1"/>
+            <line x1={xTick} y1={WCY - WA - 8} x2={xTick} y2={WCY + WA + 8}
+              stroke="var(--fg-4)" strokeWidth="0.4" strokeDasharray="2 6"/>
+            <text x={xTick} y={WCY + 18}
+              fontFamily="var(--font-math)" fontStyle="italic" fontSize="11" fill="var(--fg-3)" textAnchor="middle">
+              {labels[i]}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Curva de la onda */}
+      <path d={waveD} fill="none" stroke={waveColor} strokeWidth="2.5"/>
+
+      {/* Línea vertical en θ actual */}
+      <line x1={Wx} y1={WCY - WA - 8} x2={Wx} y2={WCY + WA + 8}
+        stroke="var(--fg-3)" strokeWidth="1" strokeDasharray="4 3"/>
+
+      {/* Segmento vertical desde eje al punto (muestra valor de la función) */}
+      <line x1={Wx} y1={WCY} x2={Wx} y2={Wy}
+        stroke={waveColor} strokeWidth="2" strokeDasharray="4 3" strokeOpacity="0.7"/>
+
+      {/* Punto en la onda */}
+      <circle cx={Wx} cy={Wy} r={7} fill={waveColor} stroke="white" strokeWidth="2"/>
+
+      {/* ══ Overlay de lectura (arriba-derecha de la onda) ══ */}
+      <rect x={WX1 - 162} y="8" width="160" height="76" rx="5"
+        fill="var(--surface)" fillOpacity="0.93" stroke="var(--hairline)" strokeWidth="0.8"/>
+      <text x={WX1 - 152} y="26"
+        fontFamily="var(--font-mono)" fontSize="12" fill="var(--fg-2)" fontWeight="600">
+        θ = {angleDeg}°
+      </text>
+      <text x={WX1 - 152} y="44"
+        fontFamily="var(--font-mono)" fontSize="12" fill="#e05050" fontWeight={mode === 'sin' ? '700' : '400'}>
+        sin = {sinVal.toFixed(4)}
+      </text>
+      <text x={WX1 - 152} y="62"
+        fontFamily="var(--font-mono)" fontSize="12" fill="var(--accent)" fontWeight={mode === 'cos' ? '700' : '400'}>
+        cos = {cosVal.toFixed(4)}
+      </text>
+      <text x={WX1 - 152} y="76"
+        fontFamily="var(--font-mono)" fontSize="10" fill="var(--fg-4)">
+        {(rad).toFixed(4)} rad  ·  arrastra P
+      </text>
+    </svg>
+  );
+};
+
 // ════════════════════════════════════════════════════════
 // 01 — SENO
 // ════════════════════════════════════════════════════════
 export const SinusItem = ({ lang }: { lang: Lang }) => {
-  const [tab, setTab] = useState('formula');
+  const [tab, setTab] = useState('explore');
   const [step, setStep] = useState(0);
   const [angleDeg, setAngleDeg] = useState(30);
   const rad = angleDeg * Math.PI / 180;
@@ -162,39 +420,16 @@ export const SinusItem = ({ lang }: { lang: Lang }) => {
     'Fundamental identity: sin²(θ) + cos²(θ) = 1.',
   ];
 
+  const quadrant = angleDeg < 90 ? 1 : angleDeg < 180 ? 2 : angleDeg < 270 ? 3 : 4;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <TabBar tab={tab} setTab={setTab} lang={lang} />
+
+      {/* Figure */}
       <div style={{ background: 'var(--surface)', border: '1px solid var(--hairline)', borderRadius: 'var(--r-md)', boxShadow: 'var(--shadow-1)', overflow: 'hidden' }}>
         {tab === 'explore' && (
-          <div style={{ padding: '32px 40px', minHeight: 400 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 220px', gap: 40, alignItems: 'start' }}>
-              <div>
-                <AngleControl angleDeg={angleDeg} setAngleDeg={setAngleDeg} lang={lang} />
-                <ResultBox label={`sin(${angleDeg}°)`} value={val.toFixed(5)} />
-                <div style={{ marginTop: 12, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                  <div style={{ padding: 12, background: 'var(--surface-2)', borderRadius: 'var(--r-sm)', textAlign: 'center', fontSize: 13 }}>
-                    <div style={{ color: 'var(--fg-3)', marginBottom: 4 }}>cos({angleDeg}°)</div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>{Math.cos(rad).toFixed(5)}</div>
-                  </div>
-                  <div style={{ padding: 12, background: 'var(--surface-2)', borderRadius: 'var(--r-sm)', textAlign: 'center', fontSize: 13 }}>
-                    <div style={{ color: 'var(--fg-3)', marginBottom: 4 }}>sin²+cos²</div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>{(val*val + Math.cos(rad)**2).toFixed(5)}</div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, marginBottom: 12 }}>
-                  {lang === 'es' ? 'Círculo unitario' : 'Unit circle'}
-                </h3>
-                <UnitCircle angleDeg={angleDeg} showSin={true} showCos={false} />
-                <div style={{ marginTop: 8, display: 'flex', gap: 12, fontSize: 12 }}>
-                  <span style={{ color: '#e05050' }}>▬ sin</span>
-                  <span style={{ color: 'var(--fg-1)' }}>▬ {lang === 'es' ? 'radio' : 'radius'}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TrigLinkedFigure mode="sin" angleDeg={angleDeg} setAngleDeg={setAngleDeg} />
         )}
         {tab === 'formula' && (
           <div style={{ padding: '32px 40px', minHeight: 400 }}>
@@ -241,6 +476,55 @@ export const SinusItem = ({ lang }: { lang: Lang }) => {
           </pre>
         )}
       </div>
+
+      {/* Inspector — solo en Explorar */}
+      {tab === 'explore' && (
+        <div style={{
+          background: 'var(--surface)', border: '1px solid var(--hairline)',
+          borderRadius: 'var(--r-md)', padding: 18,
+        }}>
+          {/* Slider */}
+          <input type="range" min="0" max="360" value={angleDeg}
+            onChange={e => setAngleDeg(Number(e.target.value))}
+            style={{ width: '100%', marginBottom: 6 }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--fg-3)', marginBottom: 14 }}>
+            <span>0°</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--fg-1)', fontSize: 14 }}>
+              θ = {angleDeg}°  ·  {rad.toFixed(4)} rad
+            </span>
+            <span>360°</span>
+          </div>
+          {/* Celdas de valor */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 16 }}>
+            <InspCell
+              label={`sin(${angleDeg}°)`}
+              color="#e05050"
+              main={val.toFixed(5)}
+              sub={lang === 'es' ? 'coord. y en círculo' : 'y-coord on circle'}
+            />
+            <InspCell
+              label={`cos(${angleDeg}°)`}
+              color="var(--accent)"
+              main={Math.cos(rad).toFixed(5)}
+              sub={lang === 'es' ? 'coord. x en círculo' : 'x-coord on circle'}
+            />
+            <InspCell
+              label="sin² + cos²"
+              color="var(--formula)"
+              main={(val * val + Math.cos(rad) ** 2).toFixed(5)}
+              sub={lang === 'es' ? '= 1 (identidad Pitágoras)' : '= 1 (Pythagorean id.)'}
+            />
+            <InspCell
+              label={lang === 'es' ? 'Cuadrante' : 'Quadrant'}
+              color="var(--fg-2)"
+              main={`Q${quadrant}`}
+              sub={`${normDeg(angleDeg)}° mod 360°`}
+            />
+          </div>
+        </div>
+      )}
+
       <DerivList steps={steps} step={step} setStep={setStep} lang={lang}/>
     </div>
   );
@@ -250,7 +534,7 @@ export const SinusItem = ({ lang }: { lang: Lang }) => {
 // 02 — COSENO
 // ════════════════════════════════════════════════════════
 export const CosinusItem = ({ lang }: { lang: Lang }) => {
-  const [tab, setTab] = useState('formula');
+  const [tab, setTab] = useState('explore');
   const [step, setStep] = useState(0);
   const [angleDeg, setAngleDeg] = useState(60);
   const rad = angleDeg * Math.PI / 180;
@@ -270,39 +554,16 @@ export const CosinusItem = ({ lang }: { lang: Lang }) => {
     'It can be derived from sine: cos(θ) = sin(90° − θ).',
   ];
 
+  const quadrant = angleDeg < 90 ? 1 : angleDeg < 180 ? 2 : angleDeg < 270 ? 3 : 4;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <TabBar tab={tab} setTab={setTab} lang={lang} />
+
+      {/* Figure */}
       <div style={{ background: 'var(--surface)', border: '1px solid var(--hairline)', borderRadius: 'var(--r-md)', boxShadow: 'var(--shadow-1)', overflow: 'hidden' }}>
         {tab === 'explore' && (
-          <div style={{ padding: '32px 40px', minHeight: 400 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 220px', gap: 40, alignItems: 'start' }}>
-              <div>
-                <AngleControl angleDeg={angleDeg} setAngleDeg={setAngleDeg} lang={lang} />
-                <ResultBox label={`cos(${angleDeg}°)`} value={val.toFixed(5)} />
-                <div style={{ marginTop: 12, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                  <div style={{ padding: 12, background: 'var(--surface-2)', borderRadius: 'var(--r-sm)', textAlign: 'center', fontSize: 13 }}>
-                    <div style={{ color: 'var(--fg-3)', marginBottom: 4 }}>sin({angleDeg}°)</div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>{Math.sin(rad).toFixed(5)}</div>
-                  </div>
-                  <div style={{ padding: 12, background: 'var(--surface-2)', borderRadius: 'var(--r-sm)', textAlign: 'center', fontSize: 13 }}>
-                    <div style={{ color: 'var(--fg-3)', marginBottom: 4 }}>sin²+cos²</div>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>{(Math.sin(rad)**2 + val*val).toFixed(5)}</div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, marginBottom: 12 }}>
-                  {lang === 'es' ? 'Círculo unitario' : 'Unit circle'}
-                </h3>
-                <UnitCircle angleDeg={angleDeg} showSin={false} showCos={true} />
-                <div style={{ marginTop: 8, display: 'flex', gap: 12, fontSize: 12 }}>
-                  <span style={{ color: 'var(--accent)' }}>▬ cos</span>
-                  <span style={{ color: 'var(--fg-1)' }}>▬ {lang === 'es' ? 'radio' : 'radius'}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TrigLinkedFigure mode="cos" angleDeg={angleDeg} setAngleDeg={setAngleDeg} />
         )}
         {tab === 'formula' && (
           <div style={{ padding: '32px 40px', minHeight: 400 }}>
@@ -349,6 +610,53 @@ export const CosinusItem = ({ lang }: { lang: Lang }) => {
           </pre>
         )}
       </div>
+
+      {/* Inspector — solo en Explorar */}
+      {tab === 'explore' && (
+        <div style={{
+          background: 'var(--surface)', border: '1px solid var(--hairline)',
+          borderRadius: 'var(--r-md)', padding: 18,
+        }}>
+          <input type="range" min="0" max="360" value={angleDeg}
+            onChange={e => setAngleDeg(Number(e.target.value))}
+            style={{ width: '100%', marginBottom: 6 }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--fg-3)', marginBottom: 14 }}>
+            <span>0°</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--fg-1)', fontSize: 14 }}>
+              θ = {angleDeg}°  ·  {rad.toFixed(4)} rad
+            </span>
+            <span>360°</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 16 }}>
+            <InspCell
+              label={`cos(${angleDeg}°)`}
+              color="var(--accent)"
+              main={val.toFixed(5)}
+              sub={lang === 'es' ? 'coord. x en círculo' : 'x-coord on circle'}
+            />
+            <InspCell
+              label={`sin(${angleDeg}°)`}
+              color="#e05050"
+              main={Math.sin(rad).toFixed(5)}
+              sub={lang === 'es' ? 'coord. y en círculo' : 'y-coord on circle'}
+            />
+            <InspCell
+              label="sin² + cos²"
+              color="var(--formula)"
+              main={(Math.sin(rad) ** 2 + val * val).toFixed(5)}
+              sub={lang === 'es' ? '= 1 (identidad Pitágoras)' : '= 1 (Pythagorean id.)'}
+            />
+            <InspCell
+              label={lang === 'es' ? 'Cuadrante' : 'Quadrant'}
+              color="var(--fg-2)"
+              main={`Q${quadrant}`}
+              sub={`${normDeg(angleDeg)}° mod 360°`}
+            />
+          </div>
+        </div>
+      )}
+
       <DerivList steps={steps} step={step} setStep={setStep} lang={lang}/>
     </div>
   );
@@ -999,3 +1307,8 @@ export const ScalarAnglesItem = ({ lang }: { lang: Lang }) => {
     </div>
   );
 };
+
+// ── Helper: normalize degrees to [0, 360) ────────────────────────
+function normDeg(d: number): number {
+  return ((d % 360) + 360) % 360;
+}
