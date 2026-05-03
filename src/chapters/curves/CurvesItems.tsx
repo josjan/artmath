@@ -1,8 +1,8 @@
 // CurvesItems.tsx — Ítems del capítulo Curvas
-// Interactivos: puntos arrastrables directamente en el SVG
+// Pointer events (mouse + touch/iPad), halo en handles, SVG responsive, inspector panel
 // Exporta: CircleItem, EllipseItem, ArcCircleItem, ArcEllipseItem, QuadraticItem, CubicItem
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import type { Lang } from '../../lib/data';
 
 // ── Utilities ────────────────────────────────────────────────────────────────
@@ -20,7 +20,7 @@ function getSVGPoint(svg: SVGSVGElement, cx: number, cy: number): { x: number; y
 }
 
 // ── SVG Shared Components ─────────────────────────────────────────────────────
-// All canvases: width=500 height=400 viewBox="-250 -200 500 400" (origin at center)
+// All canvases: viewBox="-250 -200 500 400" (origin at center)
 
 function SvgGrid({ id }: { id: string }) {
   return (
@@ -37,43 +37,58 @@ function SvgGrid({ id }: { id: string }) {
   );
 }
 
-type HandleProps = { x: number; y: number; fill?: string; active: boolean; onDown: () => void; label?: string };
+// Handle with halo effect — pointer events for touch/mouse
+type HandleProps = {
+  x: number; y: number; fill?: string; active: boolean;
+  onDown: (e: React.PointerEvent) => void; label?: string;
+};
 function Handle({ x, y, fill = 'var(--accent)', active, onDown, label }: HandleProps) {
   return (
-    <g>
-      <circle cx={x} cy={y} r={active ? 9 : 7} fill={fill} stroke="white" strokeWidth="2"
-        style={{ cursor: 'grab' }} onMouseDown={onDown}/>
+    <g onPointerDown={onDown} style={{ cursor: 'grab' }}>
+      {/* Halo ring */}
+      <circle cx={x} cy={y} r={active ? 19 : 13}
+        fill={fill} fillOpacity={active ? 0.28 : 0.15} stroke="none"/>
+      {/* Core circle */}
+      <circle cx={x} cy={y} r={7} fill={fill} stroke="white" strokeWidth="2"
+        style={{ pointerEvents: 'none' }}/>
       {label && (
-        <text x={x + 10} y={y - 9} fontSize="11" fill={fill}
+        <text x={x + 11} y={y - 10} fontSize="11" fill={fill}
           style={{ pointerEvents: 'none', userSelect: 'none' }}>{label}</text>
       )}
     </g>
   );
 }
 
-type InfoProps = { params: [string, string | number][]; code: string; hint?: string; extra?: React.ReactNode };
-function InfoPanel({ params, code, hint, extra }: InfoProps) {
-  return (
-    <div style={{ minWidth: 190, maxWidth: 250, fontFamily: 'var(--font-sans)' }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.9, color: 'var(--fg-2)', marginBottom: 14 }}>
-        {params.map(([k, v]) => (
-          <div key={k}>
-            <span style={{ color: 'var(--fg-4)' }}>{k}</span>
-            {' = '}
-            <span style={{ color: 'var(--fg-1)', fontWeight: 600 }}>{v}</span>
-          </div>
-        ))}
-      </div>
-      {extra}
-      <pre style={{
-        background: 'var(--surface-2)', padding: '10px 14px', borderRadius: 'var(--r-sm)',
-        fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-1)', lineHeight: 1.6,
-        margin: 0, overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all',
-      }}>{code}</pre>
-      {hint && <p style={{ fontSize: 12, color: 'var(--fg-3)', marginTop: 10, lineHeight: 1.5 }}>{hint}</p>}
-    </div>
-  );
-}
+// ── Inspector Cell ─────────────────────────────────────────────────────────────
+
+const InspCell = ({ label, value, color }: { label: string; value: string | number; color?: string }) => (
+  <div style={{
+    background: 'var(--surface-2)', borderRadius: 'var(--r-sm)',
+    padding: '8px 12px', display: 'flex', flexDirection: 'column', gap: 3,
+  }}>
+    <span style={{
+      fontSize: 10, fontWeight: 700, letterSpacing: '0.08em',
+      color: color ?? 'var(--fg-4)', textTransform: 'uppercase' as const,
+    }}>{label}</span>
+    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, color: 'var(--fg-1)' }}>
+      {value}
+    </span>
+  </div>
+);
+
+// ── Code + Hint block ─────────────────────────────────────────────────────────
+
+const CodeBlock = ({ code, hint, extra }: { code: string; hint?: string; extra?: React.ReactNode }) => (
+  <div style={{ marginTop: 12 }}>
+    {extra && <div style={{ marginBottom: 10 }}>{extra}</div>}
+    <pre style={{
+      background: 'var(--surface-2)', padding: '10px 14px', borderRadius: 'var(--r-sm)',
+      fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-1)', lineHeight: 1.6,
+      margin: 0, overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all',
+    }}>{code}</pre>
+    {hint && <p style={{ fontSize: 12, color: 'var(--fg-3)', marginTop: 8, lineHeight: 1.5 }}>{hint}</p>}
+  </div>
+);
 
 // ── Shared Tab Bar ─────────────────────────────────────────────────────────────
 
@@ -154,35 +169,48 @@ const CurveItem = ({ title, formulaContent, exploreContent, lang }: {
         </div>
       )}
       {tab === 'explore' && (
-        <div style={{ background: 'var(--surface)', border: '1px solid var(--hairline)', borderRadius: 'var(--r-md)', padding: 24, minHeight: 420 }}>
+        <div style={{ background: 'var(--surface)', border: '1px solid var(--hairline)', borderRadius: 'var(--r-md)', padding: 24 }}>
           {exploreContent}
         </div>
       )}
-      {/* {tab === 'svg' && (
-        <div style={{
-          background: 'var(--surface)', border: '1px solid var(--hairline)',
-          borderRadius: 'var(--r-md)', padding: 24,
-          display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 400,
-        }}>
-          <div style={{ background: 'white', borderRadius: 'var(--r-sm)', boxShadow: '0 1px 6px rgba(0,0,0,.14)', maxWidth: '100%' }}>
-            <img src={`/antiguos/svg/${svgPath}`} alt={`${title} SVG`}
-              style={{ display: 'block', maxWidth: '100%', height: 'auto' }}/>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };
 
-// ── SVG canvas style ──────────────────────────────────────────────────────────
+// ── SVG canvas style — responsive, touch-enabled ───────────────────────────────
 const canvasStyle = (dragging: boolean): React.CSSProperties => ({
   border: '1px solid var(--hairline)', borderRadius: 'var(--r-sm)',
-  flexShrink: 0, cursor: dragging ? 'grabbing' : 'default', display: 'block',
+  cursor: dragging ? 'grabbing' : 'default',
+  display: 'block', width: '100%', height: 'auto', maxWidth: 520,
+  touchAction: 'none',  // Prevent scroll interference on touch
 });
 
-const rowStyle: React.CSSProperties = {
-  display: 'flex', gap: 24, alignItems: 'flex-start', flexWrap: 'wrap',
-};
+// ── large-arc-flag toggle (shared by arc items) ────────────────────────────────
+const FlagToggle = ({ value, onChange, lang }: {
+  value: 0 | 1; onChange: (v: 0 | 1) => void; lang: Lang;
+}) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+    <span style={{ fontSize: 12, color: 'var(--fg-3)', fontFamily: 'var(--font-mono)' }}>
+      large-arc-flag:
+    </span>
+    <div style={{ display: 'flex', gap: 6 }}>
+      {([0, 1] as const).map(v => (
+        <button key={v} onClick={() => onChange(v)} style={{
+          padding: '4px 14px', borderRadius: 'var(--r-sm)',
+          border: '1px solid var(--hairline)',
+          background: value === v ? 'var(--accent)' : 'var(--surface-2)',
+          color: value === v ? 'white' : 'var(--fg-1)',
+          fontSize: 12, cursor: 'pointer', fontFamily: 'var(--font-mono)',
+        }}>{v}</button>
+      ))}
+    </div>
+    <span style={{ fontSize: 12, color: 'var(--fg-4)' }}>
+      {lang === 'es'
+        ? (value === 1 ? '(arco > 180°)' : '(arco ≤ 180°)')
+        : (value === 1 ? '(arc > 180°)' : '(arc ≤ 180°)')}
+    </span>
+  </div>
+);
 
 // ── 1. Circle ──────────────────────────────────────────────────────────────────
 
@@ -190,17 +218,20 @@ export const CircleItem = ({ lang }: { lang: Lang }) => {
   const [cx, setCx] = useState(0);
   const [cy, setCy] = useState(0);
   const [r, setR] = useState(80);
-  const [rAngle, setRAngle] = useState(0); // angle of radius handle in radians
-  const [useSliders, setUseSliders] = useState(false); // Toggle between drag and sliders
-
-  type D = 'center' | 'radius' | null;
-  const [drag, setDrag] = useState<D>(null);
+  const [rAngle, setRAngle] = useState(0);
+  const [drag, setDrag] = useState<'center' | 'radius' | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const rhx = cx + r * Math.cos(rAngle);
   const rhy = cy + r * Math.sin(rAngle);
 
-  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (!drag || useSliders) return; // Disable drag when using sliders
+  const startDrag = (which: 'center' | 'radius', e: React.PointerEvent) => {
+    setDrag(which);
+    svgRef.current?.setPointerCapture(e.pointerId);
+  };
+
+  const onMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (!drag) return;
     const p = getSVGPoint(e.currentTarget, e.clientX, e.clientY);
     if (drag === 'center') {
       setCx(clamp(ro(p.x), -190, 190));
@@ -208,17 +239,14 @@ export const CircleItem = ({ lang }: { lang: Lang }) => {
     } else {
       const dx = p.x - cx, dy = p.y - cy;
       const d = Math.sqrt(dx * dx + dy * dy);
-      if (d > 3) {
-        setR(clamp(ro(d), 10, 170));
-        setRAngle(Math.atan2(dy, dx));
-      }
+      if (d > 3) { setR(clamp(ro(d), 10, 170)); setRAngle(Math.atan2(dy, dx)); }
     }
   };
 
   const title = lang === 'es' ? 'Círculo' : 'Circle';
-  const hint = useSliders 
-    ? (lang === 'es' ? 'Usa los deslizadores para ajustar el círculo.' : 'Use the sliders to adjust the circle.')
-    : (lang === 'es' ? 'Arrastra C para mover el centro. Arrastra el punto naranja para cambiar el radio.' : 'Drag C to move the center. Drag the orange point to change the radius.');
+  const hint = lang === 'es'
+    ? 'Arrastra C para mover el centro. Arrastra el punto naranja para cambiar el radio.'
+    : 'Drag C to move the center. Drag the orange point to change the radius.';
 
   const formulaContent = (
     <div style={formulaBox}>
@@ -238,165 +266,23 @@ export const CircleItem = ({ lang }: { lang: Lang }) => {
   return (
     <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
       <>
-        {/* Toggle button for iPad/Desktop */}
-        <div style={{ marginBottom: '16px', textAlign: 'center' }}>
-          <button
-            onClick={() => setUseSliders(!useSliders)}
-            style={{
-              padding: '8px 16px',
-              background: useSliders ? 'var(--accent)' : 'var(--surface-2)',
-              color: useSliders ? 'white' : 'var(--fg-1)',
-              border: '1px solid var(--hairline)',
-              borderRadius: 'var(--r-sm)',
-              fontSize: '14px',
-              cursor: 'pointer',
-              fontFamily: 'var(--font-sans)'
-            }}
-          >
-            {useSliders 
-              ? (lang === 'es' ? 'Modo Deslizadores' : 'Slider Mode')
-              : (lang === 'es' ? 'Modo Arrastrar' : 'Drag Mode')
-            }
-          </button>
+        <svg ref={svgRef} viewBox="-250 -200 500 400"
+          style={canvasStyle(!!drag)}
+          onPointerMove={onMove} onPointerUp={() => setDrag(null)} onPointerLeave={() => setDrag(null)}>
+          <SvgGrid id="g-circle"/>
+          <circle cx={cx} cy={cy} r={r} fill="var(--accent)" fillOpacity="0.15" stroke="var(--accent)" strokeWidth="2"/>
+          <line x1={cx} y1={cy} x2={rhx} y2={rhy} stroke="var(--fg-3)" strokeWidth="1" strokeDasharray="4,2"/>
+          <text x={(cx+rhx)/2+4} y={(cy+rhy)/2-7} fontSize="11" fill="var(--fg-3)"
+            style={{ pointerEvents: 'none', userSelect: 'none' }}>r={r}</text>
+          <Handle x={cx} y={cy} active={drag==='center'} onDown={(e) => startDrag('center', e)} label="C"/>
+          <Handle x={rhx} y={rhy} fill="#f59e0b" active={drag==='radius'} onDown={(e) => startDrag('radius', e)}/>
+        </svg>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginTop: 12 }}>
+          <InspCell label="cx" value={cx} color="var(--accent)"/>
+          <InspCell label="cy" value={cy} color="var(--accent)"/>
+          <InspCell label="r" value={r} color="#f59e0b"/>
         </div>
-
-        <div style={rowStyle}>
-          <svg width="500" height="400" viewBox="-250 -200 500 400"
-            style={canvasStyle(!!drag && !useSliders)}
-            onMouseMove={onMove} onMouseUp={() => setDrag(null)} onMouseLeave={() => setDrag(null)}>
-            <SvgGrid id="g-circle"/>
-            <circle cx={cx} cy={cy} r={r} fill="var(--accent)" fillOpacity="0.15" stroke="var(--accent)" strokeWidth="2"/>
-            <line x1={cx} y1={cy} x2={rhx} y2={rhy} stroke="var(--fg-3)" strokeWidth="1" strokeDasharray="4,2"/>
-            <text x={(cx+rhx)/2+4} y={(cy+rhy)/2-7} fontSize="11" fill="var(--fg-3)"
-              style={{ pointerEvents:'none', userSelect:'none' }}>r={r}</text>
-            {/* Hide handles when in slider mode */}
-            {!useSliders && (
-              <>
-                <Handle x={cx} y={cy} active={drag==='center'} onDown={() => setDrag('center')} label="C"/>
-                <Handle x={rhx} y={rhy} fill="#f59e0b" active={drag==='radius'} onDown={() => setDrag('radius')}/>
-              </>
-            )}
-          </svg>
-          <InfoPanel
-            params={[['cx', cx], ['cy', cy], ['r', r]]}
-            code={`<circle\n  cx="${cx}" cy="${cy}"\n  r="${r}"/>`}
-            hint={hint}
-          />
-        </div>
-
-        {/* iPad-friendly slider controls */}
-        {useSliders && (
-          <div style={{
-            background: 'var(--surface)', 
-            border: '1px solid var(--hairline)',
-            borderRadius: 'var(--r-md)', 
-            padding: '24px', 
-            marginTop: '20px'
-          }}>
-            <div style={{ fontSize: 16, fontWeight: 600, marginBottom: '20', textAlign: 'center' }}>
-              {lang === 'es' ? 'Controles del Círculo' : 'Circle Controls'}
-            </div>
-            
-            {/* Center X control */}
-            <div style={{ marginBottom: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16', marginBottom: '12' }}>
-                <span style={{ fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 20, color: 'var(--accent)', minWidth: '40' }}>cx</span>
-                <input
-                  type="range"
-                  min="-190"
-                  max="190"
-                  step="5"
-                  value={cx}
-                  onChange={(e) => setCx(parseInt(e.target.value))}
-                  style={{ 
-                    flex: 1, 
-                    height: '12px', 
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    touchAction: 'none'
-                  }}
-                />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--fg-2)', minWidth: '60', textAlign: 'right' }}>
-                  {cx}
-                </span>
-              </div>
-              <div style={{ fontSize: 13, color: 'var(--fg-3)', textAlign: 'center' }}>
-                {lang === 'es' ? 'Centro X' : 'Center X'}
-              </div>
-            </div>
-
-            {/* Center Y control */}
-            <div style={{ marginBottom: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16', marginBottom: '12' }}>
-                <span style={{ fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 20, color: 'var(--accent)', minWidth: '40' }}>cy</span>
-                <input
-                  type="range"
-                  min="-150"
-                  max="150"
-                  step="5"
-                  value={cy}
-                  onChange={(e) => setCy(parseInt(e.target.value))}
-                  style={{ 
-                    flex: 1, 
-                    height: '12px', 
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    touchAction: 'none'
-                  }}
-                />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--fg-2)', minWidth: '60', textAlign: 'right' }}>
-                  {cy}
-                </span>
-              </div>
-              <div style={{ fontSize: 13, color: 'var(--fg-3)', textAlign: 'center' }}>
-                {lang === 'es' ? 'Centro Y' : 'Center Y'}
-              </div>
-            </div>
-
-            {/* Radius control */}
-            <div style={{ marginBottom: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16', marginBottom: '12' }}>
-                <span style={{ fontFamily: 'var(--font-math)', fontStyle: 'italic', fontSize: 20, color: 'var(--formula)', minWidth: '40' }}>r</span>
-                <input
-                  type="range"
-                  min="10"
-                  max="170"
-                  step="5"
-                  value={r}
-                  onChange={(e) => setR(parseInt(e.target.value))}
-                  style={{ 
-                    flex: 1, 
-                    height: '12px', 
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    touchAction: 'none'
-                  }}
-                />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--fg-2)', minWidth: '60', textAlign: 'right' }}>
-                  {r}
-                </span>
-              </div>
-              <div style={{ fontSize: 13, color: 'var(--fg-3)', textAlign: 'center' }}>
-                {lang === 'es' ? 'Radio' : 'Radius'}
-              </div>
-            </div>
-
-            {/* Equation display */}
-            <div style={{
-              fontSize: 18, 
-              fontFamily: 'var(--font-math)', 
-              fontStyle: 'italic', 
-              textAlign: 'center',
-              padding: '16px',
-              background: 'var(--surface-2)',
-              borderRadius: 'var(--r-sm)',
-              border: '1px solid var(--hairline)',
-              marginTop: '20px'
-            }}>
-              (x - {cx})² + (y - {cy})² = {r}²
-            </div>
-          </div>
-        )}
+        <CodeBlock code={`<circle\n  cx="${cx}" cy="${cy}"\n  r="${r}"/>`} hint={hint}/>
       </>
     }/>
   );
@@ -409,14 +295,18 @@ export const EllipseItem = ({ lang }: { lang: Lang }) => {
   const [cy, setCy] = useState(0);
   const [rx, setRx] = useState(100);
   const [ry, setRy] = useState(60);
-
-  type D = 'center' | 'rx' | 'ry' | null;
-  const [drag, setDrag] = useState<D>(null);
+  const [drag, setDrag] = useState<'center' | 'rx' | 'ry' | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const rxhx = cx + rx, rxhy = cy;
   const ryhx = cx, ryhy = cy + ry;
 
-  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+  const startDrag = (which: 'center' | 'rx' | 'ry', e: React.PointerEvent) => {
+    setDrag(which);
+    svgRef.current?.setPointerCapture(e.pointerId);
+  };
+
+  const onMove = (e: React.PointerEvent<SVGSVGElement>) => {
     if (!drag) return;
     const p = getSVGPoint(e.currentTarget, e.clientX, e.clientY);
     if (drag === 'center') {
@@ -452,28 +342,33 @@ export const EllipseItem = ({ lang }: { lang: Lang }) => {
 
   return (
     <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
-      <div style={rowStyle}>
-        <svg width="500" height="400" viewBox="-250 -200 500 400"
+      <>
+        <svg ref={svgRef} viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
-          onMouseMove={onMove} onMouseUp={() => setDrag(null)} onMouseLeave={() => setDrag(null)}>
+          onPointerMove={onMove} onPointerUp={() => setDrag(null)} onPointerLeave={() => setDrag(null)}>
           <SvgGrid id="g-ellipse"/>
           <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="var(--accent)" fillOpacity="0.15" stroke="var(--accent)" strokeWidth="2"/>
           <line x1={cx} y1={cy} x2={rxhx} y2={rxhy} stroke="#f59e0b" strokeWidth="1" strokeDasharray="4,2"/>
           <line x1={cx} y1={cy} x2={ryhx} y2={ryhy} stroke="#10b981" strokeWidth="1" strokeDasharray="4,2"/>
           <text x={(cx+rxhx)/2+2} y={cy-8} fontSize="11" fill="#f59e0b"
-            style={{ pointerEvents:'none', userSelect:'none' }}>rx={rx}</text>
+            style={{ pointerEvents: 'none', userSelect: 'none' }}>rx={rx}</text>
           <text x={cx+6} y={(cy+ryhy)/2+4} fontSize="11" fill="#10b981"
-            style={{ pointerEvents:'none', userSelect:'none' }}>ry={ry}</text>
-          <Handle x={cx} y={cy} active={drag==='center'} onDown={() => setDrag('center')} label="C"/>
-          <Handle x={rxhx} y={rxhy} fill="#f59e0b" active={drag==='rx'} onDown={() => setDrag('rx')}/>
-          <Handle x={ryhx} y={ryhy} fill="#10b981" active={drag==='ry'} onDown={() => setDrag('ry')}/>
+            style={{ pointerEvents: 'none', userSelect: 'none' }}>ry={ry}</text>
+          <Handle x={cx} y={cy} active={drag==='center'} onDown={(e) => startDrag('center', e)} label="C"/>
+          <Handle x={rxhx} y={rxhy} fill="#f59e0b" active={drag==='rx'} onDown={(e) => startDrag('rx', e)}/>
+          <Handle x={ryhx} y={ryhy} fill="#10b981" active={drag==='ry'} onDown={(e) => startDrag('ry', e)}/>
         </svg>
-        <InfoPanel
-          params={[['cx', cx], ['cy', cy], ['rx', rx], ['ry', ry]]}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginTop: 12 }}>
+          <InspCell label="cx" value={cx} color="var(--accent)"/>
+          <InspCell label="cy" value={cy} color="var(--accent)"/>
+          <InspCell label="rx" value={rx} color="#f59e0b"/>
+          <InspCell label="ry" value={ry} color="#10b981"/>
+        </div>
+        <CodeBlock
           code={`<ellipse\n  cx="${cx}" cy="${cy}"\n  rx="${rx}" ry="${ry}"/>`}
           hint={hint}
         />
-      </div>
+      </>
     }/>
   );
 };
@@ -484,13 +379,12 @@ export const ArcCircleItem = ({ lang }: { lang: Lang }) => {
   const [cx, setCx] = useState(0);
   const [cy, setCy] = useState(0);
   const [r, setR] = useState(100);
-  const [rAngle, setRAngle] = useState(Math.PI * 0.25); // angle for radius handle
+  const [rAngle, setRAngle] = useState(Math.PI * 0.25);
   const [startDeg, setStartDeg] = useState(-30);
   const [endDeg, setEndDeg] = useState(200);
-  const [largeArc, setLargeArc] = useState(0);
-
-  type D = 'center' | 'radius' | 'start' | 'end' | null;
-  const [drag, setDrag] = useState<D>(null);
+  const [largeArc, setLargeArc] = useState<0 | 1>(0);
+  const [drag, setDrag] = useState<'center' | 'radius' | 'start' | 'end' | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const sa = startDeg * Math.PI / 180;
   const ea = endDeg * Math.PI / 180;
@@ -498,7 +392,12 @@ export const ArcCircleItem = ({ lang }: { lang: Lang }) => {
   const x2 = ro(cx + r * Math.cos(ea)), y2 = ro(cy + r * Math.sin(ea));
   const rhx = cx + r * Math.cos(rAngle), rhy = cy + r * Math.sin(rAngle);
 
-  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+  const startDrag = (which: 'center' | 'radius' | 'start' | 'end', e: React.PointerEvent) => {
+    setDrag(which);
+    svgRef.current?.setPointerCapture(e.pointerId);
+  };
+
+  const onMove = (e: React.PointerEvent<SVGSVGElement>) => {
     if (!drag) return;
     const p = getSVGPoint(e.currentTarget, e.clientX, e.clientY);
     if (drag === 'center') {
@@ -519,23 +418,6 @@ export const ArcCircleItem = ({ lang }: { lang: Lang }) => {
   const arcPath = `M ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2}`;
   const title = lang === 'es' ? 'Arco Circular' : 'Circular Arc';
 
-  const flagToggle = (
-    <div style={{ marginBottom: 14 }}>
-      <div style={{ fontSize: 12, color: 'var(--fg-3)', marginBottom: 6 }}>large-arc-flag</div>
-      <div style={{ display: 'flex', gap: 8 }}>
-        {([0, 1] as const).map(v => (
-          <button key={v} onClick={() => setLargeArc(v)} style={{
-            padding: '4px 16px', borderRadius: 'var(--r-sm)',
-            border: '1px solid var(--hairline)',
-            background: largeArc === v ? 'var(--accent)' : 'var(--surface-2)',
-            color: largeArc === v ? 'white' : 'var(--fg-1)',
-            fontSize: 12, cursor: 'pointer', fontFamily: 'var(--font-mono)',
-          }}>{v}</button>
-        ))}
-      </div>
-    </div>
-  );
-
   const formulaContent = (
     <div style={formulaBox}>
       <FLabel>SVG path command</FLabel>
@@ -554,30 +436,34 @@ export const ArcCircleItem = ({ lang }: { lang: Lang }) => {
 
   return (
     <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
-      <div style={rowStyle}>
-        <svg width="500" height="400" viewBox="-250 -200 500 400"
+      <>
+        <svg ref={svgRef} viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
-          onMouseMove={onMove} onMouseUp={() => setDrag(null)} onMouseLeave={() => setDrag(null)}>
+          onPointerMove={onMove} onPointerUp={() => setDrag(null)} onPointerLeave={() => setDrag(null)}>
           <SvgGrid id="g-arccirc"/>
           <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--diagram-grid)" strokeWidth="1" strokeDasharray="5,3"/>
           <path d={arcPath} fill="none" stroke="var(--accent)" strokeWidth="3"/>
           <line x1={cx} y1={cy} x2={rhx} y2={rhy} stroke="#f59e0b" strokeWidth="1" strokeDasharray="3,2"/>
           <line x1={cx} y1={cy} x2={x1} y2={y1} stroke="var(--fg-4)" strokeWidth="1" strokeDasharray="3,2"/>
           <line x1={cx} y1={cy} x2={x2} y2={y2} stroke="var(--fg-4)" strokeWidth="1" strokeDasharray="3,2"/>
-          <Handle x={cx} y={cy} active={drag==='center'} onDown={() => setDrag('center')} label="C"/>
-          <Handle x={rhx} y={rhy} fill="#f59e0b" active={drag==='radius'} onDown={() => setDrag('radius')}/>
-          <Handle x={x1} y={y1} fill="#4ade80" active={drag==='start'} onDown={() => setDrag('start')} label={`${startDeg}°`}/>
-          <Handle x={x2} y={y2} fill="#f87171" active={drag==='end'} onDown={() => setDrag('end')} label={`${endDeg}°`}/>
+          <Handle x={cx} y={cy} active={drag==='center'} onDown={(e) => startDrag('center', e)} label="C"/>
+          <Handle x={rhx} y={rhy} fill="#f59e0b" active={drag==='radius'} onDown={(e) => startDrag('radius', e)}/>
+          <Handle x={x1} y={y1} fill="#4ade80" active={drag==='start'} onDown={(e) => startDrag('start', e)} label={`${startDeg}°`}/>
+          <Handle x={x2} y={y2} fill="#f87171" active={drag==='end'} onDown={(e) => startDrag('end', e)} label={`${endDeg}°`}/>
         </svg>
-        <InfoPanel
-          params={[['r', r], ['start', `${startDeg}°`], ['end', `${endDeg}°`]]}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginTop: 12 }}>
+          <InspCell label="r" value={r} color="#f59e0b"/>
+          <InspCell label={lang === 'es' ? 'inicio' : 'start'} value={`${startDeg}°`} color="#4ade80"/>
+          <InspCell label={lang === 'es' ? 'fin' : 'end'} value={`${endDeg}°`} color="#f87171"/>
+        </div>
+        <CodeBlock
           code={`<path d="M ${x1} ${y1}\n  A ${r} ${r} 0 ${largeArc} 1\n  ${x2} ${y2}"/>`}
           hint={lang === 'es'
             ? 'Arrastra los puntos sobre la circunferencia para cambiar el arco.'
             : 'Drag the handles around the circumference to reshape the arc.'}
-          extra={flagToggle}
+          extra={<FlagToggle value={largeArc} onChange={setLargeArc} lang={lang}/>}
         />
-      </div>
+      </>
     }/>
   );
 };
@@ -591,10 +477,9 @@ export const ArcEllipseItem = ({ lang }: { lang: Lang }) => {
   const [ry, setRy] = useState(65);
   const [startDeg, setStartDeg] = useState(-30);
   const [endDeg, setEndDeg] = useState(200);
-  const [largeArc, setLargeArc] = useState(0);
-
-  type D = 'center' | 'start' | 'end' | 'rx' | 'ry' | null;
-  const [drag, setDrag] = useState<D>(null);
+  const [largeArc, setLargeArc] = useState<0 | 1>(0);
+  const [drag, setDrag] = useState<'center' | 'start' | 'end' | 'rx' | 'ry' | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const sa = startDeg * Math.PI / 180;
   const ea = endDeg * Math.PI / 180;
@@ -603,7 +488,12 @@ export const ArcEllipseItem = ({ lang }: { lang: Lang }) => {
   const rxhx = cx + rx, rxhy = cy;
   const ryhx = cx, ryhy = cy + ry;
 
-  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+  const startDrag = (which: 'center' | 'start' | 'end' | 'rx' | 'ry', e: React.PointerEvent) => {
+    setDrag(which);
+    svgRef.current?.setPointerCapture(e.pointerId);
+  };
+
+  const onMove = (e: React.PointerEvent<SVGSVGElement>) => {
     if (!drag) return;
     const p = getSVGPoint(e.currentTarget, e.clientX, e.clientY);
     if (drag === 'center') {
@@ -624,23 +514,6 @@ export const ArcEllipseItem = ({ lang }: { lang: Lang }) => {
   const arcPath = `M ${x1} ${y1} A ${rx} ${ry} 0 ${largeArc} 1 ${x2} ${y2}`;
   const title = lang === 'es' ? 'Arco Elíptico' : 'Elliptic Arc';
 
-  const flagToggle = (
-    <div style={{ marginBottom: 14 }}>
-      <div style={{ fontSize: 12, color: 'var(--fg-3)', marginBottom: 6 }}>large-arc-flag</div>
-      <div style={{ display: 'flex', gap: 8 }}>
-        {([0, 1] as const).map(v => (
-          <button key={v} onClick={() => setLargeArc(v)} style={{
-            padding: '4px 16px', borderRadius: 'var(--r-sm)',
-            border: '1px solid var(--hairline)',
-            background: largeArc === v ? 'var(--accent)' : 'var(--surface-2)',
-            color: largeArc === v ? 'white' : 'var(--fg-1)',
-            fontSize: 12, cursor: 'pointer', fontFamily: 'var(--font-mono)',
-          }}>{v}</button>
-        ))}
-      </div>
-    </div>
-  );
-
   const formulaContent = (
     <div style={formulaBox}>
       <FLabel>SVG path command</FLabel>
@@ -659,10 +532,10 @@ export const ArcEllipseItem = ({ lang }: { lang: Lang }) => {
 
   return (
     <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
-      <div style={rowStyle}>
-        <svg width="500" height="400" viewBox="-250 -200 500 400"
+      <>
+        <svg ref={svgRef} viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
-          onMouseMove={onMove} onMouseUp={() => setDrag(null)} onMouseLeave={() => setDrag(null)}>
+          onPointerMove={onMove} onPointerUp={() => setDrag(null)} onPointerLeave={() => setDrag(null)}>
           <SvgGrid id="g-arcell"/>
           <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke="var(--diagram-grid)" strokeWidth="1" strokeDasharray="5,3"/>
           <line x1={cx} y1={cy} x2={rxhx} y2={rxhy} stroke="#f59e0b" strokeWidth="1" strokeDasharray="3,2"/>
@@ -670,21 +543,26 @@ export const ArcEllipseItem = ({ lang }: { lang: Lang }) => {
           <path d={arcPath} fill="none" stroke="var(--accent)" strokeWidth="3"/>
           <line x1={cx} y1={cy} x2={x1} y2={y1} stroke="var(--fg-4)" strokeWidth="0.75" strokeDasharray="3,2"/>
           <line x1={cx} y1={cy} x2={x2} y2={y2} stroke="var(--fg-4)" strokeWidth="0.75" strokeDasharray="3,2"/>
-          <Handle x={cx} y={cy} active={drag==='center'} onDown={() => setDrag('center')} label="C"/>
-          <Handle x={rxhx} y={rxhy} fill="#f59e0b" active={drag==='rx'} onDown={() => setDrag('rx')}/>
-          <Handle x={ryhx} y={ryhy} fill="#10b981" active={drag==='ry'} onDown={() => setDrag('ry')}/>
-          <Handle x={x1} y={y1} fill="#4ade80" active={drag==='start'} onDown={() => setDrag('start')} label={`${startDeg}°`}/>
-          <Handle x={x2} y={y2} fill="#f87171" active={drag==='end'} onDown={() => setDrag('end')} label={`${endDeg}°`}/>
+          <Handle x={cx} y={cy} active={drag==='center'} onDown={(e) => startDrag('center', e)} label="C"/>
+          <Handle x={rxhx} y={rxhy} fill="#f59e0b" active={drag==='rx'} onDown={(e) => startDrag('rx', e)}/>
+          <Handle x={ryhx} y={ryhy} fill="#10b981" active={drag==='ry'} onDown={(e) => startDrag('ry', e)}/>
+          <Handle x={x1} y={y1} fill="#4ade80" active={drag==='start'} onDown={(e) => startDrag('start', e)} label={`${startDeg}°`}/>
+          <Handle x={x2} y={y2} fill="#f87171" active={drag==='end'} onDown={(e) => startDrag('end', e)} label={`${endDeg}°`}/>
         </svg>
-        <InfoPanel
-          params={[['rx', rx], ['ry', ry], ['start', `${startDeg}°`], ['end', `${endDeg}°`]]}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginTop: 12 }}>
+          <InspCell label="rx" value={rx} color="#f59e0b"/>
+          <InspCell label="ry" value={ry} color="#10b981"/>
+          <InspCell label={lang === 'es' ? 'inicio' : 'start'} value={`${startDeg}°`} color="#4ade80"/>
+          <InspCell label={lang === 'es' ? 'fin' : 'end'} value={`${endDeg}°`} color="#f87171"/>
+        </div>
+        <CodeBlock
           code={`<path d="M ${x1} ${y1}\n  A ${rx} ${ry} 0 ${largeArc} 1\n  ${x2} ${y2}"/>`}
           hint={lang === 'es'
             ? 'Arrastra los puntos para remodelar el arco y los radios de la elipse.'
             : 'Drag the handles to reshape the arc and the ellipse radii.'}
-          extra={flagToggle}
+          extra={<FlagToggle value={largeArc} onChange={setLargeArc} lang={lang}/>}
         />
-      </div>
+      </>
     }/>
   );
 };
@@ -693,13 +571,17 @@ export const ArcEllipseItem = ({ lang }: { lang: Lang }) => {
 
 export const QuadraticItem = ({ lang }: { lang: Lang }) => {
   const [p0, setP0] = useState({ x: -110, y: 90 });
-  const [cp, setCp] = useState({ x: 0,    y: -110 });  // control point
+  const [cp, setCp] = useState({ x: 0,    y: -110 });
   const [p2, setP2] = useState({ x: 110,  y: 90 });
+  const [drag, setDrag] = useState<'p0' | 'cp' | 'p2' | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
-  type D = 'p0' | 'cp' | 'p2' | null;
-  const [drag, setDrag] = useState<D>(null);
+  const startDrag = (which: 'p0' | 'cp' | 'p2', e: React.PointerEvent) => {
+    setDrag(which);
+    svgRef.current?.setPointerCapture(e.pointerId);
+  };
 
-  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+  const onMove = (e: React.PointerEvent<SVGSVGElement>) => {
     if (!drag) return;
     const p = getSVGPoint(e.currentTarget, e.clientX, e.clientY);
     const c = { x: clamp(ro(p.x), -240, 240), y: clamp(ro(p.y), -190, 190) };
@@ -735,10 +617,10 @@ export const QuadraticItem = ({ lang }: { lang: Lang }) => {
 
   return (
     <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
-      <div style={rowStyle}>
-        <svg width="500" height="400" viewBox="-250 -200 500 400"
+      <>
+        <svg ref={svgRef} viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
-          onMouseMove={onMove} onMouseUp={() => setDrag(null)} onMouseLeave={() => setDrag(null)}>
+          onPointerMove={onMove} onPointerUp={() => setDrag(null)} onPointerLeave={() => setDrag(null)}>
           <SvgGrid id="g-quad"/>
           {/* Control polygon */}
           <line x1={p0.x} y1={p0.y} x2={cp.x} y2={cp.y} stroke="var(--fg-4)" strokeWidth="1" strokeDasharray="4,3"/>
@@ -750,23 +632,22 @@ export const QuadraticItem = ({ lang }: { lang: Lang }) => {
           {/* Curve */}
           <path d={`M ${p0.x} ${p0.y} Q ${cp.x} ${cp.y} ${p2.x} ${p2.y}`}
             fill="none" stroke="var(--accent)" strokeWidth="3"/>
-          {/* Handles */}
-          <Handle x={p0.x} y={p0.y} fill="#4ade80" active={drag==='p0'} onDown={() => setDrag('p0')} label="P0"/>
-          <Handle x={cp.x} y={cp.y} fill="#f59e0b" active={drag==='cp'} onDown={() => setDrag('cp')} label="C"/>
-          <Handle x={p2.x} y={p2.y} fill="#f87171" active={drag==='p2'} onDown={() => setDrag('p2')} label="P2"/>
+          <Handle x={p0.x} y={p0.y} fill="#4ade80" active={drag==='p0'} onDown={(e) => startDrag('p0', e)} label="P0"/>
+          <Handle x={cp.x} y={cp.y} fill="#f59e0b" active={drag==='cp'} onDown={(e) => startDrag('cp', e)} label="C"/>
+          <Handle x={p2.x} y={p2.y} fill="#f87171" active={drag==='p2'} onDown={(e) => startDrag('p2', e)} label="P2"/>
         </svg>
-        <InfoPanel
-          params={[
-            ['P0', `(${p0.x}, ${p0.y})`],
-            ['C',  `(${cp.x}, ${cp.y})`],
-            ['P2', `(${p2.x}, ${p2.y})`],
-          ]}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginTop: 12 }}>
+          <InspCell label="P0" value={`(${p0.x}, ${p0.y})`} color="#4ade80"/>
+          <InspCell label="C" value={`(${cp.x}, ${cp.y})`} color="#f59e0b"/>
+          <InspCell label="P2" value={`(${p2.x}, ${p2.y})`} color="#f87171"/>
+        </div>
+        <CodeBlock
           code={`<path d="M ${p0.x} ${p0.y}\n  Q ${cp.x} ${cp.y}\n  ${p2.x} ${p2.y}"/>`}
           hint={lang === 'es'
             ? 'Arrastra P0/P2 (extremos) y C (punto de control) para cambiar la curva.'
             : 'Drag P0/P2 (endpoints) and C (control point) to reshape the curve.'}
         />
-      </div>
+      </>
     }/>
   );
 };
@@ -778,11 +659,15 @@ export const CubicItem = ({ lang }: { lang: Lang }) => {
   const [c1, setC1] = useState({ x: -50,  y: -100 });
   const [c2, setC2] = useState({ x:  50,  y: -100 });
   const [p3, setP3] = useState({ x:  120, y:  90 });
+  const [drag, setDrag] = useState<'p0' | 'c1' | 'c2' | 'p3' | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
-  type D = 'p0' | 'c1' | 'c2' | 'p3' | null;
-  const [drag, setDrag] = useState<D>(null);
+  const startDrag = (which: 'p0' | 'c1' | 'c2' | 'p3', e: React.PointerEvent) => {
+    setDrag(which);
+    svgRef.current?.setPointerCapture(e.pointerId);
+  };
 
-  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+  const onMove = (e: React.PointerEvent<SVGSVGElement>) => {
     if (!drag) return;
     const p = getSVGPoint(e.currentTarget, e.clientX, e.clientY);
     const c = { x: clamp(ro(p.x), -240, 240), y: clamp(ro(p.y), -190, 190) };
@@ -811,10 +696,10 @@ export const CubicItem = ({ lang }: { lang: Lang }) => {
 
   return (
     <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
-      <div style={rowStyle}>
-        <svg width="500" height="400" viewBox="-250 -200 500 400"
+      <>
+        <svg ref={svgRef} viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
-          onMouseMove={onMove} onMouseUp={() => setDrag(null)} onMouseLeave={() => setDrag(null)}>
+          onPointerMove={onMove} onPointerUp={() => setDrag(null)} onPointerLeave={() => setDrag(null)}>
           <SvgGrid id="g-cubic"/>
           {/* Control polygon */}
           <line x1={p0.x} y1={p0.y} x2={c1.x} y2={c1.y} stroke="#f59e0b" strokeWidth="1" strokeDasharray="4,3" opacity="0.8"/>
@@ -823,25 +708,24 @@ export const CubicItem = ({ lang }: { lang: Lang }) => {
           {/* Curve */}
           <path d={`M ${p0.x} ${p0.y} C ${c1.x} ${c1.y} ${c2.x} ${c2.y} ${p3.x} ${p3.y}`}
             fill="none" stroke="var(--accent)" strokeWidth="3"/>
-          {/* Handles */}
-          <Handle x={p0.x} y={p0.y} fill="#4ade80" active={drag==='p0'} onDown={() => setDrag('p0')} label="P0"/>
-          <Handle x={c1.x} y={c1.y} fill="#f59e0b" active={drag==='c1'} onDown={() => setDrag('c1')} label="C1"/>
-          <Handle x={c2.x} y={c2.y} fill="#a78bfa" active={drag==='c2'} onDown={() => setDrag('c2')} label="C2"/>
-          <Handle x={p3.x} y={p3.y} fill="#f87171" active={drag==='p3'} onDown={() => setDrag('p3')} label="P3"/>
+          <Handle x={p0.x} y={p0.y} fill="#4ade80" active={drag==='p0'} onDown={(e) => startDrag('p0', e)} label="P0"/>
+          <Handle x={c1.x} y={c1.y} fill="#f59e0b" active={drag==='c1'} onDown={(e) => startDrag('c1', e)} label="C1"/>
+          <Handle x={c2.x} y={c2.y} fill="#a78bfa" active={drag==='c2'} onDown={(e) => startDrag('c2', e)} label="C2"/>
+          <Handle x={p3.x} y={p3.y} fill="#f87171" active={drag==='p3'} onDown={(e) => startDrag('p3', e)} label="P3"/>
         </svg>
-        <InfoPanel
-          params={[
-            ['P0', `(${p0.x}, ${p0.y})`],
-            ['C1', `(${c1.x}, ${c1.y})`],
-            ['C2', `(${c2.x}, ${c2.y})`],
-            ['P3', `(${p3.x}, ${p3.y})`],
-          ]}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginTop: 12 }}>
+          <InspCell label="P0" value={`(${p0.x}, ${p0.y})`} color="#4ade80"/>
+          <InspCell label="C1" value={`(${c1.x}, ${c1.y})`} color="#f59e0b"/>
+          <InspCell label="C2" value={`(${c2.x}, ${c2.y})`} color="#a78bfa"/>
+          <InspCell label="P3" value={`(${p3.x}, ${p3.y})`} color="#f87171"/>
+        </div>
+        <CodeBlock
           code={`<path d="M ${p0.x} ${p0.y}\n  C ${c1.x} ${c1.y} ${c2.x} ${c2.y}\n  ${p3.x} ${p3.y}"/>`}
           hint={lang === 'es'
             ? 'Arrastra los puntos. C1 controla la tangente en P0, C2 la tangente en P3.'
             : 'Drag the points. C1 controls the tangent at P0, C2 the tangent at P3.'}
         />
-      </div>
+      </>
     }/>
   );
 };
