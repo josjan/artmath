@@ -5,7 +5,7 @@
 import { useState, useRef } from 'react';
 import { Icon } from '../../components/Icon';
 import { STRINGS, type Lang } from '../../lib/data';
-import { ghostBtn, type Route } from '../../components/AppShell';
+import { type Route } from '../../components/AppShell';
 
 interface Vec2 { x: number; y: number; }
 
@@ -78,9 +78,9 @@ const STR = {
 const DEFAULT_A: Vec2 = { x: -100, y: -80 };
 const DEFAULT_B: Vec2 = { x: 140, y: 100 };
 
-export const CartesianItem = ({ lang, setRoute }: Props) => {
+export const CartesianItem = ({ lang }: Props) => {
   const s = STR[lang];
-  const C = STRINGS[lang].chapter;
+  // const C = STRINGS[lang].chapter;
 
   const [tab,  setTab]  = useState<'formula' | 'explore' | 'svg'>('explore');
   const [step, setStep] = useState(0);
@@ -88,11 +88,11 @@ export const CartesianItem = ({ lang, setRoute }: Props) => {
   const [b, setB] = useState<Vec2>(DEFAULT_B);
 
   // Derived values
-  const vx  = b.x - a.x;
-  const vy  = b.y - a.y;
-  const len = Math.hypot(vx, vy);
-  const deg = (Math.atan2(vy, vx) * 180 / Math.PI).toFixed(1);
-  const fmt = (n: number) => (n >= 0 ? '+' : '') + n.toFixed(1);
+  // const vx  = b.x - a.x;
+  // const vy  = b.y - a.y;
+  // const len = Math.hypot(vx, vy);
+  // const deg = (Math.atan2(vy, vx) * 180 / Math.PI).toFixed(1);
+  // const fmt = (n: number) => (n >= 0 ? '+' : '') + n.toFixed(1);
 
   const stepBtn: React.CSSProperties = {
     background: 'var(--surface-2)', border: '1px solid var(--hairline)',
@@ -130,7 +130,7 @@ export const CartesianItem = ({ lang, setRoute }: Props) => {
       }}>
         {tab === 'explore' && <CartesianFigure a={a} b={b} setA={setA} setB={setB} />}
         {tab === 'formula' && <FormulaPane lang={lang} />}
-        {tab === 'svg'     && <SvgPane lang={lang} />}
+        {tab === 'svg'     && <SvgPane />}
       </div>
 
       {/* Derivation */}
@@ -182,7 +182,7 @@ const CartesianFigure = ({ a, b, setA, setB }: {
 
   const W = 720, H = 460;
   const ox = W / 2, oy = H / 2;  // origin in SVG coords
-  const SCALE = 2;                 // px per unit (each unit = 2px → grid lines every 50px = 25 units)
+  //const SCALE = 2;                 // px per unit (each unit = 2px → grid lines every 50px = 25 units)
 
   // Math coords → SVG coords
   const toSvg = (p: Vec2) => ({ x: ox + p.x, y: oy - p.y });
@@ -191,9 +191,9 @@ const CartesianFigure = ({ a, b, setA, setB }: {
   // Derived
   const vx   = b.x - a.x;
   const vy   = b.y - a.y;
-  const len  = Math.hypot(vx, vy).toFixed(2);
+  //const len  = Math.hypot(vx, vy).toFixed(2);
   const deg  = (Math.atan2(vy, vx) * 180 / Math.PI).toFixed(1);
-  const fmtC = (n: number) => (n >= 0 ? '+' : '') + n.toFixed(0);
+  //const fmtC = (n: number) => (n >= 0 ? '+' : '') + n.toFixed(0);
 
   const onPointerDown = (which: 'A' | 'B') => (e: React.PointerEvent) => {
     e.preventDefault();
@@ -476,7 +476,7 @@ const FormulaPane = ({ lang }: { lang: Lang }) => {
 };
 
 // ── SVG code pane ─────────────────────────────────────────────────
-const SvgPane = ({ lang }: { lang: Lang }) => (
+const SvgPane = () => (
   <pre style={{
     margin: 0, padding: 24, fontSize: 12.5, lineHeight: 1.6, minHeight: 460,
     overflow: 'auto', color: 'var(--fg-1)', background: 'var(--surface-2)',

@@ -62,7 +62,7 @@ const STR = {
 
 export const PolarItem = ({ lang }: Props) => {
   const s = STR[lang];
-  const C = STRINGS[lang].chapter;
+  //const C = STRINGS[lang].chapter;
 
   const [tab,  setTab]  = useState<'formula' | 'explore' | 'svg'>('explore');
   const [step, setStep] = useState(0);
@@ -146,7 +146,7 @@ export const PolarItem = ({ lang }: Props) => {
           </div>
         )}
         {tab === 'formula' && <FormulaPane lang={lang} />}
-        {tab === 'svg'     && <SvgPane lang={lang} />}
+        {/* {tab === 'svg'     && <SvgPane lang={lang} />} */}
       </div>
 
       {/* Inspector + Reset */}
@@ -515,40 +515,40 @@ const FormulaPane = ({ lang }: { lang: Lang }) => {
 };
 
 // ── SVG code pane ─────────────────────────────────────────────────
-const SvgPane = ({ lang }: { lang: Lang }) => (
-  <pre style={{
-    margin: 0, padding: 24, fontSize: 12.5, lineHeight: 1.6, minHeight: 380,
-    overflow: 'auto', color: 'var(--fg-1)', background: 'var(--surface-2)',
-  }}>
-{`// Coordenadas polares ↔ cartesianas — SVG snippet
+// const SvgPane = ({ lang }: { lang: Lang }) => (
+//   <pre style={{
+//     margin: 0, padding: 24, fontSize: 12.5, lineHeight: 1.6, minHeight: 380,
+//     overflow: 'auto', color: 'var(--fg-1)', background: 'var(--surface-2)',
+//   }}>
+// {`// Coordenadas polares ↔ cartesianas — SVG snippet
 
-// Math plane (y up): angle positive counterclockwise
-const r     = Math.sqrt(x * x + y * y);
-const theta = Math.atan2(y, x);  // radians
+// // Math plane (y up): angle positive counterclockwise
+// const r     = Math.sqrt(x * x + y * y);
+// const theta = Math.atan2(y, x);  // radians
 
-// Convert polar → cartesian (math)
-const x = r * Math.cos(theta);
-const y = r * Math.sin(theta);
+// // Convert polar → cartesian (math)
+// const x = r * Math.cos(theta);
+// const y = r * Math.sin(theta);
 
-// ⚠ SVG plane: Y-axis is FLIPPED (y down)
-// Same r, but angle is negated:
-const thetaSvg = -theta;
+// // ⚠ SVG plane: Y-axis is FLIPPED (y down)
+// // Same r, but angle is negated:
+// const thetaSvg = -theta;
 
-// Convert polar → SVG coords
-const svgX = originX + r * Math.cos(thetaSvg);
-const svgY = originY + r * Math.sin(thetaSvg);
-// Which simplifies to:
-const svgX = originX + x;
-const svgY = originY - y;  // subtract because SVG y is down
+// // Convert polar → SVG coords
+// const svgX = originX + r * Math.cos(thetaSvg);
+// const svgY = originY + r * Math.sin(thetaSvg);
+// // Which simplifies to:
+// const svgX = originX + x;
+// const svgY = originY - y;  // subtract because SVG y is down
 
-// Draw angle arc in SVG
-function arcPath(cx, cy, r, startAngle, endAngle) {
-  const x1 = cx + r * Math.cos(startAngle);
-  const y1 = cy + r * Math.sin(startAngle);
-  const x2 = cx + r * Math.cos(endAngle);
-  const y2 = cy + r * Math.sin(endAngle);
-  const large = Math.abs(endAngle - startAngle) > Math.PI ? 1 : 0;
-  return \`M \${x1} \${y1} A \${r} \${r} 0 \${large} 1 \${x2} \${y2}\`;
-}`}
-  </pre>
-);
+// // Draw angle arc in SVG
+// function arcPath(cx, cy, r, startAngle, endAngle) {
+//   const x1 = cx + r * Math.cos(startAngle);
+//   const y1 = cy + r * Math.sin(startAngle);
+//   const x2 = cx + r * Math.cos(endAngle);
+//   const y2 = cy + r * Math.sin(endAngle);
+//   const large = Math.abs(endAngle - startAngle) > Math.PI ? 1 : 0;
+//   return \`M \${x1} \${y1} A \${r} \${r} 0 \${large} 1 \${x2} \${y2}\`;
+// }`}
+//   </pre>
+// );

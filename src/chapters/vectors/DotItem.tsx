@@ -6,7 +6,7 @@
 
 import { useState, useRef } from 'react';
 import { Icon } from '../../components/Icon';
-import { STRINGS, type Lang } from '../../lib/data';
+import {  type Lang } from '../../lib/data';
 import { ghostBtn } from '../../components/AppShell';
 
 interface Vec2 { x: number; y: number; }
@@ -251,7 +251,7 @@ const DotFigure = ({ v, u, setV, setU, isPerp }: {
 
   // Angle between vectors
   const cosA  = lenV > 0 && lenU > 0 ? dot / (lenV * lenU) : 0;
-  const theta = Math.acos(Math.max(-1, Math.min(1, cosA)));
+  //const theta = Math.acos(Math.max(-1, Math.min(1, cosA)));
 
   // Angle arc radius
   const ARC_R = Math.min(lenV, lenU, 70) * 0.45;

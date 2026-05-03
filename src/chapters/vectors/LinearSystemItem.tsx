@@ -507,10 +507,10 @@ const IntersectionPane = ({ lang }: { lang: Lang }) => {
   const L2 = lineCoeffs(C, D);
   const det = L1.u * L2.v - L2.u * L1.v;
   const isParallel = Math.abs(det) < 0.5;
-  const M: Vec2 | null = isParallel ? null : {
-    x: (L1.v * L2.w - L2.v * L1.w) / det,   // Cramer: x = (v1*w2 - v2*w1) / det ... wait sign
-    y: (L2.u * L1.w - L1.u * L2.w) / det,
-  };
+  // const M: Vec2 | null = isParallel ? null : {
+  //   x: (L1.v * L2.w - L2.v * L1.w) / det,   // Cramer: x = (v1*w2 - v2*w1) / det ... wait sign
+  //   y: (L2.u * L1.w - L1.u * L2.w) / det,
+  // };
 
   // Actually the correct Cramer for u*x + v*y = -w:
   // det = u1*v2 - u2*v1

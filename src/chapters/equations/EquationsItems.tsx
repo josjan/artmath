@@ -65,6 +65,9 @@ const EquationItem = ({ title, formulaPath, svgPath, exploreContent, lang }: {
 
   return (
     <div>
+      <h2 style={{ margin: '0 0 16px 0', fontSize: '24px', fontWeight: 600, color: 'var(--fg-1)' }}>
+        {title}
+      </h2>
       <div style={{
         display: 'inline-flex', alignSelf: 'flex-start',
         background: 'var(--surface)', border: '1px solid var(--hairline)',

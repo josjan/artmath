@@ -5,8 +5,8 @@ import { Icon } from '../../components/Icon';
 import { EQUATION_ITEMS, STRINGS, type Lang } from '../../lib/data';
 import { ghostBtn, type Route } from '../../components/AppShell';
 import { Degree1EquationItem, CubicFigure, QuarticFigure, calculateCubicRoots, calculateQuarticRoots } from './EquationsItems';
-import { System2Figure, System3Figure, solve2x2System, solve3x3System } from './SystemComponents';
-import { LinearInequalityFigure, QuadraticInequalityFigure, solveLinearInequality, solveQuadraticInequality } from './InequalityComponents';
+import { System2Figure, System3Figure } from './SystemComponents';
+import { QuadraticInequalityFigure } from './InequalityComponents';
 
 interface Props {
   lang: Lang;
@@ -34,7 +34,7 @@ export const EquationsModule = ({ lang, setRoute }: Props) => {
   const [c2, setC2] = useState(-1);
 
   // 3x3 system coefficients
-  const [coeff3x3, setCoeff3x3] = useState([
+  const [coeff3x3] = useState([
     [1, 2, -1, 2],
     [2, -1, 1, 1],
     [1, 1, 1, 3]

@@ -483,7 +483,7 @@ const FormulaPane = ({ lang }: { lang: Lang }) => {
 
 // ── SVG clipping pane (split code + live demo) ─────────────────────
 const SvgPane = ({ lang }: { lang: Lang }) => {
-  const s = STR[lang];
+  //const s = STR[lang];
   const ref = useRef<SVGSVGElement>(null);
   const drag = useRef<'A' | 'B' | null>(null);
   const [a, setA] = useState<Vec2>({ x: 80,  y: 50  });

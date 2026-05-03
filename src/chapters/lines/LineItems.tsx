@@ -80,35 +80,35 @@ const DerivList = ({ steps, step, setStep, lang }: {
 };
 
 // Shared SVG canvas skeleton
-const FigureCanvas = ({ children, onMove, onUp, W = 720, H = 420 }: {
-  children: React.ReactNode;
-  onMove: (e: React.PointerEvent<SVGSVGElement>) => void;
-  onUp: () => void;
-  W?: number; H?: number;
-}) => (
-  <svg viewBox={`0 0 ${W} ${H}`}
-    style={{ width: '100%', height: 'auto', display: 'block', touchAction: 'none', background: 'var(--surface)' }}
-    onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp}>
-    <defs>
-      <pattern id="shGrid"  width="25" height="25" patternUnits="userSpaceOnUse">
-        <rect width="25" height="25" fill="none" stroke="var(--diagram-grid)" strokeWidth="0.5"/>
-      </pattern>
-      <pattern id="shGridB" width="125" height="125" patternUnits="userSpaceOnUse">
-        <rect width="125" height="125" fill="url(#shGrid)" stroke="var(--diagram-grid-bold)" strokeWidth="0.8"/>
-      </pattern>
-      <marker id="shAxis" viewBox="-12 -5 16 10" refX="0" refY="0" markerWidth="8" markerHeight="6" orient="auto">
-        <path d="M-12 -5 L 0 0 L -12 5 z" fill="var(--fg-2)"/>
-      </marker>
-    </defs>
-    <rect width={W} height={H} fill="url(#shGridB)"/>
-    {/* Axes */}
-    <line x1={8} y1={H/2} x2={W-8} y2={H/2} stroke="var(--fg-2)" strokeWidth={1.5} markerEnd="url(#shAxis)"/>
-    <line x1={W/2} y1={H-8} x2={W/2} y2={8} stroke="var(--fg-2)" strokeWidth={1.5} markerEnd="url(#shAxis)"/>
-    <text x={W-18} y={H/2-8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">x</text>
-    <text x={W/2+8} y={14}   fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">y</text>
-    {children}
-  </svg>
-);
+// const FigureCanvas = ({ children, onMove, onUp, W = 720, H = 420 }: {
+//   children: React.ReactNode;
+//   onMove: (e: React.PointerEvent<SVGSVGElement>) => void;
+//   onUp: () => void;
+//   W?: number; H?: number;
+// }) => (
+//   <svg viewBox={`0 0 ${W} ${H}`}
+//     style={{ width: '100%', height: 'auto', display: 'block', touchAction: 'none', background: 'var(--surface)' }}
+//     onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp}>
+//     <defs>
+//       <pattern id="shGrid"  width="25" height="25" patternUnits="userSpaceOnUse">
+//         <rect width="25" height="25" fill="none" stroke="var(--diagram-grid)" strokeWidth="0.5"/>
+//       </pattern>
+//       <pattern id="shGridB" width="125" height="125" patternUnits="userSpaceOnUse">
+//         <rect width="125" height="125" fill="url(#shGrid)" stroke="var(--diagram-grid-bold)" strokeWidth="0.8"/>
+//       </pattern>
+//       <marker id="shAxis" viewBox="-12 -5 16 10" refX="0" refY="0" markerWidth="8" markerHeight="6" orient="auto">
+//         <path d="M-12 -5 L 0 0 L -12 5 z" fill="var(--fg-2)"/>
+//       </marker>
+//     </defs>
+//     <rect width={W} height={H} fill="url(#shGridB)"/>
+//     {/* Axes */}
+//     <line x1={8} y1={H/2} x2={W-8} y2={H/2} stroke="var(--fg-2)" strokeWidth={1.5} markerEnd="url(#shAxis)"/>
+//     <line x1={W/2} y1={H-8} x2={W/2} y2={8} stroke="var(--fg-2)" strokeWidth={1.5} markerEnd="url(#shAxis)"/>
+//     <text x={W-18} y={H/2-8} fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">x</text>
+//     <text x={W/2+8} y={14}   fontFamily="var(--font-math)" fontStyle="italic" fontSize="14" fill="var(--fg-2)">y</text>
+//     {children}
+//   </svg>
+// );
 
 const DragHandle = ({ x, y, color, onDown }: {
   x: number; y: number; color: string;

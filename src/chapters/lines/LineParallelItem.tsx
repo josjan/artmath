@@ -105,9 +105,9 @@ export const LineParallelItem = ({ lang }: Props) => {
   const [c, setC] = useState<Vec2>({ ...INIT.C });
 
   // Grid origin
-  const OX = 360, OY = 210;
-  const toU = (sv: number, axis: 'x' | 'y') =>
-    axis === 'x' ? (sv - OX) / STEP : (OY - sv) / STEP;
+  // const OX = 360, OY = 210;
+  // const toU = (sv: number, axis: 'x' | 'y') =>
+  //   axis === 'x' ? (sv - OX) / STEP : (OY - sv) / STEP;
 
   // Direction vector (SVG space)
   const Ux_svg = b.x - a.x, Uy_svg = b.y - a.y;

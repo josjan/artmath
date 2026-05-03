@@ -136,21 +136,21 @@ export const LinesModule = ({ lang, setRoute }: Props) => {
 };
 
 // ── Coming soon placeholder ────────────────────────────────────────
-const ComingSoon = ({ lang, label }: { lang: Lang; label: string }) => (
-  <div style={{
-    background: 'var(--surface)', border: '1px solid var(--hairline)',
-    borderRadius: 'var(--r-md)', padding: '56px 32px', textAlign: 'center',
-  }}>
-    <div style={{
-      width: 48, height: 48, borderRadius: 'var(--r-md)',
-      background: 'var(--accent-soft)', display: 'grid', placeItems: 'center',
-      color: 'var(--accent)', margin: '0 auto 16px', fontSize: 22,
-    }}>✦</div>
-    <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, marginBottom: 8 }}>{label}</div>
-    <p style={{ color: 'var(--fg-3)', maxWidth: 360, margin: '0 auto', fontSize: 14 }}>
-      {lang === 'es'
-        ? 'Ítem en preparación. Sigue el mismo patrón que "Recta por 2 puntos".'
-        : 'Item in preparation. Follows the same pattern as "Line by 2 points".'}
-    </p>
-  </div>
-);
+// const ComingSoon = ({ lang, label }: { lang: Lang; label: string }) => (
+//   <div style={{
+//     background: 'var(--surface)', border: '1px solid var(--hairline)',
+//     borderRadius: 'var(--r-md)', padding: '56px 32px', textAlign: 'center',
+//   }}>
+//     <div style={{
+//       width: 48, height: 48, borderRadius: 'var(--r-md)',
+//       background: 'var(--accent-soft)', display: 'grid', placeItems: 'center',
+//       color: 'var(--accent)', margin: '0 auto 16px', fontSize: 22,
+//     }}>✦</div>
+//     <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, marginBottom: 8 }}>{label}</div>
+//     <p style={{ color: 'var(--fg-3)', maxWidth: 360, margin: '0 auto', fontSize: 14 }}>
+//       {lang === 'es'
+//         ? 'Ítem en preparación. Sigue el mismo patrón que "Recta por 2 puntos".'
+//         : 'Item in preparation. Follows the same pattern as "Line by 2 points".'}
+//     </p>
+//   </div>
+// );

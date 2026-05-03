@@ -624,7 +624,7 @@ const PolygonPane = ({ lang }: { lang: Lang }) => {
         {triangles.map((t, i) => {
           const cx = (m.x + t.p.x + t.next.x) / 3;
           const cy = (m.y + t.p.y + t.next.y) / 3;
-          const a = Math.abs(t.area).toFixed(1);
+          //const a = Math.abs(t.area).toFixed(1);
           return (
             <text key={i} x={cx} y={cy}
               fontFamily="var(--font-mono)" fontSize="10"

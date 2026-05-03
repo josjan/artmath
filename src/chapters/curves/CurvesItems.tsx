@@ -137,8 +137,8 @@ const formulaBox: React.CSSProperties = { fontFamily: 'var(--font-sans)', maxWid
 
 // ── Curve Item Template ────────────────────────────────────────────────────────
 
-const CurveItem = ({ title, formulaContent, svgPath, exploreContent, lang }: {
-  title: string; formulaContent: React.ReactNode; svgPath: string;
+const CurveItem = ({ title, formulaContent, exploreContent, lang }: {
+  title: string; formulaContent: React.ReactNode;
   exploreContent: React.ReactNode; lang: Lang;
 }) => {
   const [tab, setTab] = useState('explore');
@@ -235,7 +235,7 @@ export const CircleItem = ({ lang }: { lang: Lang }) => {
   );
 
   return (
-    <CurveItem title={title} formulaContent={formulaContent} svgPath="circle.svg" lang={lang} exploreContent={
+    <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
       <div style={rowStyle}>
         <svg width="500" height="400" viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
@@ -307,7 +307,7 @@ export const EllipseItem = ({ lang }: { lang: Lang }) => {
   );
 
   return (
-    <CurveItem title={title} formulaContent={formulaContent} svgPath="ellipse.svg" lang={lang} exploreContent={
+    <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
       <div style={rowStyle}>
         <svg width="500" height="400" viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
@@ -409,7 +409,7 @@ export const ArcCircleItem = ({ lang }: { lang: Lang }) => {
   );
 
   return (
-    <CurveItem title={title} formulaContent={formulaContent} svgPath="arcCircle.svg" lang={lang} exploreContent={
+    <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
       <div style={rowStyle}>
         <svg width="500" height="400" viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
@@ -514,7 +514,7 @@ export const ArcEllipseItem = ({ lang }: { lang: Lang }) => {
   );
 
   return (
-    <CurveItem title={title} formulaContent={formulaContent} svgPath="arcEllipse.svg" lang={lang} exploreContent={
+    <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
       <div style={rowStyle}>
         <svg width="500" height="400" viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
@@ -590,7 +590,7 @@ export const QuadraticItem = ({ lang }: { lang: Lang }) => {
   );
 
   return (
-    <CurveItem title={title} formulaContent={formulaContent} svgPath="quadratic.svg" lang={lang} exploreContent={
+    <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
       <div style={rowStyle}>
         <svg width="500" height="400" viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}
@@ -666,7 +666,7 @@ export const CubicItem = ({ lang }: { lang: Lang }) => {
   );
 
   return (
-    <CurveItem title={title} formulaContent={formulaContent} svgPath="cubic.svg" lang={lang} exploreContent={
+    <CurveItem title={title} formulaContent={formulaContent} lang={lang} exploreContent={
       <div style={rowStyle}>
         <svg width="500" height="400" viewBox="-250 -200 500 400"
           style={canvasStyle(!!drag)}

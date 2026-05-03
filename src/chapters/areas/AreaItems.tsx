@@ -14,7 +14,7 @@ const STEP = 20;   // px por unidad de display
 // ── Helpers ─────────────────────────────────────────────
 function clamp(v: number, lo: number, hi: number) { return Math.max(lo, Math.min(hi, v)); }
 function snapG(v: number) { return Math.round(v / STEP) * STEP; }
-function pu(px: number) { return (px / STEP).toFixed(1); }  // px → display units string
+//function pu(px: number) { return (px / STEP).toFixed(1); }  // px → display units string
 
 function svgPt(e: React.PointerEvent, el: SVGSVGElement): { x: number; y: number } {
   const r = el.getBoundingClientRect();

@@ -3,7 +3,7 @@
 // Exporta: TriangleAreaItem, ParallelogramAreaItem, RectangleAreaItem, TrapezeAreaItem, CircleAreaItem, EllipseAreaItem, RegularPolygonAreaItem, PolygonAreaItem
 
 import { useState } from 'react';
-import { Icon } from '../../components/Icon';
+//import { Icon } from '../../components/Icon';
 import type { Lang } from '../../lib/data';
 
 // ── Shared components ─────────────────────────────────--
@@ -241,8 +241,8 @@ export const RectangleAreaItem = ({ lang }: { lang: Lang }) => {
   const height = Math.abs(pointC.y - pointA.y);
 
   // Calculate other corners
-  const pointB = { x: pointC.x, y: pointA.y };
-  const pointD = { x: pointA.x, y: pointC.y };
+  // const pointB = { x: pointC.x, y: pointA.y };
+  // const pointD = { x: pointA.x, y: pointC.y };
 
   const exploreContent = (
     <div style={{ fontFamily: 'var(--font-sans)' }}>

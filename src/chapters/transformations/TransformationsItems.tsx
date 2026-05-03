@@ -3,7 +3,7 @@
 // Exporta: TranslateItem, RotateItem, ScaleItem, SkewXItem, SkewYItem, UniformScaleItem, SymetryItem, ReflectionItem, AffinityItem, SimilarityItem, AnyItem
 
 import { useState } from 'react';
-import { Icon } from '../../components/Icon';
+//import { Icon } from '../../components/Icon';
 import type { Lang } from '../../lib/data';
 
 // ── Shared components ───────────────────────────────────
